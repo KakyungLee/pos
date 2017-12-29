@@ -9,6 +9,7 @@ public class AppManager {
 		dao.getProduct(103);
 		dao.getMember(1);
 		dao.getSale(4);
+		System.out.println("Test");
 
 	}// main
 }
