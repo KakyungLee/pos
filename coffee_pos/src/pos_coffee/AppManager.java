@@ -1,7 +1,7 @@
 package pos_coffee;
 
 public class AppManager {
-	
+
 	private static AppManager instance;
 	private DBDAO dao;
 	private ButtonController buttonController;
@@ -115,5 +115,5 @@ public class AppManager {
 	public static void main(String args[]) {
 		AppManager app = instance.createInstance();
 	}
-	
+
 }
