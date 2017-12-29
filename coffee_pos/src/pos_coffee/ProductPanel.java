@@ -6,6 +6,6 @@ import javax.swing.*;
 
 public class ProductPanel extends JPanel {
 	public ProductPanel(){
-		System.out.println("hello");
+		System.out.println("world");
 	}
 }
