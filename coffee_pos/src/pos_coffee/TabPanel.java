@@ -3,8 +3,6 @@ package pos_coffee;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-
-
 import java.awt.*;
 import javax.swing.*;
 
@@ -80,6 +78,13 @@ public class TabPanel extends JPanel{
 		
 		temp.setImage(tempImg);		
 		return temp;
+	}
+	
+	void addButtonActionListener(ActionListener listener) {
+		mainBtn.addActionListener(listener);
+		productBtn.addActionListener(listener);
+		memberBtn.addActionListener(listener);
+		salesBtn.addActionListener(listener);
 	}
 	
 }
