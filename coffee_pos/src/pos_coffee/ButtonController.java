@@ -1,7 +1,5 @@
 package pos_coffee;
 
-import java.awt.*;
-import javax.swing.*;
 import java.awt.event.*;
 
 public class ButtonController {
@@ -16,8 +14,6 @@ public class ButtonController {
 		tp.addButtonActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				Object obj = e.getSource();
-				System.out.println("TEST");
-				System.out.println(pf.getName());
 				
 				if (obj == tp.mainBtn) {
 					pf.cardLayout.show(pf.contents, pf.contentsName[0]);

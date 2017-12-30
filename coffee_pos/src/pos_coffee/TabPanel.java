@@ -3,8 +3,6 @@ package pos_coffee;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.awt.*;
-import javax.swing.*;
 
 public class TabPanel extends JPanel{
 	//»ó´Ü ÅÇ ÆÐ³Î	
