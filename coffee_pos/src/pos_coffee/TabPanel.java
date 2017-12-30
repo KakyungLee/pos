@@ -67,14 +67,7 @@ public class TabPanel extends JPanel{
 		add(salesBtn);
 		add(dataClockLbl);
 		
-		//bc = AppManager.createInstance().getButtonController();
-		addButtonActionListener(bc);
-		
-		mainBtn.addActionListener(bc);
-		productBtn.addActionListener(bc);
-		memberBtn.addActionListener(bc);
-		salesBtn.addActionListener(bc);
-		
+		bc = new ButtonController();
 	}
 	
 	ImageIcon changeSize(ImageIcon temp) {
@@ -94,8 +87,6 @@ public class TabPanel extends JPanel{
 		productBtn.addActionListener(listener);
 		memberBtn.addActionListener(listener);
 		salesBtn.addActionListener(listener);
-		
-		System.out.println("OK");
 	}
 	
 }

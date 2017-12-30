@@ -60,7 +60,6 @@ public class PosFrame extends JFrame {
 
 	public static void main(String[] args) {
 		new PosFrame();
-
 	}// main
 
 }// PosFrame
