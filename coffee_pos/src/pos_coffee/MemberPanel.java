@@ -1,13 +1,23 @@
 package pos_coffee;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 
 public class MemberPanel extends JPanel{
+	private MemberController mc;
+	private DBDAO db;
 ///////////////header
-	JList memberList;
+	JTable memberList;
+	DefaultTableModel model;
+	Object[] colNames;
+	Object[][] rows;
+	ArrayList<Member> datas;
 	///////////// center
 	JPanel contents;
 	
@@ -15,23 +25,32 @@ public class MemberPanel extends JPanel{
 	JLabel memberName;
 	JLabel memberPhone;
 	
-	JComboBox idxCombo;
+	JTextField idxTxt;
 	JTextField memNameTxt;
 	JTextField memPhoneTxt;
 	//////////// bottom
 	JPanel bottom;
-	
-	JButton selectBtn;
+
 	JButton insertUpdateBtn;
 	JButton deleteBtn;
 	
 	public MemberPanel() {
 		AppManager.createInstance().setMemberPanel(this);
+		db = AppManager.createInstance().getDao();
+		mc = AppManager.createInstance().getMemberController();
 		this.setLayout(null);
 		this.setSize(1024,720);
 		
-		// 상품 목록
-		memberList = new JList();
+		// 상품 목록		
+		colNames = new Object[3];
+		colNames[0] = "회원번호";
+		colNames[1] = "이름";
+		colNames[2] = "휴대폰 번호";
+		
+		datas = new ArrayList<Member>();
+		
+		model = new DefaultTableModel(rows,colNames);
+		memberList = new JTable(model);
 		memberList.setSize(983,400);
 		memberList.setLocation(12, 10);
 		
@@ -43,14 +62,14 @@ public class MemberPanel extends JPanel{
 		contents.setBackground(Color.white);
 		
 		memberCode = new JLabel("회원번호");
-		idxCombo = new JComboBox();
+		idxTxt = new JTextField();
 		memberName = new JLabel("이름");
 		memNameTxt = new JTextField();
 		memberPhone = new JLabel("휴대폰 번호");
 		memPhoneTxt = new JTextField();
 
 		contents.add(memberCode);
-		contents.add(idxCombo);
+		contents.add(idxTxt);
 		contents.add(memberName);
 		contents.add(memNameTxt);
 		contents.add(memberPhone);
@@ -61,11 +80,9 @@ public class MemberPanel extends JPanel{
 		bottom.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		bottom.setSize(980,50);
 		bottom.setLocation(12,490);
-		selectBtn = new JButton("조회");
 		insertUpdateBtn = new JButton("추가/수정");
 		deleteBtn = new JButton("탈퇴");
 		
-		bottom.add(selectBtn);
 		bottom.add(insertUpdateBtn);
 		bottom.add(deleteBtn);
 		
@@ -74,6 +91,16 @@ public class MemberPanel extends JPanel{
 		this.add(memberList);
 		this.add(contents);
 		this.add(bottom);
+		
+		mc = new MemberController();
+		
+	}
+	void addButtonActionListener(ActionListener listener) {
+		insertUpdateBtn.addActionListener(listener);
+		deleteBtn.addActionListener(listener);
+	}
+	public void addMouseListener(MouseListener listener){
+		memberList.addMouseListener(listener);
 	}
 
 }
