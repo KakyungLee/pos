@@ -12,7 +12,7 @@ public class ButtonController {
 		AppManager.createInstance().setButtonController(this);
 		tp = AppManager.createInstance().getTabPanel();
 		pf = AppManager.createInstance().getPosFrame();
-		
+
 		tp.addButtonActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				Object obj = e.getSource();
@@ -30,6 +30,7 @@ public class ButtonController {
 				}
 				if (obj == tp.salesBtn) {
 					pf.cardLayout.show(pf.contents, pf.contentsName[3]);
+
 				}
 			}
 		});

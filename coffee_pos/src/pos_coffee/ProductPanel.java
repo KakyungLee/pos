@@ -25,6 +25,7 @@ public class ProductPanel extends JPanel {
 	JButton deleteBtn;
 
 	public ProductPanel(){
+		AppManager.createInstance().setProductPanel(this);
 		this.setLayout(null);
 		this.setSize(1024,720);
 		

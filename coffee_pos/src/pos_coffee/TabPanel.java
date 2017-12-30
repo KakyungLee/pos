@@ -12,13 +12,13 @@ public class TabPanel extends JPanel{
 	protected JButton productBtn;//상품관리 패널로 이동
 	protected JButton memberBtn; //회원관리 패널로 이동
 	protected JButton salesBtn; //매출관리 패널로 이동
-	protected JLabel dataClockLbl;//날짜와 시간 표시
+	protected DigitalClock dataClockLbl;//날짜와 시간 표시
 	
 	private ButtonController bc;
 	
 	TabPanel(){
 		AppManager.createInstance().setTabPanel(this);
-		
+
 		this.setLayout(null);
 		this.setSize(1024,80);
 		this.setBackground(Color.WHITE);
@@ -56,7 +56,7 @@ public class TabPanel extends JPanel{
 		salesBtn.setLocation(w, h);
 		w = w+202;
 		
-		dataClockLbl = new JLabel(changeSize(new ImageIcon("./image/clockBackground.png")));
+		dataClockLbl = new DigitalClock(changeSize(new ImageIcon("./image/clockBackground.png")));
 		dataClockLbl.setBackground(null);
 		dataClockLbl.setSize(224, 80);
 		dataClockLbl.setLocation(w, h);

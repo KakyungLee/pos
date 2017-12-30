@@ -15,7 +15,14 @@ public class AppManager {
 	private SellController sellController;
 	private TabPanel tabPanel;
 	private PosFrame posFrame;
+	private DigitalClock digitalClock;
 	
+	public DigitalClock getDigitalClock() {
+		return digitalClock;
+	}
+	public void setDigitalClock(DigitalClock digitalClock) {
+		this.digitalClock = digitalClock;
+	}
 	public PosFrame getPosFrame() {
 		return posFrame;
 	}
