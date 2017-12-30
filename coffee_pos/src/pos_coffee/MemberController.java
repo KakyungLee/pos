@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 
 public class MemberController {
@@ -26,9 +24,9 @@ public class MemberController {
 		mp.addButtonActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Object obj = e.getSource();
-				Member p = null;				
+				Member p = null;
 				if (obj == mp.insertUpdateBtn) {
-					
+
 					if (flag == true) {// »ðÀÔ
 						p.setMemname(mp.memNameTxt.getText());
 						p.setMemphone(mp.memPhoneTxt.getText());
@@ -65,10 +63,10 @@ public class MemberController {
 				} else if (col == 2) {
 					p = db.getPhoneMember(value + "");
 				}
-				mp.idxTxt.setText(p.getMemno()+"");
+				mp.idxTxt.setText(p.getMemno() + "");
 				mp.memNameTxt.setText(p.getMemname());
 				mp.memPhoneTxt.setText(p.getMemphone());
-			}//mouseClicked
+			}// mouseClicked
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
@@ -99,7 +97,7 @@ public class MemberController {
 	}// ProductController
 
 	void refresh() {
-	mp.datas = db.getAllMember();
+		mp.datas = db.getAllMember();
 
 		int i = 0;
 		for (Member p : mp.datas) {

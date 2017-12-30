@@ -28,7 +28,6 @@ public class ProductPanel extends JPanel {
 	//////////// bottom
 	JPanel bottom;
 
-	JButton selectBtn;
 	JButton insertUpdateBtn;
 	JButton deleteBtn;
 
@@ -87,11 +86,9 @@ public class ProductPanel extends JPanel {
 		bottom.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		bottom.setSize(980, 50);
 		bottom.setLocation(12, 490);
-		selectBtn = new JButton("占쎄퐨占쎄문");
 		insertUpdateBtn = new JButton("�빊遺쏙옙/占쎈땾占쎌젟");
 		deleteBtn = new JButton("占쎄텣占쎌젫");
 
-		bottom.add(selectBtn);
 		bottom.add(insertUpdateBtn);
 		bottom.add(deleteBtn);
 
@@ -105,7 +102,6 @@ public class ProductPanel extends JPanel {
 	}
 
 	void addButtonActionListener(ActionListener listener) {
-		selectBtn.addActionListener(listener);
 		insertUpdateBtn.addActionListener(listener);
 		deleteBtn.addActionListener(listener);
 	}
