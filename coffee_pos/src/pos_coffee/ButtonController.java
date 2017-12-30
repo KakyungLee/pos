@@ -12,30 +12,25 @@ public class ButtonController {
 		AppManager.createInstance().setButtonController(this);
 		tp = AppManager.createInstance().getTabPanel();
 		pf = AppManager.createInstance().getPosFrame();
-
-		tp.addButtonActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				Object obj = arg0.getSource();
-
+		
+		tp.addButtonActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				Object obj = e.getSource();
+				System.out.println("TEST");
+				
 				if (obj == tp.mainBtn) {
-					pf.cardLayout.show(pf.mainP, "main");
+					pf.cardLayout.show(pf.contents, pf.contentsName[0]);
 				}
 				if (obj == tp.productBtn) {
-					pf.cardLayout.show(pf.productP, "product");
+					pf.cardLayout.show(pf.contents, pf.contentsName[1]);
 				}
 				if (obj == tp.memberBtn) {
-					pf.cardLayout.show(pf.memberP, "member");
+					pf.cardLayout.show(pf.contents, pf.contentsName[2]);
 				}
 				if (obj == tp.salesBtn) {
-					pf.cardLayout.show(pf.salesP, "sales");
+					pf.cardLayout.show(pf.contents, pf.contentsName[3]);
 				}
-				System.out.println("OK");
-			}// actionPerformed
-		});// addButtonActionListener
+			}
+		});
 	}// ButtonController
-
-	void appMain() {
-
-	}
 }
