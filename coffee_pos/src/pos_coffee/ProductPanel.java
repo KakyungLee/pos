@@ -22,7 +22,7 @@ public class ProductPanel extends JPanel {
 	JLabel productName;
 	JLabel ProductPrice;
 
-	JComboBox idxCombo;
+	JTextField proCodeTxt;
 	JTextField proNameTxt;
 	JTextField proPriceTxt;
 	//////////// bottom
@@ -46,15 +46,15 @@ public class ProductPanel extends JPanel {
 		colNames[2] = "Price";
 
 		datas = new ArrayList<Product>();
-		//datas = db.getAllProduct();
+		datas = db.getAllProduct();
 		rows = new Object[datas.size()][3];
-		/*int i = 0;
+		int i = 0;
 		for (Product p : datas) {
 			rows[i][0] = p.getProcode();
 			rows[i][1] = p.getProname();
 			rows[i][2] = p.getProprice();
 			i++;
-		}*/
+		}
 
 		model = new DefaultTableModel(rows,colNames);
 		productList = new JTable(model);
@@ -69,14 +69,14 @@ public class ProductPanel extends JPanel {
 		contents.setBackground(Color.white);
 
 		productCode = new JLabel("占쎄맒占쎈�배굜遺얜굡");
-		idxCombo = new JComboBox();
+		proCodeTxt = new JTextField();
 		productName = new JLabel("占쎌젫占쎈�뱄쭗占�");
 		proNameTxt = new JTextField();
 		ProductPrice = new JLabel("揶쏉옙野껓옙");
 		proPriceTxt = new JTextField();
 
 		contents.add(productCode);
-		contents.add(idxCombo);
+		contents.add(proCodeTxt);
 		contents.add(productName);
 		contents.add(proNameTxt);
 		contents.add(ProductPrice);
