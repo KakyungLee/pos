@@ -13,7 +13,6 @@ public class PosFrame extends JFrame {
 	protected SalesPanel salesP;
 	protected ProductPanel productP;
 	protected MemberPanel memberP;
-	String[] contentsName = { "main", "product", "member", "sales" };
 
 	public PosFrame() {
 		AppManager.createInstance().setPosFrame(this);
@@ -43,11 +42,11 @@ public class PosFrame extends JFrame {
 		cardLayout = new CardLayout();
 		
 		contents.setLayout(cardLayout);
-		contents.add(contentsName[0],mainP);
-		contents.add(contentsName[1],productP);
-		contents.add(contentsName[2],memberP);
-		contents.add(contentsName[3],salesP);
-		cardLayout.show(contents,contentsName[0]);
+		contents.add("main",mainP);
+		contents.add("product",productP);
+		contents.add("member",memberP);
+		contents.add("sales",salesP);
+		cardLayout.show(contents,"main");
 		this.add(contents);
 
 		////////////////////////
