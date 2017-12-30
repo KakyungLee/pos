@@ -13,29 +13,26 @@ public class ButtonController {
 		tp = AppManager.createInstance().getTabPanel();
 		pf = AppManager.createInstance().getPosFrame();
 
-		tp.addButtonActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				Object obj = arg0.getSource();
+		tp.addButtonActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				Object obj = e.getSource();
+				System.out.println("TEST");
+				System.out.println(pf.getName());
+				
+				if (obj == tp.mainBtn) {
+					pf.cardLayout.show(pf.contents, pf.contentsName[0]);
+				}
+				if (obj == tp.productBtn) {
+					pf.cardLayout.show(pf.contents, pf.contentsName[1]);
+				}
+				if (obj == tp.memberBtn) {
+					pf.cardLayout.show(pf.contents, pf.contentsName[2]);
+				}
+				if (obj == tp.salesBtn) {
+					pf.cardLayout.show(pf.contents, pf.contentsName[3]);
 
-				if (obj.equals(tp.mainBtn)) {
-					pf.cardLayout.show(pf.mainP, "main");
 				}
-				else if (obj.equals(tp.productBtn)) {
-					pf.cardLayout.show(pf.productP, "product");
-				}
-				else if (obj == tp.memberBtn) {
-					pf.cardLayout.show(pf.memberP, "member");
-				}
-				else if (obj == tp.salesBtn) {
-					pf.cardLayout.show(pf.salesP, "sales");
-				}
-				System.out.println("OK");
-			}// actionPerformed
-		});// addButtonActionListener
+			}
+		});
 	}// ButtonController
-
-	void appMain() {
-
-	}
 }

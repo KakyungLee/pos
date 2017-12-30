@@ -7,22 +7,22 @@ import java.awt.*;
 import javax.swing.*;
 
 public class TabPanel extends JPanel{
-	//상단 탭 패널
-	
+	//상단 탭 패널	
 	protected JButton mainBtn; //매인 패널 이동 
 	protected JButton productBtn;//상품관리 패널로 이동
 	protected JButton memberBtn; //회원관리 패널로 이동
 	protected JButton salesBtn; //매출관리 패널로 이동
 	protected JLabel dataClockLbl;//날짜와 시간 표시
 	
+	private ButtonController bc;
+	
 	TabPanel(){
-		
 		AppManager.createInstance().setTabPanel(this);
+
 		this.setLayout(null);
 		this.setSize(1024,80);
 		this.setBackground(Color.WHITE);
 		
-		//
 		int w = -2; int h = 0;
 		mainBtn = new JButton(changeSize(new ImageIcon("./image/mainButton.png")));	//메인패널로 이동
 		mainBtn.setBackground(null);
@@ -66,6 +66,8 @@ public class TabPanel extends JPanel{
 		add(memberBtn);
 		add(salesBtn);
 		add(dataClockLbl);
+		
+		bc = new ButtonController();
 	}
 	
 	ImageIcon changeSize(ImageIcon temp) {
