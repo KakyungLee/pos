@@ -25,13 +25,13 @@ public class ProductController {
 				if (obj == pp.selectBtn) {
 					flag = false;
 					Product p = null;
-					if (col == 0) {
+				//	if (col == 0) {
 						p = db.getProduct(row + 100);
-					} else if (col == 1) {
+				/*	} else if (col == 1) {
 						p = db.getNameProduct(value + "");
 					} else if (col == 2) {
 						p = db.getPriceProduct(value + "");
-					}
+					}*/
 					
 					pp.idxCombo.setSelectedItem(p.getProcode()+"");
 					pp.proNameTxt.setText(p.getProname());
@@ -66,16 +66,15 @@ public class ProductController {
 			public void mouseClicked(MouseEvent e) {
 				JTable obj = (JTable) e.getSource();
 				row = obj.getSelectedRow();
-				col = obj.getSelectedColumn();
-				value = obj.getValueAt(row, col);
-
-				if (col == 0) {
-					pp.idxCombo.setSelectedItem(row + 100);
-				} else if (col == 1) {
-					pp.proNameTxt.setText(value + "");
-				} else if (col == 2) {
-					pp.proPriceTxt.setText(value + "");
-				}
+				//col = obj.getSelectedColumn();
+				
+				
+				pp.proCodeTxt.setText(row + 100+"");
+				value = obj.getValueAt(row, 1);
+				pp.proNameTxt.setText(value + "");
+				value = obj.getValueAt(row, 2);
+				pp.proPriceTxt.setText(value + "");
+			
 			}
 
 			@Override
@@ -107,7 +106,7 @@ public class ProductController {
 	}// ProductController
 
 	void refresh() {
-		pp.idxCombo.setModel(new DefaultComboBoxModel(db.getProItems()));
+	/*	pp.idxCombo.setModel(new DefaultComboBoxModel(db.getProItems()));
 
 		pp.datas = db.getAllProduct();
 
@@ -118,7 +117,7 @@ public class ProductController {
 			pp.rows[i][2] = p.getProprice();
 			i++;
 		}
-		pp.model.fireTableDataChanged();
+		pp.model.fireTableDataChanged();*/
 	}
 
 }// ProductController
