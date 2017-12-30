@@ -37,7 +37,7 @@ public class ProductPanel extends JPanel {
 		this.setLayout(null);
 		this.setSize(1024, 720);
 
-		// »óÇ° ¸ñ·Ï
+		// ìƒí’ˆ ëª©ë¡
 		colNames = new Object[3];
 		colNames[0] = "proCode";
 		colNames[1] = "Name";
@@ -59,18 +59,18 @@ public class ProductPanel extends JPanel {
 		productList.setSize(983, 400);
 		productList.setLocation(12, 10);
 
-		// »óÇ° ÀÔ·Â Æû
+		// ìƒí’ˆ ì…ë ¥ í¼
 		contents = new JPanel();
 		contents.setLayout(new GridLayout(1, 6, 5, 10));
 		contents.setSize(983, 50);
 		contents.setLocation(12, 420);
 		contents.setBackground(Color.white);
 
-		productCode = new JLabel("»óÇ°ÄÚµå");
+		productCode = new JLabel("ìƒí’ˆì½”ë“œ");
 		idxCombo = new JComboBox();
-		productName = new JLabel("Á¦Ç°¸í");
+		productName = new JLabel("ì œí’ˆëª…");
 		proNameTxt = new JTextField();
-		ProductPrice = new JLabel("°¡°İ");
+		ProductPrice = new JLabel("ê°€ê²©");
 		proPriceTxt = new JTextField();
 
 		contents.add(productCode);
@@ -80,14 +80,14 @@ public class ProductPanel extends JPanel {
 		contents.add(ProductPrice);
 		contents.add(proPriceTxt);
 
-		// ¹öÆ°
+		// ë²„íŠ¼
 		bottom = new JPanel();
 		bottom.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		bottom.setSize(980, 50);
 		bottom.setLocation(12, 490);
-		selectBtn = new JButton("¼±ÅÃ");
-		insertUpdateBtn = new JButton("Ãß°¡/¼öÁ¤");
-		deleteBtn = new JButton("»èÁ¦");
+		selectBtn = new JButton("ì„ íƒ");
+		insertUpdateBtn = new JButton("ì¶”ê°€/ìˆ˜ì •");
+		deleteBtn = new JButton("ì‚­ì œ");
 
 		bottom.add(selectBtn);
 		bottom.add(insertUpdateBtn);

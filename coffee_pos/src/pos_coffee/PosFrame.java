@@ -13,13 +13,15 @@ public class PosFrame extends JFrame {
 	protected SalesPanel salesP;
 	protected ProductPanel productP;
 	protected MemberPanel memberP;
-	String[] contentsName = { "main", "product", "member", "sales" };
+	
+    String[] contentsName = { "main", "product", "member", "sales" };
 
 	public PosFrame() {
 		AppManager.createInstance().setPosFrame(this);
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1024, 800);
-		setTitle("�׽�Ʈ");
+		setTitle("Å×½ºÆ®");
 		setLayout(null);
 
 		top = new JPanel();
@@ -41,11 +43,13 @@ public class PosFrame extends JFrame {
 		cardLayout = new CardLayout();
 		
 		contents.setLayout(cardLayout);
+
 		contents.add(contentsName[0],mainP);
 		contents.add(contentsName[1],productP);
 		contents.add(contentsName[2],memberP);
 		contents.add(contentsName[3],salesP);
 		cardLayout.show(contents,contentsName[0]);
+
 		this.add(contents);
 
 		////////////////////////
@@ -61,6 +65,7 @@ public class PosFrame extends JFrame {
 	public static void main(String[] args) {
 		new PosFrame();
 		new DBDAO();
+
 	}// main
 
 }// PosFrame
