@@ -18,7 +18,7 @@ public class PosFrame extends JFrame {
 
 	public PosFrame() {
 		AppManager.createInstance().setPosFrame(this);
-
+		new DBDAO();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1024, 800);
 		setTitle("Å×½ºÆ®");
@@ -63,8 +63,7 @@ public class PosFrame extends JFrame {
 	}// PosFrame
 
 	public static void main(String[] args) {
-		new PosFrame();
-		new DBDAO();
+		new PosFrame();		
 
 	}// main
 

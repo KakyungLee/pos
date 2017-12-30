@@ -17,7 +17,7 @@ public class ProductController {
 				Object obj = e.getSource();
 
 				if (obj == pp.selectBtn) {
-
+					System.out.println("hello");
 				}
 				if (obj == pp.insertUpdateBtn) {
 				}
