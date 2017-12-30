@@ -19,6 +19,7 @@ public class TabPanel extends JPanel {
 	void TabPanel() {
 
 		AppManager.createInstance().setTabPanel(this);
+		setSize(200,100);
 		setBackground(Color.lightGray);
 		add(mainBtn);
 		add(productBtn);
