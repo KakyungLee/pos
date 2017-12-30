@@ -13,8 +13,8 @@ public class PosFrame extends JFrame {
 	protected SalesPanel salesP;
 	protected ProductPanel productP;
 	protected MemberPanel memberP;
+	
     String[] contentsName = { "main", "product", "member", "sales" };
-
 
 	public PosFrame() {
 		AppManager.createInstance().setPosFrame(this);
