@@ -11,17 +11,58 @@ import javax.swing.*;
 public class TabPanel extends JPanel{
 	//상단 탭 패널
 	
-	protected JButton mainBtn = new JButton("메인");	//메인패널로 이동
-	protected JButton productBtn = new JButton("상품관리");	//상품관리 패널로 이동
-	protected JButton memberBtn = new JButton("회원관리");	//회원관리 패널로 이동
-	protected JButton salesBtn = new JButton("매출관리");	//매출관리 패널로 이동
-	protected JLabel dataClockLbl = new JLabel("시계");	//날짜와 시간 표시
+	protected JButton mainBtn; //매인 패널 이동 
+	protected JButton productBtn;//상품관리 패널로 이동
+	protected JButton memberBtn; //회원관리 패널로 이동
+	protected JButton salesBtn; //매출관리 패널로 이동
+	protected JLabel dataClockLbl;//날짜와 시간 표시
 	
 	TabPanel(){
 		
-		AppManager.createInstance().setTabPanel(this);
-		mainBtn.setSize(200, 100);
-		setBackground(Color.lightGray);
+		//AppManager.createInstance().setTabPanel(this);
+		this.setLayout(null);
+		this.setSize(1024,80);
+		this.setBackground(Color.WHITE);
+		
+		//
+		int w = -2; int h = 0;
+		mainBtn = new JButton(changeSize(new ImageIcon("./image/mainButton.png")));	//메인패널로 이동
+		mainBtn.setBackground(null);
+		mainBtn.setBorderPainted(false);
+		mainBtn.setFocusPainted(false);
+		mainBtn.setSize(200, 80);
+		mainBtn.setLocation(w, h);
+		w = w+193;
+
+		productBtn = new JButton(changeSize(new ImageIcon("./image/productButton.png")));
+		productBtn.setBackground(null);
+		productBtn.setBorderPainted(false);
+		productBtn.setFocusPainted(false);
+		productBtn.setSize(200, 80);
+		productBtn.setLocation(w, h);
+		w = w+193;
+		
+		memberBtn = new JButton(changeSize(new ImageIcon("./image/memberButton.png")));
+		memberBtn.setBackground(null);
+		memberBtn.setBorderPainted(false);
+		memberBtn.setFocusPainted(false);
+		memberBtn.setSize(200, 80);
+		memberBtn.setLocation(w, h);
+		w = w+193;
+		
+		salesBtn = new JButton(changeSize(new ImageIcon("./image/salesButton.png")));
+		salesBtn.setBackground(null);
+		salesBtn.setBorderPainted(false);
+		salesBtn.setFocusPainted(false);
+		salesBtn.setSize(200, 80);
+		salesBtn.setLocation(w, h);
+		w = w+202;
+		
+		dataClockLbl = new JLabel(changeSize(new ImageIcon("./image/clockBackground.png")));
+		dataClockLbl.setBackground(null);
+		dataClockLbl.setSize(224, 80);
+		dataClockLbl.setLocation(w, h);
+
 		add(mainBtn);
 		add(productBtn);
 		add(memberBtn);
@@ -29,76 +70,17 @@ public class TabPanel extends JPanel{
 		add(dataClockLbl);
 	}
 	
-}
-
-
-/*
-public class TabPanel extends JFrame {
-	protected JPanel Bottom;
-	// 상단 부분
-	protected JPanel Top;
-	protected JButton mainBtn;
-	protected JButton productBtn;
-	protected JButton memberBtn;
-	protected JButton salesBtn;
-	protected JLabel dateClockLbl;
-
-	// 하단 -> 메인 부분
-	protected JPanel Main;
-
-	public TabPanel() {
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(1280, 1080);
-		this.setLocation(50, 0);
-		this.setTitle("::멀티챗::");
-
-		Bottom = new JPanel();
-		Bottom.setBackground(Color.white);
-		Bottom.setLayout(new BorderLayout());
-		this.getContentPane().add(Bottom);
-
-		Top = new JPanel();
-		Top.setBackground(Color.white);
-		Top.setLayout(new FlowLayout());
-		Bottom.add(Top, BorderLayout.NORTH);
-
-		Font fnt = new Font("", Font.BOLD, 30);
-
-		mainBtn = new JButton("메인");
-		mainBtn.setFont(fnt);
-		Top.add(mainBtn);
-
-		productBtn = new JButton("상품");
-		productBtn.setFont(fnt);
-		Top.add(productBtn);
-
-		memberBtn = new JButton("회원");
-		memberBtn.setFont(fnt);
-		Top.add(memberBtn);
-
-		salesBtn = new JButton("매출");
-		salesBtn.setFont(fnt);
-		Top.add(salesBtn);
-
-		dateClockLbl = new JLabel("시계랍니다.");
-		dateClockLbl.setFont(fnt);
-		Top.add(dateClockLbl);
-
-		Main = new JPanel();
-		Main.setBackground(Color.white);
-		Bottom.add(Main, BorderLayout.CENTER);
-
-		new PanelChange(Main);
-
-		this.setVisible(true);
-	}
-
-	void addButtonActionListener(ActionListener listener) {
-		mainBtn.addActionListener(listener);
-		productBtn.addActionListener(listener);
-		memberBtn.addActionListener(listener);
-		salesBtn.addActionListener(listener);
+	ImageIcon changeSize(ImageIcon temp) {
+		Image tempImg = temp.getImage();// imageicon을 image로 변환
+		if(temp.getIconWidth()==610){
+			tempImg = tempImg.getScaledInstance(228, 74, java.awt.Image.SCALE_SMOOTH);
+		}else {
+			tempImg = tempImg.getScaledInstance(195, 80, java.awt.Image.SCALE_SMOOTH);
 		}
+		
+		temp.setImage(tempImg);		
+		return temp;
+	}
+	
 }
 
-*/

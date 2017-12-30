@@ -33,6 +33,7 @@ public class PosFrame extends JFrame{
 		memberP = new MemberPanel();
 		
 		top = new JPanel();
+		top.setLayout(null);
 		top.setSize(1024,80);
 		top.setLocation(0, 0);
 		top.add(tabP);
@@ -54,6 +55,8 @@ public class PosFrame extends JFrame{
 		///////////////////////////
 		this.add(top,"top");
 		this.add(contents,"contents");
+		
+		
 		
 		setVisible(true);
 	}
