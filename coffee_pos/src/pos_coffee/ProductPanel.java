@@ -23,11 +23,7 @@ public class ProductPanel extends JPanel {
 	JButton selectBtn;
 	JButton insertUpdateBtn;
 	JButton deleteBtn;
-	
-	
-	
-	
-	
+
 	public ProductPanel(){
 		this.setLayout(null);
 		this.setSize(1024,720);
