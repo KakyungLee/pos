@@ -242,6 +242,50 @@ public class DBDAO {
 		System.out.println(m.toString());
 		return m;
 	}
+	public Member getNameMember(String Name) {
+		sql = "select * from member where memname = ?";
+		Member m = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, Name);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				m = new Member();
+				m.setMemno(rs.getInt("memno"));
+				m.setMemphone(rs.getString("memphone"));
+				m.setMemname(rs.getString("memname"));
+				m.setMemstamp(rs.getInt("memstamp"));
+			}
+
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		System.out.println(m.toString());
+		return m;
+	}
+	public Member getPhoneMember(String Name) {
+		sql = "select * from member where memphone = ?";
+		Member m = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, Name);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				m = new Member();
+				m.setMemno(rs.getInt("memno"));
+				m.setMemphone(rs.getString("memphone"));
+				m.setMemname(rs.getString("memname"));
+				m.setMemstamp(rs.getInt("memstamp"));
+			}
+
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		System.out.println(m.toString());
+		return m;
+	}
 
 	public Sale getSale(int salno) {
 		sql = "select * from sale where salno = ? ";
