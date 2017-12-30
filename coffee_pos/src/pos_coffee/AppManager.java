@@ -90,7 +90,7 @@ public class AppManager {
 	}
 	
 	private AppManager() {
-		dao = new DBDAO();
+	/*	dao = new DBDAO();
 		//buttonController = new ButtonController();
 		mainController = new MainController();
 		mainPanel = new MainPanel();
@@ -101,19 +101,18 @@ public class AppManager {
 		salesPanel = new SalesPanel();
 		sellController = new SellController();
 		tabPanel = new TabPanel();
-		posFrame = new PosFrame();
+		posFrame = new PosFrame();*/
 	}
 	
 	public static AppManager createInstance() {
 		if(instance == null) { 
 			instance = new AppManager();
-		}else{
 		}
 		return instance;
 	}
-	
+	/*
 	public static void main(String args[]) {
 		AppManager app = instance.createInstance();
 	}
-
+*/
 }

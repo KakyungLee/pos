@@ -18,6 +18,9 @@ public class TabPanel extends JPanel{
 	protected JLabel dataClockLbl = new JLabel("시계");	//날짜와 시간 표시
 	
 	TabPanel(){
+		
+		AppManager.createInstance().setTabPanel(this);
+		
 		setBackground(Color.lightGray);
 		add(mainBtn);
 		add(productBtn);
