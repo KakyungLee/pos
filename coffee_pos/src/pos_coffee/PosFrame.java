@@ -16,6 +16,7 @@ public class PosFrame extends JFrame{
 	MainPanel mainP;
 	SalesPanel salesP;
 	ProductPanel productP;
+	MemberPanel memberP;
 	String[] contentsName = {"main","product","member","sales"};
 
 	
@@ -29,6 +30,7 @@ public class PosFrame extends JFrame{
 		mainP = new MainPanel();
 		salesP = new SalesPanel();
 		productP = new ProductPanel();
+		memberP = new MemberPanel();
 		
 		top = new JPanel();
 		top.setSize(1024,80);
@@ -41,8 +43,9 @@ public class PosFrame extends JFrame{
 		contents.setLayout(new CardLayout());
 		contents.add(contentsName[0],mainP);		
 		contents.add(contentsName[1],productP);
+		contents.add(contentsName[2],memberP);
 		contents.add(contentsName[3],salesP);
-		((CardLayout)contents.getLayout()).show(contents, contentsName[1]);
+		((CardLayout)contents.getLayout()).show(contents, contentsName[2]);
 
 
 		////////////////////////
