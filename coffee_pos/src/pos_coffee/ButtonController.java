@@ -9,7 +9,10 @@ public class ButtonController {
 
 	public ButtonController(TabPanel tab) {
 	
+		AppManager.createInstance().setButtonController(this);
+		
 		this.t = tab;
+		//this.t = AppManager.createInstance().getTabPanel();
 	}
 
 	void appMain() {
