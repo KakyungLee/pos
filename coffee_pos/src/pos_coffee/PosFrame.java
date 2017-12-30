@@ -24,10 +24,8 @@ public class PosFrame extends JFrame {
 		top = new JPanel();
 		top.setBounds(0, 0, 1024, 80);
 		top.setLayout(null);
-		this.add(top);
 
 		tabP = new TabPanel();
-		tabP.setBackground(Color.black);
 		tabP.setBounds(0, 0, 1024, 80);
 		top.add(tabP);
 
@@ -36,22 +34,26 @@ public class PosFrame extends JFrame {
 		productP = new ProductPanel();
 		memberP = new MemberPanel();
 
+
 		contents = new JPanel();
 		contents.setSize(1024, 720);
 		contents.setLocation(0, 80);
 		cardLayout = new CardLayout();
+		
 		contents.setLayout(cardLayout);
-		contents.add(mainP, "main");
-		contents.add(productP, "product");
-		contents.add(memberP, "member");
-		contents.add(salesP, "sales");
-		cardLayout.show(contents, "main");
+		contents.add(contentsName[0],mainP);
+		contents.add(contentsName[1],productP);
+		contents.add(contentsName[2],memberP);
+		contents.add(contentsName[3],salesP);
+		cardLayout.show(contents,contentsName[0]);
 		this.add(contents);
 
 		////////////////////////
 		top.setBackground(Color.BLUE);
 		contents.setBackground(Color.white);
 		///////////////////////////
+		this.add(top,"top");
+		this.add(contents,"contents");
 
 		setVisible(true);
 	}// PosFrame
