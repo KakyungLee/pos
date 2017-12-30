@@ -36,6 +36,7 @@ public class AppManager {
 		this.dao = dao;
 	}
 	public ButtonController getButtonController() {
+	
 		return buttonController;
 	}
 	public void setButtonController(ButtonController buttonController) {
