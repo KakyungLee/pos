@@ -45,7 +45,7 @@ public class PosFrame extends JFrame{
 		contents.add(contentsName[1],productP);
 		contents.add(contentsName[2],memberP);
 		contents.add(contentsName[3],salesP);
-		((CardLayout)contents.getLayout()).show(contents, contentsName[2]);
+		((CardLayout)contents.getLayout()).show(contents, contentsName[0]);
 
 
 		////////////////////////
