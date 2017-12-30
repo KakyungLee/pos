@@ -1,14 +1,13 @@
 package pos_coffee;
 
 import java.awt.*;
+import java.awt.event.*;
 import java.util.Vector;
-
 import javax.swing.*;
 
 public class MainPanel extends JPanel {
 	// 메인 화면
 	////// 각종 컴포넌트 정의
-
 	private int startX = 10;
 	private int startY = 10;
 
@@ -49,16 +48,18 @@ public class MainPanel extends JPanel {
 
 	protected JPanel memberPayPanel;
 	protected JPanel memberPanel;
-	protected JTextField memberTxt = new JTextField("회원번호입력"); // 조회할 회원 휴대폰번호 입력
-	protected JButton searchBtn = new JButton("조회"); // 핸드폰 번호로 회원 조회 -> 스탬프 적립, 사용시 필수
+	protected JTextField memberTxt = new JTextField("회원번호입력"); // 조회할 회원 휴대폰번호
+																// 입력
+	protected JButton searchBtn = new JButton("조회"); // 핸드폰 번호로 회원 조회 -> 스탬프 적립,
+														// 사용시 필수
 	protected JLabel memberinfoLbl = new JLabel("::회원정보::"); // 회원 조회시 회원정보 나타냄
 	protected JButton useStampBtn; // 스탬프 사용
 	protected JPanel payPanel;
 	protected JButton clearBtn = new JButton("취소"); // 결제리스트 및 회원 화면 클리어
 	protected JButton paymentBtn = new JButton("결제"); // 결제 진행 및 매출 발생
 
+	private MainController mc;	
 	MainPanel() {
-
 		/* 테스트용 변수 */
 		Vector<String> testVector;
 		testVector = new Vector<String>();
@@ -66,6 +67,7 @@ public class MainPanel extends JPanel {
 		testVector.add("JList테스트용백터2");
 		/* 테스트용 변수 */
 
+		AppManager.createInstance().setMainPanel(this);
 		this.setLayout(null);
 		this.setBackground(Color.yellow);
 
@@ -77,7 +79,8 @@ public class MainPanel extends JPanel {
 		this.add(mainLeftPanel);
 		productList = new JList(testVector);
 		productList.setBackground(Color.RED);
-		JScrollPane proListScroll = new JScrollPane(productList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,	JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		JScrollPane proListScroll = new JScrollPane(productList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		mainLeftPanel.add(proListScroll);
 		proListScroll.setVisible(true);
 		proListScroll.setBounds(startX, startY, proList_width, proList_height);
@@ -120,8 +123,16 @@ public class MainPanel extends JPanel {
 		mainRightPanel.add(lbl2);
 		lbl2.setBounds(600, selProList_hight + r_gap, 150, 50);
 
-	
 		selectedProductList.setListData(testVector);
+		
+		mc = AppManager.createInstance().getMainController();
+		mc.appMain();
+	}
+
+	void addButtonAction(ActionListener listener){
+		selectBtn.addActionListener(listener);
+		shotSelectBtn.addActionListener(listener);
+		removeBtn.addActionListener(listener);
 	}
 
 }
