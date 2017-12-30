@@ -62,6 +62,7 @@ public class ProductController {
 
 		pp.addMouseListener(new MouseListener() {
 
+			
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				JTable obj = (JTable) e.getSource();

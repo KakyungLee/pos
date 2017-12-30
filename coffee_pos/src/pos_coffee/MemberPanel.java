@@ -37,7 +37,7 @@ public class MemberPanel extends JPanel{
 	public MemberPanel() {
 		AppManager.createInstance().setMemberPanel(this);
 		db = AppManager.createInstance().getDao();
-		mc = AppManager.createInstance().getMemberController();
+		//mc = AppManager.createInstance().getMemberController();
 		this.setLayout(null);
 		this.setSize(1024,720);
 		
@@ -48,7 +48,7 @@ public class MemberPanel extends JPanel{
 		colNames[2] = "ÈÞ´ëÆù ¹øÈ£";
 		
 		datas = new ArrayList<Member>();
-		
+		rows = new Object[datas.size()][3];
 		model = new DefaultTableModel(rows,colNames);
 		memberList = new JTable(model);
 		memberList.setSize(983,400);
@@ -93,6 +93,7 @@ public class MemberPanel extends JPanel{
 		this.add(bottom);
 		
 		mc = new MemberController();
+		mc.refresh();
 		
 	}
 	void addButtonActionListener(ActionListener listener) {
