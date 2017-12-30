@@ -33,7 +33,7 @@ public class ProductController {
 						p = db.getPriceProduct(value + "");
 					}*/
 					
-					pp.idxCombo.setSelectedItem(p.getProcode()+"");
+					pp.proCodeTxt.setText(p.getProcode()+"");
 					pp.proNameTxt.setText(p.getProname());
 					pp.proPriceTxt.setText(p.getProprice()+"");
 				}
@@ -46,7 +46,7 @@ public class ProductController {
 						db.newProduct(p);
 					}else{//¼öÁ¤
 						Product p = null;
-						p.setProcode(Integer.parseInt((String)pp.idxCombo.getSelectedItem()));
+						p.setProcode(Integer.parseInt((String)pp.proCodeTxt.getText()));
 						p.setProname(pp.proNameTxt.getText());
 						p.setProprice(Integer.parseInt(pp.proPriceTxt.getText()));
 						
