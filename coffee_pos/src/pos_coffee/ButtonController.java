@@ -17,6 +17,7 @@ public class ButtonController {
 			public void actionPerformed(ActionEvent e) {
 				Object obj = e.getSource();
 				System.out.println("TEST");
+				System.out.println(pf.getName());
 				
 				if (obj == tp.mainBtn) {
 					pf.cardLayout.show(pf.contents, pf.contentsName[0]);

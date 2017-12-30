@@ -16,6 +16,7 @@ public class PosFrame extends JFrame {
 	String[] contentsName = { "main", "product", "member", "sales" };
 
 	public PosFrame() {
+		AppManager.createInstance().setPosFrame(this);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1024, 800);
 		setTitle("Å×½ºÆ®");
@@ -34,7 +35,6 @@ public class PosFrame extends JFrame {
 		productP = new ProductPanel();
 		memberP = new MemberPanel();
 
-
 		contents = new JPanel();
 		contents.setSize(1024, 720);
 		contents.setLocation(0, 80);
@@ -45,7 +45,7 @@ public class PosFrame extends JFrame {
 		contents.add(contentsName[1],productP);
 		contents.add(contentsName[2],memberP);
 		contents.add(contentsName[3],salesP);
-		cardLayout.show(contents,contentsName[3]);
+		cardLayout.show(contents,contentsName[0]);
 		this.add(contents);
 
 		////////////////////////
