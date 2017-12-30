@@ -8,22 +8,22 @@ public class DBDAO {
 	String jdbcUrl = "jdbc:mysql://192.168.0.10/coffee_teamproject";
 	String dbID = "team_user";
 	String dbPassword = "coffee";
-	
+
 	Connection conn;
 	PreparedStatement pstmt;
 	ResultSet rs;
-	
+
 	Vector<String> proItems; // 상품 콤보박스
 	Vector<String> memItems; // 사용자 콤보박스
 	Vector<String> salItems; // 판매 콤보작스
 
 	String sql;
-	
+
 	public DBDAO() {
 		AppManager.createInstance().setDao(this);
 		connectDB();
 	}
-	
+
 	void connectDB() {
 
 		try {
@@ -48,7 +48,7 @@ public class DBDAO {
 		}
 
 	}
-	
+
 	// 모든 데이터를 가져오는 함수
 	public ArrayList<Product> getAllProduct() {
 		// 상품리스트 가져오기
@@ -164,17 +164,59 @@ public class DBDAO {
 			pstmt.setInt(1, procode);
 			rs = pstmt.executeQuery();
 
-			if (rs.next()){
+			if (rs.next()) {
 				p = new Product();
 				p.setProcode(rs.getInt("procode"));
 				p.setProname(rs.getString("proname"));
 				p.setProprice(rs.getInt("proprice"));
 			}
-			
+
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
-		System.out.println(p.toString());		
+		System.out.println(p.toString());
+		return p;
+	}
+	public Product getNameProduct(String Name) {
+		sql = "select * from product where procode = ?";
+		Product p = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, Name);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				p = new Product();
+				p.setProcode(rs.getInt("procode"));
+				p.setProname(rs.getString("proname"));
+				p.setProprice(rs.getInt("proprice"));
+			}
+
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		System.out.println(p.toString());
+		return p;
+	}
+	public Product getPriceProduct(String Name) {
+		sql = "select * from product where proprice = ?";
+		Product p = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, Name);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				p = new Product();
+				p.setProcode(rs.getInt("procode"));
+				p.setProname(rs.getString("proname"));
+				p.setProprice(rs.getInt("proprice"));
+			}
+
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		System.out.println(p.toString());
 		return p;
 	}
 
@@ -186,18 +228,18 @@ public class DBDAO {
 			pstmt.setInt(1, memno);
 			rs = pstmt.executeQuery();
 
-			if (rs.next()){
+			if (rs.next()) {
 				m = new Member();
 				m.setMemno(rs.getInt("memno"));
 				m.setMemphone(rs.getString("memphone"));
 				m.setMemname(rs.getString("memname"));
 				m.setMemstamp(rs.getInt("memstamp"));
 			}
-			
+
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
-		System.out.println(m.toString());		
+		System.out.println(m.toString());
 		return m;
 	}
 
@@ -209,7 +251,7 @@ public class DBDAO {
 			pstmt.setInt(1, salno);
 			rs = pstmt.executeQuery();
 
-			if (rs.next()){
+			if (rs.next()) {
 				s = new Sale();
 				s.setSalno(rs.getInt("salno"));
 				s.setSaldate(rs.getString("saldate"));
@@ -217,11 +259,11 @@ public class DBDAO {
 				s.setTotalprice(rs.getInt("totalprice"));
 				s.setStamp(rs.getInt("stamp"));
 			}
-			
+
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
-		System.out.println(s.toString());		
+		System.out.println(s.toString());
 		return s;
 	}
 
@@ -231,35 +273,35 @@ public class DBDAO {
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, product.getProname());  // 1번 ?에 값을 넣는다.
+			pstmt.setString(1, product.getProname()); // 1번 ?에 값을 넣는다.
 			pstmt.setInt(2, product.getProprice()); // 2번 ?에 값을 넣는다.
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		if(result > 0) {
+
+		if (result > 0) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
-	
+
 	boolean newMember(Member member) {
 		sql = "insert into member(memphone,memname) values(?,?)";
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, member.getMemphone());  // 1번 ?에 값을 넣는다.
+			pstmt.setString(1, member.getMemphone()); // 1번 ?에 값을 넣는다.
 			pstmt.setString(2, member.getMemname()); // 2번 ?에 값을 넣는다.
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		if(result > 0) {
+
+		if (result > 0) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
@@ -269,17 +311,17 @@ public class DBDAO {
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, sale.getMemphone());  // 1번 ?에 값을 넣는다.
+			pstmt.setString(1, sale.getMemphone()); // 1번 ?에 값을 넣는다.
 			pstmt.setInt(2, sale.getTotalprice()); // 2번 ?에 값을 넣는다.
-			pstmt.setInt(3, sale.getStamp()); // 3번 ?에 값을 넣는다. 
+			pstmt.setInt(3, sale.getStamp()); // 3번 ?에 값을 넣는다.
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		if(result > 0) {
+
+		if (result > 0) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
@@ -290,27 +332,27 @@ public class DBDAO {
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, product.getProname());  // 1번 ?에 값을 넣는다.
+			pstmt.setString(1, product.getProname()); // 1번 ?에 값을 넣는다.
 			pstmt.setInt(2, product.getProprice()); // 2번 ?에 값을 넣는다.
-			pstmt.setInt(3, product.getProcode()); // 3번 ?에 값을 넣는다. 
+			pstmt.setInt(3, product.getProcode()); // 3번 ?에 값을 넣는다.
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		if(result > 0) {
+
+		if (result > 0) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
-	
+
 	boolean updateMember(Member member) {
 		sql = "update member set memphone =?, memname =?, memstamep =? where memphone =?";
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, member.getMemphone());  // 1번 ?에 값을 넣는다.
+			pstmt.setString(1, member.getMemphone()); // 1번 ?에 값을 넣는다.
 			pstmt.setString(2, member.getMemname()); // 2번 ?에 값을 넣는다.
 			pstmt.setInt(3, member.getMemstamp());
 			pstmt.setString(4, member.getMemphone());
@@ -318,10 +360,10 @@ public class DBDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		if(result > 0) {
+
+		if (result > 0) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
@@ -337,10 +379,10 @@ public class DBDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		if(result > 0) {
+
+		if (result > 0) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
@@ -355,10 +397,10 @@ public class DBDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		if(result > 0) {
+
+		if (result > 0) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
@@ -373,27 +415,25 @@ public class DBDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		if(result > 0) {
+
+		if (result > 0) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
 
-	//comboBox에 넣는 데이터
+	// comboBox에 넣는 데이터
 	Vector<String> getProItems() {
 		return proItems;
 	}
-	
+
 	Vector<String> getMemItems() {
 		return memItems;
 	}
-	
+
 	Vector<String> getSalItems() {
 		return salItems;
 	}
-
-
 
 }

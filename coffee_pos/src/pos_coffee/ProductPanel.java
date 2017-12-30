@@ -4,12 +4,14 @@ import java.awt.*;
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.table.*;
 
 public class ProductPanel extends JPanel {
 	private ProductController pc;
 	private DBDAO db;
 	/////////////// header
 	JTable productList;
+	DefaultTableModel model;
 	Object[] colNames;
 	Object[][] rows;
 	ArrayList<Product> datas;
@@ -44,18 +46,18 @@ public class ProductPanel extends JPanel {
 		colNames[2] = "Price";
 
 		datas = new ArrayList<Product>();
-		datas = db.getAllProduct();
+		//datas = db.getAllProduct();
 		rows = new Object[datas.size()][3];
-
-		int i = 0;
+		/*int i = 0;
 		for (Product p : datas) {
 			rows[i][0] = p.getProcode();
 			rows[i][1] = p.getProname();
 			rows[i][2] = p.getProprice();
 			i++;
-		}
+		}*/
 
-		productList = new JTable(rows, colNames);
+		model = new DefaultTableModel(rows,colNames);
+		productList = new JTable(model);
 		productList.setSize(983, 400);
 		productList.setLocation(12, 10);
 
@@ -99,11 +101,15 @@ public class ProductPanel extends JPanel {
 		this.add(bottom);
 		
 		pc = new ProductController();
+		pc.refresh();
 	}
 
 	void addButtonActionListener(ActionListener listener) {
 		selectBtn.addActionListener(listener);
 		insertUpdateBtn.addActionListener(listener);
 		deleteBtn.addActionListener(listener);
+	}
+	public void addMouseListener(MouseListener listener){
+		productList.addMouseListener(listener);
 	}
 }
