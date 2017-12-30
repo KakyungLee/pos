@@ -5,7 +5,7 @@ import java.util.*;
 
 public class DBDAO {
 	String jdbcDiver = "com.mysql.jdbc.Driver";
-	String jdbcUrl = "jdbc:mysql://192.168.0.10/coffee_teamproject";
+	String jdbcUrl = "jdbc:mysql://127.0.0.1/coffee_teamproject";
 	String dbID = "team_user";
 	String dbPassword = "coffee";
 
