@@ -36,6 +36,8 @@ public class SalesPanel extends JPanel{
 	
 
 	SalesPanel(){
+		AppManager.createInstance().setSalesPanel(this);
+		
 		this.setBackground(Color.MAGENTA);
 		this.setSize(1024, 720);
 		this.setLayout(null);

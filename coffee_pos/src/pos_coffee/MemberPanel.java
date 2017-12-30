@@ -26,6 +26,7 @@ public class MemberPanel extends JPanel{
 	JButton deleteBtn;
 	
 	public MemberPanel() {
+		AppManager.createInstance().setMemberPanel(this);
 		this.setLayout(null);
 		this.setSize(1024,720);
 		

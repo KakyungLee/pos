@@ -60,6 +60,7 @@ public class MainPanel extends JPanel {
 
 	private MainController mc;	
 	MainPanel() {
+		AppManager.createInstance().setMainPanel(this);
 		/* 테스트용 변수 */
 		Vector<String> testVector;
 		testVector = new Vector<String>();

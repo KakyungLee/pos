@@ -17,7 +17,7 @@ public class TabPanel extends JPanel{
 	
 	TabPanel(){
 		
-		//AppManager.createInstance().setTabPanel(this);
+		AppManager.createInstance().setTabPanel(this);
 		this.setLayout(null);
 		this.setSize(1024,80);
 		this.setBackground(Color.WHITE);
