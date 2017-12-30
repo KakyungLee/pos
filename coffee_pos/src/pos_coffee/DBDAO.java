@@ -3,8 +3,6 @@ package pos_coffee;
 import java.sql.*;
 import java.util.*;
 
-
-
 public class DBDAO {
 	String jdbcDiver = "com.mysql.jdbc.Driver";
 	String jdbcUrl = "jdbc:mysql://localhost/coffee_teamproject";
