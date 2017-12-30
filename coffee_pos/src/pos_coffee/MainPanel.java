@@ -126,7 +126,7 @@ public class MainPanel extends JPanel {
 		selectedProductList.setListData(testVector);
 		
 		mc = AppManager.createInstance().getMainController();
-		mc.appMain();
+		//mc.appMain();
 	}
 
 	void addButtonAction(ActionListener listener){
