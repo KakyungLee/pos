@@ -21,7 +21,7 @@ public class PosFrame extends JFrame {
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1024, 800);
-		setTitle("�׽�Ʈ");
+		setTitle("Å×½ºÆ®");
 		setLayout(null);
 
 		top = new JPanel();
@@ -64,7 +64,7 @@ public class PosFrame extends JFrame {
 
 	public static void main(String[] args) {
 		new PosFrame();
-		new ButtonController();
+		new DBDAO();
 
 	}// main
 
