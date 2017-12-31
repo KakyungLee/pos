@@ -12,9 +12,8 @@ public class ProductPanel extends JPanel {
 	/////////////// header
 	JTable productList;
 	DefaultTableModel model;
-	Object[] colNames;
-	Object[][] rows;
-	ArrayList<Product> datas;
+	Vector colNames = null;
+	Vector datas = null;
 	///////////// center
 	JPanel contents;
 
@@ -35,6 +34,7 @@ public class ProductPanel extends JPanel {
 	Color productColor;
 	int w; int h;
 
+	@SuppressWarnings("unchecked")
 	public ProductPanel() {		
 		AppManager.createInstance().setProductPanel(this);
 		db = AppManager.createInstance().getDao();
@@ -45,25 +45,20 @@ public class ProductPanel extends JPanel {
 		this.setBackground(productColor);
 
 		// 테이블 컬럼 명
-		colNames = new Object[3];
-		colNames[0] = "상 품 코 드";
-		colNames[1] = "상 품 명";
-		colNames[2] = "가 격";
+		colNames = new Vector<>();
+		colNames.add("상 품 코 드");
+		colNames.add("상 품 명");
+		colNames.add("가 격");
 
 		// 처음 화면에 뿌려주는 곳
-		datas = new ArrayList<Product>();
-		datas = db.getAllProduct();
-		rows = new Object[datas.size()][3];		
+		datas = new Vector<>();
 		
-		int i = 0;
-		for (Product p : datas) {
-			rows[i][0] = p.getProcode();
-			rows[i][1] = p.getProname();
-			rows[i][2] = p.getProprice();
-			i++;
-		}
+		model = new DefaultTableModel();
+		
+		Vector rows = db.getAllProductS();
 
-		model = new DefaultTableModel(rows,colNames);
+		model.setDataVector(rows, colNames);
+		
 		productList = new JTable(model);
 		productList.setRowHeight(30);
 		productList.setFont(new Font("",Font.PLAIN,12));
@@ -81,7 +76,6 @@ public class ProductPanel extends JPanel {
 		contents.setBackground(productList.getTableHeader().getBackground());
 		contents.setBorder(BorderFactory.createEmptyBorder(5 , 5 , 5 , 5));
 		
-
 		productCode = new JLabel("상 품 코 드");
 		productCode.setFont(productList.getTableHeader().getFont());
 		productCode.setHorizontalAlignment(JLabel.CENTER);
@@ -144,7 +138,7 @@ public class ProductPanel extends JPanel {
 		this.add(bottom);
 		
 		pc = new ProductController();
-		pc.refresh();
+		//pc.refresh();
 	}
 
 	void addButtonActionListener(ActionListener listener) {
