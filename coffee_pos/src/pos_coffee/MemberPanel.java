@@ -30,55 +30,64 @@ public class MemberPanel extends JPanel{
 	JTextField memPhoneTxt;
 	//////////// bottom
 	JPanel bottom;
-
 	JButton insertBtn;
 	JButton updateBtn;
 	JButton deleteBtn;
+	//////////
+	Color memberColor;
+	int w, h;
 	
 	public MemberPanel() {
 		AppManager.createInstance().setMemberPanel(this);
 		db = AppManager.createInstance().getDao();
-		//mc = AppManager.createInstance().getMemberController();
 		this.setLayout(null);
 		this.setSize(1024,720);
+		memberColor = new Color(112, 173, 71);
+		this.setBackground(memberColor);
 		
-		// ��ǰ ���		
+		// 테이블 컬럼 명
 		colNames = new Object[4];
-		colNames[0] = "회원번호";
+		colNames[0] = "회 원 번 호";
 		colNames[1] = "이름";
 		colNames[2] = "휴대폰번호";
 		colNames[3] = "스탬프";
 		
+		// 처음 화면에 뿌러주는 곳
 		datas = new ArrayList<Member>();
 		datas = db.getAllMember();
 		rows = new Object[datas.size()][4];
+		
 		int i = 0;
 		for (Member p : datas) {
 			rows[i][0] = p.getMemno(); 
 			rows[i][1] = p.getMemname();
-			rows[i][2] = p.getMemphone(); /// ���Ⱑ �����ϴ�  �Ʊ� Ŭ���Ҷ� ��� ���� ��
+			rows[i][2] = p.getMemphone(); 
 			rows[i][3] = p.getMemstamp();
 			i++;
 		}
 		
 		model = new DefaultTableModel(rows,colNames);
 		memberList = new JTable(model);
+		memberList.setRowHeight(30);
+		memberList.setFont(new Font("",Font.PLAIN,12));
+		memberList.getTableHeader().setFont(new Font("",Font.BOLD,15));
+		memberList.getTableHeader().setBackground(new Color(226, 240, 217));
 		JScrollPane memberListScroll = new JScrollPane(memberList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,	JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		memberListScroll.setSize(983,400);
+		memberListScroll.setSize(983,508);
 		memberListScroll.setLocation(12, 10);
 		
 		// ��ǰ �Է� �� 
 		contents = new JPanel();
-		contents.setLayout(new GridLayout(1,6,5,10));
-		contents.setSize(983,50);
-		contents.setLocation(12,420);
+		contents.setLayout(new GridLayout(3,2,5,5));
+		contents.setSize(660,140);
+		contents.setLocation(12,528);
 		contents.setBackground(Color.white);
 		
-		memberCode = new JLabel("ȸ����ȣ");
+		memberCode = new JLabel("회 원 번 호");
 		idxTxt = new JTextField();
-		memberName = new JLabel("�̸�");
+		memberName = new JLabel("이 름");
 		memNameTxt = new JTextField();
-		memberPhone = new JLabel("�޴��� ��ȣ");
+		memberPhone = new JLabel("휴 대 폰 번 호");
 		memPhoneTxt = new JTextField();
 
 		contents.add(memberCode);
@@ -89,14 +98,37 @@ public class MemberPanel extends JPanel{
 		contents.add(memPhoneTxt);
 		
 		// ��ư 
-		bottom  = new JPanel();
-		bottom.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		bottom.setSize(980,50);
-		bottom.setLocation(12,490);
-		insertBtn = new JButton("삽입");
-		updateBtn = new JButton("수정");
-		deleteBtn = new JButton("삭제");
+		bottom = new JPanel();
+		bottom.setLayout(null);
+		bottom.setSize(320, 80);
+		bottom.setLocation(680, 528);
+		bottom.setBackground(memberColor);
+	
+		h =0; w = 0;
+		insertBtn = new JButton(changeSize(new ImageIcon("./image/memAdd.png")));
+		insertBtn.setBackground(null);
+		insertBtn.setBorderPainted(false);
+		insertBtn.setFocusPainted(false);
+		insertBtn.setFocusable(false);
+		insertBtn.setSize(100, 80);
+		insertBtn.setLocation(w,h);
+			
+		w = w+100;
+		updateBtn = new JButton(changeSize(new ImageIcon("./image/memEdit.png")));
+		updateBtn.setBackground(null);
+		updateBtn.setBorderPainted(false);
+		updateBtn.setFocusPainted(false);
+		updateBtn.setSize(100, 80);
+		updateBtn.setLocation(w,h);
 		
+		w = w+110;
+		deleteBtn = new JButton(changeSize(new ImageIcon("./image/memDelete.png")));
+		deleteBtn.setBackground(null);
+		deleteBtn.setBorderPainted(false);
+		deleteBtn.setFocusPainted(false);
+		deleteBtn.setSize(100, 80);
+		deleteBtn.setLocation(w,h);
+
 		bottom.add(insertBtn);
 		bottom.add(updateBtn);
 		bottom.add(deleteBtn);
@@ -118,6 +150,12 @@ public class MemberPanel extends JPanel{
 	}
 	public void addMouseListener(MouseListener listener){
 		memberList.addMouseListener(listener);
+	}
+	ImageIcon changeSize(ImageIcon temp) {
+		Image tempImg = temp.getImage();
+		tempImg = tempImg.getScaledInstance(100, 80, java.awt.Image.SCALE_SMOOTH);
+		temp.setImage(tempImg);
+		return temp;
 	}
 
 }
