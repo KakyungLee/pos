@@ -1,10 +1,10 @@
 package pos_coffee;
 
 import java.awt.event.*;
-import java.util.ArrayList;
+import java.util.*;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.*;
 
 public class ProductController {
 	private DBDAO db;
@@ -78,19 +78,9 @@ public class ProductController {
 	}// ProductController
 
 	void refresh() { // do not working refresh;
-		pp.datas = new ArrayList<Product>();
-		pp.datas = db.getAllProduct();
-		pp.rows = new Object[pp.datas.size()][3];
-
-		int i = 0;
-		for (Product p : pp.datas) {
-			System.out.println(p.getProcode()+" "+p.getProname()+" "+p.getProprice());
-			pp.rows[i][0] = p.getProcode();
-			pp.rows[i][1] = p.getProname();
-			pp.rows[i][2] = p.getProprice();
-			i++;
-		}
-		pp.model.fireTableDataChanged();
+		Vector result = db.getAllProductS();
+		
+		pp.model.setDataVector(result, pp.colNames);;
 	}
 
 }// ProductController
