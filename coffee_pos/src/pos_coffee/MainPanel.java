@@ -6,20 +6,22 @@ import java.util.Vector;
 import javax.swing.*;
 
 public class MainPanel extends JPanel {
-	// ¸ŞÀÎ È­¸é
-	////// °¢Á¾ ÄÄÆ÷³ÍÆ® Á¤ÀÇ
+	
+	// ë©”ì¸ í™”ë©´
+	////// ê°ì¢… ì»´í¬ë„ŒíŠ¸ ì •ì˜
+	//ê° ì»´í¬ë„ŒíŠ¸ì˜ ì‹œì‘ì  ìœ„ì¹˜
 	private int startX = 10;
 	private int startY = 10;
 
-	private int panel_hight = 740;			//¸ŞÀÎÆĞ³ÎÀÇ ³ôÀÌ°ª
-	private int half_panel_width = 500;		//¸ŞÀÎÆĞ³ÎÀÇ ³ĞÀÌ 2µîºĞ °ª
+	private int panel_hight = 740;			//ë©”ì¸íŒ¨ë„ì˜ ë†’ì´ê°’
+	private int half_panel_width = 500;		//ë©”ì¸íŒ¨ë„ì˜ ë„“ì´ 2ë“±ë¶„ ê°’
 
-	// >>> ÁÂÃø ÆĞ³Î(»óÇ°¸®½ºÆ®, ¼±ÅÃ¹öÆ°, ¼¦Ãß°¡¹öÆ°, Á¦°Å¹öÆ°) Á¤ÀÇ
+	// >>> ì¢Œì¸¡ íŒ¨ë„(ìƒí’ˆë¦¬ìŠ¤íŠ¸, ì„ íƒë²„íŠ¼, ìƒ·ì¶”ê°€ë²„íŠ¼, ì œê±°ë²„íŠ¼) ì •ì˜
 	private int l_margin = 0;
-	private int l_gap = 10;
+	private int l_gap = 10;		//ì»´í¬ë„ŒíŠ¸ê°„ ê°„ê²©
 
 	protected JPanel mainLeftPanel;
-	protected JList productList;
+	protected JTable productList;
 	private int proList_width = half_panel_width - (startX * 2) - l_margin;		
 	private int proList_height = 540 - l_margin;
 
@@ -29,21 +31,21 @@ public class MainPanel extends JPanel {
 	protected JButton shotSelectBtn;
 	protected JButton removeBtn;
 
-	// >>> ¿ìÃøÆĞ³Î Á¤ÀÇ (¼±ÅÃµÈ »óÇ°¸®½ºÆ®, ÃÑ¾×, È¸¿ø, °áÁ¦ µî) Á¤ÀÇ
+	// >>> ìš°ì¸¡íŒ¨ë„ ì •ì˜ (ì„ íƒëœ ìƒí’ˆë¦¬ìŠ¤íŠ¸, ì´ì•¡, íšŒì›, ê²°ì œ ë“±) ì •ì˜
 	private int r_margin = 0;
 	private int r_gap = 10;
-	private int r_height = 370;		//ÀÌ ÆĞ³ÎÀÇ ³ôÀÌ
+	private int r_height = 370;		//ì´ íŒ¨ë„ì˜ ë†’ì´
 
 	protected JPanel mainRightPanel;
-	protected JList selectedProductList;
+	protected JTable selectedProductList;
 	private int selProList_width = half_panel_width - (startX * 2) - l_margin;
 	private int selProList_hight = 290 - r_margin;
-	private JLabel lbl1 = new JLabel("ÃÑ¾×");
-	protected JTextField pricelLbl; // °áÁ¦ÇÒ ÃÑ¾×
-	private JLabel lbl2 = new JLabel("¿ø");
+	private JLabel lbl1 = new JLabel("ì´ì•¡");
+	protected JTextField pricelLbl; // ê²°ì œí•  ì´ì•¡
+	private JLabel lbl2 = new JLabel("ì›");
 
 
-	// >>> ¿ìÃø È¸¿ø ÆĞ³Î Á¤ÀÇ (È¸¿ø¹øÈ£ ÀÔ·Â, È¸¿øÁ¤º¸ ¶óº§, ½ºÅÆÇÁ »ç¿ë ¹öÆ°)
+	// >>> ìš°ì¸¡ íšŒì› íŒ¨ë„ ì •ì˜ (íšŒì›ë²ˆí˜¸ ì…ë ¥, íšŒì›ì •ë³´ ë¼ë²¨, ìŠ¤íƒ¬í”„ ì‚¬ìš© ë²„íŠ¼)
 	private int m_margin = 0;
 	private int m_gap = 10;
 	private int m_height = (int)((panel_hight - r_height) * 0.48);
@@ -51,20 +53,20 @@ public class MainPanel extends JPanel {
 	private int m_RightWidth = (int) (half_panel_width * 0.3)- m_gap*2;
 		
 	protected JPanel memberPanel;
-	protected JTextField memberTxt; // Á¶È¸ÇÒ È¸¿ø ÈŞ´ëÆù¹øÈ£
-	protected JButton searchBtn; // ÇÚµåÆù ¹øÈ£·Î È¸¿ø Á¶È¸ -> ½ºÅÆÇÁ Àû¸³,
-	protected JTextArea memberinfoLbl; // È¸¿ø Á¶È¸½Ã È¸¿øÁ¤º¸ ³ªÅ¸³¿
-	protected JButton useStampBtn; // ½ºÅÆÇÁ »ç¿ë
+	protected JTextField memberTxt; // ì¡°íšŒí•  íšŒì› íœ´ëŒ€í°ë²ˆí˜¸
+	protected JButton searchBtn; // í•¸ë“œí° ë²ˆí˜¸ë¡œ íšŒì› ì¡°íšŒ -> ìŠ¤íƒ¬í”„ ì ë¦½,
+	protected JTextArea memberinfoLbl; // íšŒì› ì¡°íšŒì‹œ íšŒì›ì •ë³´ ë‚˜íƒ€ëƒ„
+	protected JButton useStampBtn; // ìŠ¤íƒ¬í”„ ì‚¬ìš©
 	
 	
-	// >>> ¿ìÃø °áÁ¦¹öÆ°, ÃÊ±âÈ­ ¹öÆ° ÆĞ³Î Á¤ÀÇ
+	// >>> ìš°ì¸¡ ê²°ì œë²„íŠ¼, ì´ˆê¸°í™” ë²„íŠ¼ íŒ¨ë„ ì •ì˜
 	private int p_height = (int)((panel_hight - r_height) * 0.52);
 	private int p_btnWidth = (half_panel_width - (m_gap *3)) /2 ;
 	private int p_btnHeight = 100;
 	
 	protected JPanel payPanel;
-	protected JButton clearBtn; // °áÁ¦¸®½ºÆ® ¹× È¸¿ø È­¸é Å¬¸®¾î
-	protected JButton paymentBtn; // °áÁ¦ ÁøÇà ¹× ¸ÅÃâ ¹ß»ı
+	protected JButton clearBtn; // ê²°ì œë¦¬ìŠ¤íŠ¸ ë° íšŒì› í™”ë©´ í´ë¦¬ì–´
+	protected JButton paymentBtn; // ê²°ì œ ì§„í–‰ ë° ë§¤ì¶œ ë°œìƒ
 	
 
 	private MainController mc;	
@@ -72,62 +74,62 @@ public class MainPanel extends JPanel {
 	MainPanel() {
 
 		
-		/*ÆùÆ® Á¤ÀÇ*/
-		Font listFont = new Font("¸¼Àº °íµñ", Font.PLAIN, 24);
-		Font priceFont = new Font("¸¼Àº °íµñ", Font.PLAIN, 28);
-		Font mInfoFont = new Font("¸¼Àº °íµñ", Font.PLAIN, 20);
+		/*í°íŠ¸ ì •ì˜*/
+		Font listFont = new Font("ë§‘ì€ ê³ ë”•", Font.PLAIN, 24);
+		Font priceFont = new Font("ë§‘ì€ ê³ ë”•", Font.PLAIN, 28);
+		Font mInfoFont = new Font("ë§‘ì€ ê³ ë”•", Font.PLAIN, 20);
 		
-		/* Å×½ºÆ®¿ë º¯¼ö */
+		/* í…ŒìŠ¤íŠ¸ìš© ë³€ìˆ˜ */
 		Vector<String> testVector;
 		testVector = new Vector<String>();
-		testVector.add("JListÅ×½ºÆ®¿ë¹éÅÍ");
-		testVector.add("JListÅ×½ºÆ®¿ë¹éÅÍ2");
-		/* Å×½ºÆ®¿ë º¯¼ö */
+		testVector.add("JListí…ŒìŠ¤íŠ¸ìš©ë°±í„°");
+		testVector.add("JListí…ŒìŠ¤íŠ¸ìš©ë°±í„°2");
+		/* í…ŒìŠ¤íŠ¸ìš© ë³€ìˆ˜ */
 
 		AppManager.createInstance().setMainPanel(this);
 		this.setLayout(null);
 		//this.setBackground(Color.yellow);
 
-		/////////////ÄÄÆ÷³ÍÆ® ±×¸®±â ½ÃÀÛ
-		// >>>> ÁÂÃøÆĞ³Î ±×¸®±â
+		/////////////ì»´í¬ë„ŒíŠ¸ ê·¸ë¦¬ê¸° ì‹œì‘
+		// >>>> ì¢Œì¸¡íŒ¨ë„ ê·¸ë¦¬ê¸°
 		mainLeftPanel = new JPanel();
 		//mainLeftPanel.setBackground(Color.CYAN);
 		mainLeftPanel.setBounds(0, 0, half_panel_width, panel_hight);
 		mainLeftPanel.setLayout(null);
 		this.add(mainLeftPanel);
-		productList = new JList();		//»óÇ° ¸®½ºÆ®
+		productList = new JTable();		//ìƒí’ˆ ë¦¬ìŠ¤íŠ¸
 		//productList.setBackground(Color.RED);	
-		productList.setFont(listFont);	//ÆùÆ® ¼³Á¤
+		productList.setFont(listFont);	//í°íŠ¸ ì„¤ì •
 		JScrollPane proListScroll = new JScrollPane(productList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		mainLeftPanel.add(proListScroll);
 		proListScroll.setVisible(true);
 		proListScroll.setBounds(startX, startY, proList_width, proList_height);
 
-		// ::¼±ÅÃ¹öÆ°
+		// ::ì„ íƒë²„íŠ¼
 		selectBtn = new JButton(changeSize (new ImageIcon("./image/main_selectBtn.png"),l_btnWidth , l_btnHight));
 		mainLeftPanel.add(selectBtn);
 		selectBtn.setBounds(startX, startY + proList_height + l_gap, l_btnWidth, l_btnHight);
 
-		// ::¼¦Ãß°¡¹öÆ°
+		// ::ìƒ·ì¶”ê°€ë²„íŠ¼
 		shotSelectBtn = new JButton(changeSize (new ImageIcon("./image/main_shotSelectBtn.png"),l_btnWidth , l_btnHight));
 		mainLeftPanel.add(shotSelectBtn);
 		shotSelectBtn.setBounds(startX + (l_btnWidth + l_gap), startY + proList_height + l_gap, l_btnWidth, l_btnHight);
 
-		// ::¼±ÅÃÃë¼Ò¹öÆ°
+		// ::ì„ íƒì·¨ì†Œë²„íŠ¼
 		removeBtn = new JButton(changeSize (new ImageIcon("./image/main_removeBtn.png"),l_btnWidth , l_btnHight));
 		mainLeftPanel.add(removeBtn);
 		removeBtn.setBounds(startX + (l_btnWidth + l_gap) * 2, startY + proList_height + l_gap, l_btnWidth, l_btnHight);
 
 		
-		// >>>> ¿ìÃø ÆĞ³Î
-		// >> ¼±ÅÃµÈ »óÇ° ¸®½ºÆ® & ÃÑ¾× ÆĞ³Î
+		// >>>> ìš°ì¸¡ íŒ¨ë„
+		// >> ì„ íƒëœ ìƒí’ˆ ë¦¬ìŠ¤íŠ¸ & ì´ì•¡ íŒ¨ë„
 		mainRightPanel = new JPanel();
 		//mainRightPanel.setBackground(Color.GRAY);
 		mainRightPanel.setBounds(half_panel_width, 0, half_panel_width, r_height);
 		mainRightPanel.setLayout(null);
 		this.add(mainRightPanel);
-		selectedProductList = new JList();	//¼±ÅÃµÈ »óÇ° ¸®½ºÆ®
+		selectedProductList = new JTable();	//ì„ íƒëœ ìƒí’ˆ ë¦¬ìŠ¤íŠ¸
 		//selectedProductList.setBackground(Color.RED);
 		selectedProductList.setFont(listFont);
 		JScrollPane proSelListScroll = new JScrollPane(selectedProductList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
@@ -136,75 +138,80 @@ public class MainPanel extends JPanel {
 		proSelListScroll.setVisible(true);
 		proSelListScroll.setBounds(startX, startY, selProList_width, selProList_hight);
 
-		mainRightPanel.add(lbl1);	//"ÃÑ¾×"
+		// :: ê²°ì œí•  ìµœì¢… ê¸ˆì•¡ ë¼ë²¨
+		mainRightPanel.add(lbl1);	//"ì´ì•¡"
 		lbl1.setBounds(startX, selProList_hight + r_gap*2, 150, 50);
 		lbl1.setFont(priceFont);
-
-		// :: °áÁ¦ÇÒ ÃÖÁ¾ ±İ¾× ¶óº§
-		pricelLbl = new JTextField("9999");	// ½ÇÁ¦ Ç¥½ÃµÇ´Â ±İ¾×
+		
+		pricelLbl = new JTextField("9999");	// ì‹¤ì œ í‘œì‹œë˜ëŠ” ê¸ˆì•¡
 		pricelLbl.setEditable(false);
 		mainRightPanel.add(pricelLbl);
 		pricelLbl.setBounds(250, selProList_hight + r_gap*2, 200, 50);
 		pricelLbl.setFont(priceFont);
 
-		mainRightPanel.add(lbl2);	// "¿ø"
+		mainRightPanel.add(lbl2);	// "ì›"
 		lbl2.setBounds(450, selProList_hight + r_gap*2, 150, 50);
 		lbl2.setFont(priceFont);
 
 		
-		// >> È¸¿ø Á¶È¸ & ½ºÅÆÇÁ »ç¿ë ÆĞ³Î
+		// >> íšŒì› ì¡°íšŒ & ìŠ¤íƒ¬í”„ ì‚¬ìš© íŒ¨ë„
 		memberPanel = new JPanel();
 		//memberPanel.setBackground(Color.orange);
 		memberPanel.setBounds(half_panel_width, r_height, half_panel_width, m_height);
 		memberPanel.setLayout(null);
 		this.add(memberPanel);
 		
-		memberTxt = new JTextField("È¸¿ø¹øÈ£ÀÔ·Â");
+		// :: íšŒì›ë²ˆí˜¸ ì…ë ¥ í…ìŠ¤íŠ¸í•„ë“œ
+		memberTxt = new JTextField("íšŒì›ë²ˆí˜¸ì…ë ¥");
 		memberTxt.setBounds(startX, startY, m_LeftWidth, 60);
 		memberTxt.setFont(priceFont);
 		memberPanel.add(memberTxt);
 		
+		// :: íšŒì› ê²€ìƒ‰ ë²„íŠ¼
 		searchBtn = new JButton(changeSize (new ImageIcon("./image/main_searchBtn.png"),m_RightWidth , 60));
 		searchBtn.setBounds(m_LeftWidth + m_gap*2, startY, m_RightWidth, 60);
 		memberPanel.add(searchBtn);
 		
-		// :: È¸¿øÁ¤º¸ Ç¥½Ã ÅØ½ºÆ®
+		// :: íšŒì›ì •ë³´ í‘œì‹œ í…ìŠ¤íŠ¸
 		memberinfoLbl = new JTextArea();
 		memberinfoLbl.setBounds(startX , 60 + m_gap*2 , m_LeftWidth, 90);
 		memberinfoLbl.setEditable(false);
 		memberinfoLbl.setFont(mInfoFont);
 		memberPanel.add(memberinfoLbl);
 		
+		// :: ìŠ¤íƒ¬í”„ ì‚¬ìš© ë²„íŠ¼
 		useStampBtn = new JButton(changeSize (new ImageIcon("./image/main_useStampBtn.png"),m_RightWidth , 90));
 		useStampBtn.setBounds(m_LeftWidth + m_gap*2, 60 + m_gap*2, m_RightWidth, 90);
 		memberPanel.add(useStampBtn);
 		
 		
-		// >> °áÁ¦ ¹öÆ° ÆĞ³Î
+		// >> ê²°ì œ ë²„íŠ¼ íŒ¨ë„
 		payPanel = new JPanel();
 		//payPanel.setBackground(Color.PINK);
 		payPanel.setBounds(half_panel_width, r_height + m_height, half_panel_width, p_height);
 		payPanel.setLayout(null);
 		this.add(payPanel);
 		
+		// :: ì´ˆê¸°í™” ë²„íŠ¼
 		clearBtn = new JButton(changeSize (new ImageIcon("./image/main_clearBtn.png"),p_btnWidth , p_btnHeight));
 		clearBtn.setBounds(startX, startY , p_btnWidth, p_btnHeight);
 		payPanel.add(clearBtn);
 		
+		// :: ê²°ì œ ë²„íŠ¼
 		paymentBtn = new JButton(changeSize (new ImageIcon("./image/main_paymentBtn.png"),p_btnWidth , p_btnHeight));
 		paymentBtn.setBounds(p_btnWidth + m_gap*2, startY , p_btnWidth, p_btnHeight);
 		payPanel.add(paymentBtn);
 
-		/////////////ÄÄÆ÷³ÍÆ® ±×¸®±â ³¡
+		/////////////ì»´í¬ë„ŒíŠ¸ ê·¸ë¦¬ê¸° ë
 		
 		
-		/*¿¹½Ã Å×½ºÆ®¿ë º¯¼ö*/
-		selectedProductList.setListData(testVector);
-		productList.setListData(testVector);
-		memberinfoLbl.append("ÀÌ¸§ : ±è¸ğ¾Æ\n");
-		memberinfoLbl.append("È¸¿ø¹øÈ£ : 01062838520\n");
-		memberinfoLbl.append("°¡¿ë ½ºÅÆÇÁ °¹¼ö : 10");
-		/*Å×½ºÆ®¿ë º¯¼ö*/
+		/*ì˜ˆì‹œ í…ŒìŠ¤íŠ¸ìš© ë³€ìˆ˜*/
+		//selectedProductList.setListData(testVector);
+		//productList.setListData(testVector);
+		memberinfoLbl.append("ì´ë¦„ : ê¹€ëª¨ì•„\n");
+		memberinfoLbl.append("íšŒì›ë²ˆí˜¸ : 01062838520\n");
+		memberinfoLbl.append("ê°€ìš© ìŠ¤íƒ¬í”„ ê°¯ìˆ˜ : 10");
+		/*í…ŒìŠ¤íŠ¸ìš© ë³€ìˆ˜*/
 		
 		
 		mc = AppManager.createInstance().getMainController();
