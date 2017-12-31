@@ -6,7 +6,7 @@ import java.util.Vector;
 import javax.swing.*;
 
 public class MainPanel extends JPanel {
-	
+
 	// 메인 화면
 	////// 각종 컴포넌트 정의
 	//각 컴포넌트의 시작점 위치
@@ -17,6 +17,7 @@ public class MainPanel extends JPanel {
 	private int half_panel_width = 500;		//메인패널의 넓이 2등분 값
 
 	// >>> 좌측 패널(상품리스트, 선택버튼, 샷추가버튼, 제거버튼) 정의
+
 	private int l_margin = 0;
 	private int l_gap = 10;		//컴포넌트간 간격
 
@@ -40,6 +41,7 @@ public class MainPanel extends JPanel {
 	protected JTable selectedProductList;
 	private int selProList_width = half_panel_width - (startX * 2) - l_margin;
 	private int selProList_hight = 290 - r_margin;
+
 	private JLabel lbl1 = new JLabel("총액");
 	protected JTextField pricelLbl; // 결제할 총액
 	private JLabel lbl2 = new JLabel("원");
@@ -67,13 +69,11 @@ public class MainPanel extends JPanel {
 	protected JPanel payPanel;
 	protected JButton clearBtn; // 결제리스트 및 회원 화면 클리어
 	protected JButton paymentBtn; // 결제 진행 및 매출 발생
-	
 
 	private MainController mc;	
 	
 	MainPanel() {
 
-		
 		/*폰트 정의*/
 		Font listFont = new Font("맑은 고딕", Font.PLAIN, 24);
 		Font priceFont = new Font("맑은 고딕", Font.PLAIN, 28);
@@ -86,27 +86,31 @@ public class MainPanel extends JPanel {
 		testVector.add("JList테스트용백터2");
 		/* 테스트용 변수 */
 
+
 		AppManager.createInstance().setMainPanel(this);
 		this.setLayout(null);
 		//this.setBackground(Color.yellow);
 
+
 		/////////////컴포넌트 그리기 시작
 		// >>>> 좌측패널 그리기
+
 		mainLeftPanel = new JPanel();
 		//mainLeftPanel.setBackground(Color.CYAN);
 		mainLeftPanel.setBounds(0, 0, half_panel_width, panel_hight);
 		mainLeftPanel.setLayout(null);
 		this.add(mainLeftPanel);
+
 		productList = new JTable();		//상품 리스트
 		//productList.setBackground(Color.RED);	
 		productList.setFont(listFont);	//폰트 설정
 		JScrollPane proListScroll = new JScrollPane(productList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
 		mainLeftPanel.add(proListScroll);
 		proListScroll.setVisible(true);
 		proListScroll.setBounds(startX, startY, proList_width, proList_height);
 
-		// ::선택버튼
 		selectBtn = new JButton(changeSize (new ImageIcon("./image/main_selectBtn.png"),l_btnWidth , l_btnHight));
 		mainLeftPanel.add(selectBtn);
 		selectBtn.setBounds(startX, startY + proList_height + l_gap, l_btnWidth, l_btnHight);
@@ -117,11 +121,11 @@ public class MainPanel extends JPanel {
 		shotSelectBtn.setBounds(startX + (l_btnWidth + l_gap), startY + proList_height + l_gap, l_btnWidth, l_btnHight);
 
 		// ::선택취소버튼
+
 		removeBtn = new JButton(changeSize (new ImageIcon("./image/main_removeBtn.png"),l_btnWidth , l_btnHight));
 		mainLeftPanel.add(removeBtn);
 		removeBtn.setBounds(startX + (l_btnWidth + l_gap) * 2, startY + proList_height + l_gap, l_btnWidth, l_btnHight);
 
-		
 		// >>>> 우측 패널
 		// >> 선택된 상품 리스트 & 총액 패널
 		mainRightPanel = new JPanel();
@@ -129,6 +133,7 @@ public class MainPanel extends JPanel {
 		mainRightPanel.setBounds(half_panel_width, 0, half_panel_width, r_height);
 		mainRightPanel.setLayout(null);
 		this.add(mainRightPanel);
+
 		selectedProductList = new JTable();	//선택된 상품 리스트
 		//selectedProductList.setBackground(Color.RED);
 		selectedProductList.setFont(listFont);
@@ -153,14 +158,13 @@ public class MainPanel extends JPanel {
 		lbl2.setBounds(450, selProList_hight + r_gap*2, 150, 50);
 		lbl2.setFont(priceFont);
 
-		
 		// >> 회원 조회 & 스탬프 사용 패널
 		memberPanel = new JPanel();
 		//memberPanel.setBackground(Color.orange);
 		memberPanel.setBounds(half_panel_width, r_height, half_panel_width, m_height);
 		memberPanel.setLayout(null);
 		this.add(memberPanel);
-		
+
 		// :: 회원번호 입력 텍스트필드
 		memberTxt = new JTextField("회원번호입력");
 		memberTxt.setBounds(startX, startY, m_LeftWidth, 60);
@@ -171,7 +175,7 @@ public class MainPanel extends JPanel {
 		searchBtn = new JButton(changeSize (new ImageIcon("./image/main_searchBtn.png"),m_RightWidth , 60));
 		searchBtn.setBounds(m_LeftWidth + m_gap*2, startY, m_RightWidth, 60);
 		memberPanel.add(searchBtn);
-		
+
 		// :: 회원정보 표시 텍스트
 		memberinfoLbl = new JTextArea();
 		memberinfoLbl.setBounds(startX , 60 + m_gap*2 , m_LeftWidth, 90);
@@ -183,7 +187,6 @@ public class MainPanel extends JPanel {
 		useStampBtn = new JButton(changeSize (new ImageIcon("./image/main_useStampBtn.png"),m_RightWidth , 90));
 		useStampBtn.setBounds(m_LeftWidth + m_gap*2, 60 + m_gap*2, m_RightWidth, 90);
 		memberPanel.add(useStampBtn);
-		
 		
 		// >> 결제 버튼 패널
 		payPanel = new JPanel();
@@ -211,8 +214,7 @@ public class MainPanel extends JPanel {
 		memberinfoLbl.append("이름 : 김모아\n");
 		memberinfoLbl.append("회원번호 : 01062838520\n");
 		memberinfoLbl.append("가용 스탬프 갯수 : 10");
-		/*테스트용 변수*/
-		
+		/*테스트용 변수*/		
 		
 		mc = AppManager.createInstance().getMainController();
 	}

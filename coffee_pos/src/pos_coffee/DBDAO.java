@@ -12,6 +12,8 @@ public class DBDAO {
 	Connection conn;
 	PreparedStatement pstmt;
 	ResultSet rs;
+	
+	Vector<String> salItems; // 판매 콤보작스
 
 	String sql;
 	
@@ -26,9 +28,10 @@ public class DBDAO {
 	void connectDB() {
 
 		try {
-			// JDBC 占쏙옙占쏙옙譴占� 占싸듸옙
+
+			// JDBC 드라이버 로드
 			Class.forName(jdbcDiver);
-			// 占쏙옙占쏙옙占싶븝옙占싱쏙옙 占쏙옙占쏙옙
+			// 데이터베이스 연결
 			conn = DriverManager.getConnection(jdbcUrl, dbID, dbPassword);
 			System.out.println(conn);
 		} catch (Exception e) {
@@ -38,7 +41,8 @@ public class DBDAO {
 
 	void closeDB() {
 		try {
-			// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
+
+			// 순차적 연결 해제
 			pstmt.close();
 			rs.close();
 			conn.close();
@@ -48,19 +52,20 @@ public class DBDAO {
 
 	}
 
-	// 占쏙옙占� 占쏙옙占쏙옙占싶몌옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쌉쇽옙
+
+	// 모든 데이터를 가져오는 함수
 	public ArrayList<Product> getAllProduct() {
-		// 占쏙옙품占쏙옙占쏙옙트 占쏙옙占쏙옙占쏙옙占쏙옙
+		// 상품리스트 가져오기
 		sql = "select * from product";
 
-		// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 arraylist
+		// 데이터 전달 arrayList
 		ArrayList<Product> datas = new ArrayList<Product>();
 
 		try {
-			// statement 占쏙옙占쏙옙
+			// statement 생성
 			pstmt = conn.prepareStatement(sql);
 
-			// sql 占쏙옙 占쏙옙占쏙옙 占쏙옙 占쌨아울옙占쏙옙
+			// sql 문 전송 및 받아오기
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 
@@ -76,40 +81,6 @@ public class DBDAO {
 		}
 
 		return datas;
-	}
-	
-	//Shim에서 만든겁니다.
-	public Vector getAllProductS() {
-		// 占쏙옙품占쏙옙占쏙옙트 占쏙옙占쏙옙占쏙옙占쏙옙
-		sql = "select * from product";
-		
-		pp.datas.clear();
-
-
-		try {
-		pstmt = conn.prepareStatement(sql);
-
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				Vector in = new Vector<String>();
-				
-				int Code = rs.getInt("procode");
-				String Name = rs.getString("proname");
-				String Price = rs.getString("proprice");
-
-				String CString = Code + "";
-				in.add(CString);
-				in.add(Name);
-				in.add(Price);
-				
-				pp.datas.add(in);
-			}
-
-		} catch (Exception e) {
-			e.getStackTrace();
-		}
-
-		return pp.datas;
 	}
 
 	public ArrayList<Member> getAllMember() {
@@ -144,12 +115,12 @@ public class DBDAO {
 	}
 
 	public ArrayList<Sale> getAllSale() {
-		// 占쏙옙占쏙옙 占쏙옙占쏙옙트
-		sql = "select * from sale";
-
+		sql = "select date_format(saldate,'%Y-%m-%d'),salno, memphone,totalprice,stamp from sale";
 		// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 arraylist
 		ArrayList<Sale> datas = new ArrayList<Sale>();
-
+		
+		salItems = new Vector<String>();
+		salItems.add("날짜");
 
 		try {
 			// statement 占쏙옙占쏙옙
@@ -166,6 +137,12 @@ public class DBDAO {
 				s.setTotalprice(rs.getInt("totalprice"));
 				s.setStamp(rs.getInt("stamp"));
 				datas.add(s);
+				if(salItems.lastElement().equals(s.getSaldate())) {
+					
+				}else {
+					salItems.add(s.getSaldate());
+				}
+				
 			}
 
 		} catch (Exception e) {
@@ -220,9 +197,31 @@ public class DBDAO {
 		System.out.println(m.toString());
 		return m;
 	}
+	public Member getMemberPhone(String phone) {
+		sql = "select * from member where memphone = ?";
+		Member m = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, phone);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				m = new Member();
+				m.setMemno(rs.getInt("memno"));
+				m.setMemphone(rs.getString("memphone"));
+				m.setMemname(rs.getString("memname"));
+				m.setMemstamp(rs.getInt("memstamp"));
+			}
+
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		System.out.println(m.toString());
+		return m;
+	}
 
 	public Sale getSale(int salno) {
-		sql = "select * from sale where salno = ? ";
+		sql = "select date_format(saldate,'%Y-%m-%d'),salno, memphone,totalprice,stamp from sale where salno ?";
 		Sale s = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -399,6 +398,10 @@ public class DBDAO {
 		} else {
 			return false;
 		}
+	}
+	
+	Vector<String> getSalItems() {
+		return salItems;
 	}
 
 
