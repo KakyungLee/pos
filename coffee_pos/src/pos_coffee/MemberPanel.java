@@ -31,41 +31,54 @@ public class MemberPanel extends JPanel{
 	//////////// bottom
 	JPanel bottom;
 
-	JButton insertUpdateBtn;
+	JButton insertBtn;
+	JButton updateBtn;
 	JButton deleteBtn;
 	
 	public MemberPanel() {
 		AppManager.createInstance().setMemberPanel(this);
 		db = AppManager.createInstance().getDao();
-		mc = AppManager.createInstance().getMemberController();
+		//mc = AppManager.createInstance().getMemberController();
 		this.setLayout(null);
 		this.setSize(1024,720);
 		
-		// »óÇ° ¸ñ·Ï		
-		colNames = new Object[3];
-		colNames[0] = "È¸¿ø¹øÈ£";
-		colNames[1] = "ÀÌ¸§";
-		colNames[2] = "ÈŞ´ëÆù ¹øÈ£";
+		// ï¿½ï¿½Ç° ï¿½ï¿½ï¿½		
+		colNames = new Object[4];
+		colNames[0] = "íšŒì›ë²ˆí˜¸";
+		colNames[1] = "ì´ë¦„";
+		colNames[2] = "íœ´ëŒ€í°ë²ˆí˜¸";
+		colNames[3] = "ìŠ¤íƒ¬í”„";
 		
 		datas = new ArrayList<Member>();
+		datas = db.getAllMember();
+		rows = new Object[datas.size()][4];
+		int i = 0;
+		for (Member p : datas) {
+			rows[i][0] = p.getMemno(); 
+			rows[i][1] = p.getMemname();
+			rows[i][2] = p.getMemphone(); /// ï¿½ï¿½ï¿½â°¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½  ï¿½Æ±ï¿½ Å¬ï¿½ï¿½ï¿½Ò¶ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+			rows[i][3] = p.getMemstamp();
+			i++;
+		}
 		
 		model = new DefaultTableModel(rows,colNames);
 		memberList = new JTable(model);
-		memberList.setSize(983,400);
-		memberList.setLocation(12, 10);
+		JScrollPane memberListScroll = new JScrollPane(memberList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,	JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		memberListScroll.setSize(983,400);
+		memberListScroll.setLocation(12, 10);
 		
-		// »óÇ° ÀÔ·Â Æû 
+		// ï¿½ï¿½Ç° ï¿½Ô·ï¿½ ï¿½ï¿½ 
 		contents = new JPanel();
 		contents.setLayout(new GridLayout(1,6,5,10));
 		contents.setSize(983,50);
 		contents.setLocation(12,420);
 		contents.setBackground(Color.white);
 		
-		memberCode = new JLabel("È¸¿ø¹øÈ£");
+		memberCode = new JLabel("È¸ï¿½ï¿½ï¿½ï¿½È£");
 		idxTxt = new JTextField();
-		memberName = new JLabel("ÀÌ¸§");
+		memberName = new JLabel("ï¿½Ì¸ï¿½");
 		memNameTxt = new JTextField();
-		memberPhone = new JLabel("ÈŞ´ëÆù ¹øÈ£");
+		memberPhone = new JLabel("ï¿½Ş´ï¿½ï¿½ï¿½ ï¿½ï¿½È£");
 		memPhoneTxt = new JTextField();
 
 		contents.add(memberCode);
@@ -75,28 +88,32 @@ public class MemberPanel extends JPanel{
 		contents.add(memberPhone);
 		contents.add(memPhoneTxt);
 		
-		// ¹öÆ° 
+		// ï¿½ï¿½Æ° 
 		bottom  = new JPanel();
 		bottom.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		bottom.setSize(980,50);
 		bottom.setLocation(12,490);
-		insertUpdateBtn = new JButton("Ãß°¡/¼öÁ¤");
-		deleteBtn = new JButton("Å»Åğ");
+		insertBtn = new JButton("ì‚½ì…");
+		updateBtn = new JButton("ìˆ˜ì •");
+		deleteBtn = new JButton("ì‚­ì œ");
 		
-		bottom.add(insertUpdateBtn);
+		bottom.add(insertBtn);
+		bottom.add(updateBtn);
 		bottom.add(deleteBtn);
 		
 		
 		///////////add
-		this.add(memberList);
+		this.add(memberListScroll);
 		this.add(contents);
 		this.add(bottom);
 		
 		mc = new MemberController();
-		mc.refresh();		
+		mc.refresh();
+
 	}
 	void addButtonActionListener(ActionListener listener) {
-		insertUpdateBtn.addActionListener(listener);
+		insertBtn.addActionListener(listener);
+		updateBtn.addActionListener(listener);
 		deleteBtn.addActionListener(listener);
 	}
 	public void addMouseListener(MouseListener listener){

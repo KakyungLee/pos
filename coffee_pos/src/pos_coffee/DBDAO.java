@@ -13,10 +13,6 @@ public class DBDAO {
 	PreparedStatement pstmt;
 	ResultSet rs;
 
-	Vector<String> proItems; // »óÇ° ÄÞº¸¹Ú½º
-	Vector<String> memItems; // »ç¿ëÀÚ ÄÞº¸¹Ú½º
-	Vector<String> salItems; // ÆÇ¸Å ÄÞº¸ÀÛ½º
-
 	String sql;
 
 	public DBDAO() {
@@ -27,9 +23,9 @@ public class DBDAO {
 	void connectDB() {
 
 		try {
-			// JDBC µå¶óÀÌ¹ö ·Îµå
+			// JDBC ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ ï¿½Îµï¿½
 			Class.forName(jdbcDiver);
-			// µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			conn = DriverManager.getConnection(jdbcUrl, dbID, dbPassword);
 			System.out.println(conn);
 		} catch (Exception e) {
@@ -39,7 +35,7 @@ public class DBDAO {
 
 	void closeDB() {
 		try {
-			// ¼øÂ÷Àû ¿¬°á ÇØÁ¦
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			pstmt.close();
 			rs.close();
 			conn.close();
@@ -49,22 +45,19 @@ public class DBDAO {
 
 	}
 
-	// ¸ðµç µ¥ÀÌÅÍ¸¦ °¡Á®¿À´Â ÇÔ¼ö
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 	public ArrayList<Product> getAllProduct() {
-		// »óÇ°¸®½ºÆ® °¡Á®¿À±â
+		// ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		sql = "select * from product";
 
-		// µ¥ÀÌÅÍ Àü´Þ arraylist
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ arraylist
 		ArrayList<Product> datas = new ArrayList<Product>();
 
-		proItems = new Vector<String>();
-		proItems.add("ÀüÃ¼");
-
 		try {
-			// statement »ý¼º
+			// statement ï¿½ï¿½ï¿½ï¿½
 			pstmt = conn.prepareStatement(sql);
 
-			// sql ¹® Àü¼Û ¹× ¹Þ¾Æ¿À±â
+			// sql ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 
@@ -73,8 +66,6 @@ public class DBDAO {
 				p.setProname(rs.getString("proname"));
 				p.setProprice(rs.getInt("proprice"));
 				datas.add(p);
-				System.out.println(p.toString());
-				proItems.add(p.getProcode() + "");
 			}
 
 		} catch (Exception e) {
@@ -85,20 +76,17 @@ public class DBDAO {
 	}
 
 	public ArrayList<Member> getAllMember() {
-		// È¸¿ø ¸®½ºÆ® °¡Á®¿À±â
+		// È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		sql = "select * from member";
 
-		// µ¥ÀÌÅÍ Àü´Þ arraylist
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ arraylist
 		ArrayList<Member> datas = new ArrayList<Member>();
 
-		memItems = new Vector<String>();
-		memItems.add("ÀüÃ¼");
-
 		try {
-			// statement »ý¼º
+			// statement ï¿½ï¿½ï¿½ï¿½
 			pstmt = conn.prepareStatement(sql);
 
-			// sql ¹® Àü¼Û ¹× ¹Þ¾Æ¿À±â
+			// sql ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 
@@ -109,7 +97,6 @@ public class DBDAO {
 				m.setMemstamp(rs.getInt("memstamp"));
 				datas.add(m);
 				System.out.println(m.toString());
-				memItems.add(m.getMemno() + "");
 			}
 
 		} catch (Exception e) {
@@ -120,20 +107,18 @@ public class DBDAO {
 	}
 
 	public ArrayList<Sale> getAllSale() {
-		// ¸ÅÃâ ¸®½ºÆ®
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 		sql = "select * from sale";
 
-		// µ¥ÀÌÅÍ Àü´Þ arraylist
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ arraylist
 		ArrayList<Sale> datas = new ArrayList<Sale>();
 
-		salItems = new Vector<String>();
-		salItems.add("ÀüÃ¼");
 
 		try {
-			// statement »ý¼º
+			// statement ï¿½ï¿½ï¿½ï¿½
 			pstmt = conn.prepareStatement(sql);
 
-			// sql ¹® Àü¼Û ¹× ¹Þ¾Æ¿À±â
+			// sql ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 
@@ -144,8 +129,6 @@ public class DBDAO {
 				s.setTotalprice(rs.getInt("totalprice"));
 				s.setStamp(rs.getInt("stamp"));
 				datas.add(s);
-				System.out.println(s.toString());
-				salItems.add(s.getSalno() + "");
 			}
 
 		} catch (Exception e) {
@@ -155,55 +138,13 @@ public class DBDAO {
 		return datas;
 	}
 
-	// ÇÏ³ªÀÇ µ¥ÀÌÅÍ¸¦ °¡Á®¿À´Â ÇÔ¼ö
+	// ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 	public Product getProduct(int procode) {
 		sql = "select * from product where procode = ?";
 		Product p = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, procode);
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				p = new Product();
-				p.setProcode(rs.getInt("procode"));
-				p.setProname(rs.getString("proname"));
-				p.setProprice(rs.getInt("proprice"));
-			}
-
-		} catch (Exception e) {
-			e.getStackTrace();
-		}
-		System.out.println(p.toString());
-		return p;
-	}
-	public Product getNameProduct(String Name) {
-		sql = "select * from product where procode = ?";
-		Product p = null;
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, Name);
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				p = new Product();
-				p.setProcode(rs.getInt("procode"));
-				p.setProname(rs.getString("proname"));
-				p.setProprice(rs.getInt("proprice"));
-			}
-
-		} catch (Exception e) {
-			e.getStackTrace();
-		}
-		System.out.println(p.toString());
-		return p;
-	}
-	public Product getPriceProduct(String Name) {
-		sql = "select * from product where proprice = ?";
-		Product p = null;
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, Name);
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
@@ -226,50 +167,6 @@ public class DBDAO {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, memno);
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				m = new Member();
-				m.setMemno(rs.getInt("memno"));
-				m.setMemphone(rs.getString("memphone"));
-				m.setMemname(rs.getString("memname"));
-				m.setMemstamp(rs.getInt("memstamp"));
-			}
-
-		} catch (Exception e) {
-			e.getStackTrace();
-		}
-		System.out.println(m.toString());
-		return m;
-	}
-	public Member getNameMember(String Name) {
-		sql = "select * from member where memname = ?";
-		Member m = null;
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, Name);
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				m = new Member();
-				m.setMemno(rs.getInt("memno"));
-				m.setMemphone(rs.getString("memphone"));
-				m.setMemname(rs.getString("memname"));
-				m.setMemstamp(rs.getInt("memstamp"));
-			}
-
-		} catch (Exception e) {
-			e.getStackTrace();
-		}
-		System.out.println(m.toString());
-		return m;
-	}
-	public Member getPhoneMember(String Name) {
-		sql = "select * from member where memphone = ?";
-		Member m = null;
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, Name);
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
@@ -311,14 +208,14 @@ public class DBDAO {
 		return s;
 	}
 
-	// µ¥ÀÌÅÍ¸¦ »ðÀÔÇÏ´Â ÇÔ¼ö
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
 	boolean newProduct(Product product) {
 		sql = "insert into product(proname,proprice) values(?,?)";
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, product.getProname()); // 1¹ø ?¿¡ °ªÀ» ³Ö´Â´Ù.
-			pstmt.setInt(2, product.getProprice()); // 2¹ø ?¿¡ °ªÀ» ³Ö´Â´Ù.
+			pstmt.setString(1, product.getProname()); // 1ï¿½ï¿½ ?ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
+			pstmt.setInt(2, product.getProprice()); // 2ï¿½ï¿½ ?ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -336,8 +233,8 @@ public class DBDAO {
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, member.getMemphone()); // 1¹ø ?¿¡ °ªÀ» ³Ö´Â´Ù.
-			pstmt.setString(2, member.getMemname()); // 2¹ø ?¿¡ °ªÀ» ³Ö´Â´Ù.
+			pstmt.setString(1, member.getMemphone()); // 1ï¿½ï¿½ ?ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
+			pstmt.setString(2, member.getMemname()); // 2ï¿½ï¿½ ?ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -355,9 +252,9 @@ public class DBDAO {
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, sale.getMemphone()); // 1¹ø ?¿¡ °ªÀ» ³Ö´Â´Ù.
-			pstmt.setInt(2, sale.getTotalprice()); // 2¹ø ?¿¡ °ªÀ» ³Ö´Â´Ù.
-			pstmt.setInt(3, sale.getStamp()); // 3¹ø ?¿¡ °ªÀ» ³Ö´Â´Ù.
+			pstmt.setString(1, sale.getMemphone()); // 1ï¿½ï¿½ ?ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
+			pstmt.setInt(2, sale.getTotalprice()); // 2ï¿½ï¿½ ?ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
+			pstmt.setInt(3, sale.getStamp()); // 3ï¿½ï¿½ ?ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -370,15 +267,15 @@ public class DBDAO {
 		}
 	}
 
-	// µ¥ÀÌÅÍ¸¦ ¼öÁ¤ÇÏ´Â ÇÔ¼ö
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
 	boolean updateProduct(Product product) {
-		sql = "update product set prname =?, price =? where prcode =?";
+		sql = "update product set proname =?, proprice =? where procode =?";
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, product.getProname()); // 1¹ø ?¿¡ °ªÀ» ³Ö´Â´Ù.
-			pstmt.setInt(2, product.getProprice()); // 2¹ø ?¿¡ °ªÀ» ³Ö´Â´Ù.
-			pstmt.setInt(3, product.getProcode()); // 3¹ø ?¿¡ °ªÀ» ³Ö´Â´Ù.
+			pstmt.setString(1, product.getProname()); // 1ï¿½ï¿½ ?ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
+			pstmt.setInt(2, product.getProprice()); // 2ï¿½ï¿½ ?ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
+			pstmt.setInt(3, product.getProcode()); // 3ï¿½ï¿½ ?ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -392,14 +289,14 @@ public class DBDAO {
 	}
 
 	boolean updateMember(Member member) {
-		sql = "update member set memphone =?, memname =?, memstamep =? where memphone =?";
+		sql = "update member set memphone =?, memname =?, memstamp =? where memno =?";
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, member.getMemphone()); // 1¹ø ?¿¡ °ªÀ» ³Ö´Â´Ù.
-			pstmt.setString(2, member.getMemname()); // 2¹ø ?¿¡ °ªÀ» ³Ö´Â´Ù.
+			pstmt.setString(1, member.getMemphone()); // 1ï¿½ï¿½ ?ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
+			pstmt.setString(2, member.getMemname()); // 2ï¿½ï¿½ ?ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
 			pstmt.setInt(3, member.getMemstamp());
-			pstmt.setString(4, member.getMemphone());
+			pstmt.setInt(4, member.getMemno());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -412,7 +309,7 @@ public class DBDAO {
 		}
 	}
 
-	// µ¥ÀÌÅÍ¸¦ »èÁ¦ÇÏ´Â ÇÔ¼ö
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
 	boolean delProduct(int procode) {
 		sql = "delete from product where procode = ?";
 		int result = 0;
@@ -467,17 +364,6 @@ public class DBDAO {
 		}
 	}
 
-	// comboBox¿¡ ³Ö´Â µ¥ÀÌÅÍ
-	Vector<String> getProItems() {
-		return proItems;
-	}
 
-	Vector<String> getMemItems() {
-		return memItems;
-	}
-
-	Vector<String> getSalItems() {
-		return salItems;
-	}
 
 }

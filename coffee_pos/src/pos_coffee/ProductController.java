@@ -1,7 +1,10 @@
 package pos_coffee;
 
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class ProductController {
 	private DBDAO db;
@@ -11,8 +14,6 @@ public class ProductController {
 	int col;
 	Object value;
 
-	boolean flag = true;
-
 	public ProductController() {
 		AppManager.createInstance().setProductController(this);
 		db = AppManager.createInstance().getDao();
@@ -20,26 +21,25 @@ public class ProductController {
 
 		pp.addButtonActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Object obj = e.getSource();
-				refresh();
-				if (obj == pp.insertUpdateBtn) {
-					if (flag == true) {// »ðÀÔ
-						Product p = null;
-						p.setProname(pp.proNameTxt.getText());
-						p.setProprice(Integer.parseInt(pp.proPriceTxt.getText()));
-
-						db.newProduct(p);
-					} else {// ¼öÁ¤
-						Product p = null;
-						p.setProcode(Integer.parseInt((String) pp.proCodeTxt.getText()));
-						p.setProname(pp.proNameTxt.getText());
-						p.setProprice(Integer.parseInt(pp.proPriceTxt.getText()));
-
-						db.updateProduct(p);
-					}
+				Object obj = e.getSource();				
+				
+				if (obj == pp.insertBtn) {
+					Product p = null;
+					p = new Product();
+					p.setProname(pp.proNameTxt.getText());
+					p.setProprice(Integer.parseInt(pp.proPriceTxt.getText()));
+					db.newProduct(p);			
+				}
+				if(obj == pp.updateBtn) {
+					Product p = null;
+					p = new Product();
+					p.setProcode(Integer.parseInt(pp.proCodeTxt.getText()));
+					p.setProname(pp.proNameTxt.getText());
+					p.setProprice(Integer.parseInt(pp.proPriceTxt.getText()));
+					db.updateProduct(p);
 				}
 				if (obj == pp.deleteBtn) {
-					db.delMember(Integer.parseInt(pp.proCodeTxt.getText()));
+					db.delProduct(Integer.parseInt(pp.proCodeTxt.getText()));
 				}
 				System.out.println("TEST");
 				refresh();
@@ -50,25 +50,16 @@ public class ProductController {
 		});
 
 		pp.addMouseListener(new MouseListener() {
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				flag = false;
 				JTable obj = (JTable) e.getSource();
+				
 				row = obj.getSelectedRow();
 				col = obj.getSelectedColumn();
-				value = obj.getValueAt(row, col);
-				Product p = null;
-				if (col == 0) {
-					p = db.getProduct(Integer.parseInt(pp.proCodeTxt.getText()));
-				} else if (col == 1) {
-					p = db.getNameProduct(pp.proNameTxt.getText());
-				} else if (col == 2) {
-					p = db.getPriceProduct(pp.proPriceTxt.getText());
-				}
-
-				pp.proCodeTxt.setText(p.getProcode() + "");
-				pp.proNameTxt.setText(p.getProname());
-				pp.proPriceTxt.setText(p.getProprice() + "");
+				pp.proCodeTxt.setText(obj.getValueAt(row, 0)+"");
+				pp.proNameTxt.setText(obj.getValueAt(row, 1)+"");
+				pp.proPriceTxt.setText(obj.getValueAt(row, 2) + "");
 			}
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
@@ -86,19 +77,20 @@ public class ProductController {
 
 	}// ProductController
 
-	void refresh() {
-
+	void refresh() { // do not working refresh;
+		pp.datas = new ArrayList<Product>();
 		pp.datas = db.getAllProduct();
+		pp.rows = new Object[pp.datas.size()][3];
 
 		int i = 0;
 		for (Product p : pp.datas) {
+			System.out.println(p.getProcode()+" "+p.getProname()+" "+p.getProprice());
 			pp.rows[i][0] = p.getProcode();
 			pp.rows[i][1] = p.getProname();
 			pp.rows[i][2] = p.getProprice();
 			i++;
 		}
 		pp.model.fireTableDataChanged();
-
 	}
 
 }// ProductController
