@@ -5,12 +5,12 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class TabPanel extends JPanel{
-	//»ó´Ü ÅÇ ÆÐ³Î	
-	protected JButton mainBtn; //¸ÅÀÎ ÆÐ³Î ÀÌµ¿ 
-	protected JButton productBtn;//»óÇ°°ü¸® ÆÐ³Î·Î ÀÌµ¿
-	protected JButton memberBtn; //È¸¿ø°ü¸® ÆÐ³Î·Î ÀÌµ¿
-	protected JButton salesBtn; //¸ÅÃâ°ü¸® ÆÐ³Î·Î ÀÌµ¿
-	protected DigitalClock dataClockLbl;//³¯Â¥¿Í ½Ã°£ Ç¥½Ã
+	//ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ð³ï¿½	
+	protected JButton mainBtn; //ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ ï¿½Ìµï¿½ 
+	protected JButton productBtn;//ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³Î·ï¿½ ï¿½Ìµï¿½
+	protected JButton memberBtn; //È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³Î·ï¿½ ï¿½Ìµï¿½
+	protected JButton salesBtn; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³Î·ï¿½ ï¿½Ìµï¿½
+	protected DigitalClock dataClockLbl;//ï¿½ï¿½Â¥ï¿½ï¿½ ï¿½Ã°ï¿½ Ç¥ï¿½ï¿½
 	
 	private ButtonController bc;
 	
@@ -22,7 +22,7 @@ public class TabPanel extends JPanel{
 		this.setBackground(Color.WHITE);
 		
 		int w = -2; int h = 0;
-		mainBtn = new JButton(changeSize(new ImageIcon("./image/mainButton.png")));	//¸ÞÀÎÆÐ³Î·Î ÀÌµ¿
+		mainBtn = new JButton(changeSize(new ImageIcon("./image/mainButton.png")));	//ï¿½ï¿½ï¿½ï¿½ï¿½Ð³Î·ï¿½ ï¿½Ìµï¿½
 		mainBtn.setBackground(null);
 		mainBtn.setBorderPainted(false);
 		mainBtn.setFocusPainted(false);
@@ -69,7 +69,7 @@ public class TabPanel extends JPanel{
 	}
 	
 	ImageIcon changeSize(ImageIcon temp) {
-		Image tempImg = temp.getImage();// imageiconÀ» image·Î º¯È¯
+		Image tempImg = temp.getImage();// imageiconï¿½ï¿½ imageï¿½ï¿½ ï¿½ï¿½È¯
 		if(temp.getIconWidth()==610){
 			tempImg = tempImg.getScaledInstance(228, 74, java.awt.Image.SCALE_SMOOTH);
 		}else {
