@@ -3,27 +3,28 @@ import java.awt.*;
 import javax.swing.*;
 
 public class SalesPanel extends JPanel{
-	// ³¯Â¥ panel
+	private SellController sc;
+	private DBDAO db;
+	// ï¿½ï¿½Â¥ panel
 	JPanel top;
 	JLabel dateLabel;
 	JComboBox dateCombo;
 	JButton dateSelectBtn;
 	
-	// »óÇ°¸ñ·Ï
-	JList salesList;
+	// ï¿½ï¿½Ç°ï¿½ï¿½ï¿½
+	JTable salesList;
 	
-	// ÃÑ¾× panel
+	// ï¿½Ñ¾ï¿½ panel
 	JPanel center;
 	JLabel salesAccountLbl;
 	JLabel won;
 	
-	// ¼±ÅÃÃ¢ panel
+	// ï¿½ï¿½ï¿½ï¿½Ã¢ panel
 	JPanel bottom;
-	JButton salesSelectBtn;
 	JPanel selectedSalesPan;
 	JButton refundBtn;
 	
-	// ¼±ÅÃ Á¤º¸ º¸¿©ÁÖ´Â Ã¢
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ Ã¢
 	JLabel date;
 	JLabel selDate;
 	JLabel member;
@@ -32,95 +33,95 @@ public class SalesPanel extends JPanel{
 	JLabel selPrice;
 	JLabel stamp;
 	JLabel selStamp;
-	
-	
+	////////////////////
+	Color salesColor;
+	int w, h;
 
 	SalesPanel(){
 		AppManager.createInstance().setSalesPanel(this);
-		
-		this.setBackground(Color.MAGENTA);
-		this.setSize(1024, 720);
+		db = AppManager.createInstance().getDao();
 		this.setLayout(null);
-		
-		int w = 5;
-		int h = 5;
-		// ³¯Â¥ panel
+		this.setSize(1024, 720);
+		salesColor = new Color(91,155, 213);
+		this.setBackground(salesColor);
+
+		// ë‚ ì§œ í˜ë„ ì„¤ì •
 		top = new JPanel();
 		top.setLayout(new FlowLayout(FlowLayout.LEFT));
-		top.setSize(998,50);
+		top.setSize(983,80);
 		top.setBackground(Color.white);
-		top.setLocation(w, h);
-		h = h+55;
-		
-		dateLabel = new JLabel("³¯Â¥");
+		top.setLocation(12, 10);
+
+		dateLabel = new JLabel("ë‚  ì§œ");
 		top.add(dateLabel);
 		
 		dateCombo = new JComboBox();
 		top.add(dateCombo);
 		
-		dateSelectBtn = new JButton("³¯Â¥ ¼±ÅÃ");
+		dateSelectBtn = new JButton("ê¸° ë¡ ì¡° íšŒ");
 		top.add(dateSelectBtn);
 		
-		//»óÇ° ¸ñ·Ï
-		salesList = new JList();
-		salesList.setSize(998,400);
-		salesList.setBackground(Color.white);
-		salesList.setLocation(w, h);
-		h = h+405;
+		//ê¸°ë¡ ë¦¬ìŠ¤íŠ¸
+		salesList = new JTable();
+		salesList.setRowHeight(30);
+		salesList.setFont(new Font("",Font.PLAIN,12));
+		salesList.getTableHeader().setFont(new Font("",Font.BOLD,15));
+		salesList.getTableHeader().setBackground(new Color(225, 235, 247));
+		JScrollPane salesListScroll = new JScrollPane(salesList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,	JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		salesListScroll.setSize(983,400);
+		salesListScroll.setLocation(12, 100);
+
 		
-		//ÃÑ¾× panel
+		//ì´ì•¡ í˜ë„
 		center = new JPanel();
 		center.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		center.setSize(998,50);
-		center.setBackground(Color.white);
-		center.setLocation(w, h);
-		h = h+55;
+		center.setSize(983,30);
+		center.setBackground(salesList.getTableHeader().getBackground());
+		center.setLocation(12, 500);
 		
 		salesAccountLbl = new JLabel("0");
+		
 		center.add(salesAccountLbl);
 		
-		won = new JLabel("¿ø");
+		won = new JLabel("   ì›   ");
 		center.add(won);
 		
-		// ¼±ÅÃÃ¢ panel
+		// ë²„íŠ¼ í˜ë„ 
 		bottom = new JPanel();
 		bottom.setLayout(new BorderLayout(50,50));
-		bottom.setSize(998,155);
+		bottom.setSize(983,155);
 		bottom.setBackground(Color.white);
-		bottom.setLocation(w, h);
-		h = h+55;
-		
-		salesSelectBtn = new JButton("¼±ÅÃ");
-		bottom.add(salesSelectBtn,BorderLayout.WEST);
-		
+		bottom.setLocation(12, 540);
+
+
 		selectedSalesPan = new JPanel();
 		selectedSalesPan.setLayout(new GridLayout(4,2));
 		selectedSalesPan.setBackground(Color.white);
 		bottom.add(selectedSalesPan, BorderLayout.CENTER);
 		
-		refundBtn = new JButton("È¯ºÒ");
+		refundBtn = new JButton("È¯ï¿½ï¿½");
 		bottom.add(refundBtn,BorderLayout.EAST);
 		
-		// ¼±ÅÃ Á¤º¸ º¸¿©ÁÖ´Â Ã¢
-		date = new JLabel("ÀÏ ÀÚ");
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ Ã¢
+		date = new JLabel("ï¿½ï¿½ ï¿½ï¿½");
 		selectedSalesPan.add(date);
 		
 		selDate = new JLabel("");
 		selectedSalesPan.add(selDate);
 		
-		member = new JLabel("È¸ ¿ø ¹ø È£");
+		member = new JLabel("È¸ ï¿½ï¿½ ï¿½ï¿½ È£");
 		selectedSalesPan.add(member);
 		
 		selMember = new JLabel("");
 		selectedSalesPan.add(selMember);
 		
-		price = new JLabel("±¸ ¸Å ÃÑ ¾×");
+		price = new JLabel("ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½");
 		selectedSalesPan.add(price);
 		
 		selPrice = new JLabel("");
 		selectedSalesPan.add(selPrice);
 		
-		stamp = new JLabel("½º ÅÆ ÇÁ");
+		stamp = new JLabel("ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½");
 		selectedSalesPan.add(stamp);
 		
 		selStamp = new JLabel("");
@@ -129,7 +130,7 @@ public class SalesPanel extends JPanel{
 		
 		// add
 		this.add(top);
-		this.add(salesList);
+		this.add(salesListScroll);
 		this.add(center);
 		this.add(bottom);
 

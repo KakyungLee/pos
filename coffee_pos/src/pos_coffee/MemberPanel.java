@@ -62,6 +62,7 @@ public class MemberPanel extends JPanel{
 			rows[i][0] = p.getMemno(); 
 			rows[i][1] = p.getMemname();
 			rows[i][2] = p.getMemphone(); 
+			
 			rows[i][3] = p.getMemstamp();
 			i++;
 		}
