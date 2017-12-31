@@ -81,13 +81,20 @@ public class MemberPanel extends JPanel{
 		contents.setLayout(new GridLayout(3,2,5,5));
 		contents.setSize(660,140);
 		contents.setLocation(12,528);
-		contents.setBackground(Color.white);
+		contents.setBackground(memberList.getTableHeader().getBackground());
+		contents.setBorder(BorderFactory.createEmptyBorder(5 , 5 , 5 , 5));
 		
 		memberCode = new JLabel("회 원 번 호");
+		memberCode.setFont(memberList.getTableHeader().getFont());
+		memberCode.setHorizontalAlignment(JLabel.CENTER);
 		idxTxt = new JTextField();
 		memberName = new JLabel("이 름");
+		memberName.setFont(memberList.getTableHeader().getFont());
+		memberName.setHorizontalAlignment(JLabel.CENTER);
 		memNameTxt = new JTextField();
 		memberPhone = new JLabel("휴 대 폰 번 호");
+		memberPhone.setFont(memberList.getTableHeader().getFont());
+		memberPhone.setHorizontalAlignment(JLabel.CENTER);
 		memPhoneTxt = new JTextField();
 
 		contents.add(memberCode);
