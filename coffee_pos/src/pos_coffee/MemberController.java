@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 
 public class MemberController {
@@ -15,6 +15,7 @@ public class MemberController {
 	int row;
 	int col;
 	Object value;
+	int stamp =0;
 
 	boolean flag = true;
 
@@ -26,71 +27,68 @@ public class MemberController {
 		mp.addButtonActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Object obj = e.getSource();
-				Member p = null;				
-				if (obj == mp.insertUpdateBtn) {
-					
-					if (flag == true) {// »ðÀÔ
-						p.setMemname(mp.memNameTxt.getText());
-						p.setMemphone(mp.memPhoneTxt.getText());
-						db.newMember(p);
-					} else {// ¼öÁ¤
-						p.setMemno(Integer.parseInt(mp.idxTxt.getText()));
-						p.setMemname(mp.memNameTxt.getText());
-						p.setMemphone(mp.memPhoneTxt.getText());
-						db.updateMember(p);
-					}
+				Member m = null;
+				m = new Member();
+				if (obj == mp.insertBtn) {
+					m.setMemname(mp.memNameTxt.getText());
+					m.setMemphone(mp.memPhoneTxt.getText());
+					db.newMember(m);
+
+				}
+				if (obj == mp.updateBtn) {
+					m.setMemno(Integer.parseInt(mp.idxTxt.getText()));
+					m.setMemname(mp.memNameTxt.getText());
+					m.setMemphone(mp.memPhoneTxt.getText());
+					m.setMemstamp(stamp);
+					db.updateMember(m);
 				}
 				if (obj == mp.deleteBtn) {
 					db.delMember(Integer.parseInt(mp.idxTxt.getText()));
 				}
 				System.out.println("TEST");
 				refresh();
+				mp.idxTxt.setText("");
+				mp.memNameTxt.setText("");
+				mp.memPhoneTxt.setText("");
 			}
 		});
 
 		mp.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				flag = false;
-				Member p = null;
 				JTable obj = (JTable) e.getSource();
 				row = obj.getSelectedRow();
 				col = obj.getSelectedColumn();
-				value = obj.getValueAt(row, col);
 
-				if (col == 0) {
-					p = db.getMember(Integer.parseInt(mp.idxTxt.getText()));
-				} else if (col == 1) {
-					p = db.getNameMember(value + "");
-				} else if (col == 2) {
-					p = db.getPhoneMember(value + "");
-				}
-				mp.idxTxt.setText(p.getMemno()+"");
-				mp.memNameTxt.setText(p.getMemname());
-				mp.memPhoneTxt.setText(p.getMemphone());
-			}//mouseClicked
+				mp.idxTxt.setText(obj.getValueAt(row, 0) + "");
+				mp.memNameTxt.setText(obj.getValueAt(row, 1) + "");
+				mp.memPhoneTxt.setText(obj.getValueAt(row, 2) + "");
+				stamp = Integer.parseInt(obj.getValueAt(row, 3)+"");
+
+			}// mouseClicked
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				// TODO ÀÚµ¿ »ý¼ºµÈ ¸Þ¼Òµå ½ºÅÓ
+				// TODO ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ ï¿½ï¿½ï¿½ï¿½
 
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
-				// TODO ÀÚµ¿ »ý¼ºµÈ ¸Þ¼Òµå ½ºÅÓ
+				// TODO ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ ï¿½ï¿½ï¿½ï¿½
 
 			}
 
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				// TODO ÀÚµ¿ »ý¼ºµÈ ¸Þ¼Òµå ½ºÅÓ
+				// TODO ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ ï¿½ï¿½ï¿½ï¿½
 
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				// TODO ÀÚµ¿ »ý¼ºµÈ ¸Þ¼Òµå ½ºÅÓ
+				// TODO ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ ï¿½ï¿½ï¿½ï¿½
+				
 
 			}
 
@@ -99,13 +97,16 @@ public class MemberController {
 	}// ProductController
 
 	void refresh() {
-	mp.datas = db.getAllMember();
+		mp.datas = new ArrayList<Member>();
+		mp.datas = db.getAllMember();
+		mp.rows = new Object[mp.datas.size()][4];
 
 		int i = 0;
 		for (Member p : mp.datas) {
 			mp.rows[i][0] = p.getMemno();
 			mp.rows[i][1] = p.getMemname();
-			mp.rows[i][2] = p.getMemphone();
+			mp.rows[i][2] = p.getMemphone(); /// ï¿½ï¿½ï¿½â°¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½
+			mp.rows[i][3] = p.getMemstamp();
 			i++;
 		}
 		mp.model.fireTableDataChanged();

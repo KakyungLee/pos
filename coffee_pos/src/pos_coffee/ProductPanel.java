@@ -27,12 +27,12 @@ public class ProductPanel extends JPanel {
 	JTextField proPriceTxt;
 	//////////// bottom
 	JPanel bottom;
-
-	JButton selectBtn;
-	JButton insertUpdateBtn;
+	JButton insertBtn;
+	JButton updateBtn;
 	JButton deleteBtn;
 
 	public ProductPanel() {
+		
 		AppManager.createInstance().setProductPanel(this);
 		db = AppManager.createInstance().getDao();
 		pc = AppManager.createInstance().getProductController();
@@ -45,9 +45,12 @@ public class ProductPanel extends JPanel {
 		colNames[1] = "Name";
 		colNames[2] = "Price";
 
+		// 처음 화면에 뿌려주는 곳
 		datas = new ArrayList<Product>();
 		datas = db.getAllProduct();
 		rows = new Object[datas.size()][3];
+		
+		
 		int i = 0;
 		for (Product p : datas) {
 			rows[i][0] = p.getProcode();
@@ -56,10 +59,12 @@ public class ProductPanel extends JPanel {
 			i++;
 		}
 
+
 		model = new DefaultTableModel(rows,colNames);
-		productList = new JTable(model);
-		productList.setSize(983, 400);
-		productList.setLocation(12, 10);
+		productList = new JTable(model);	
+		JScrollPane productListScroll = new JScrollPane(productList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,	JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		productListScroll.setSize(983, 400);
+		productListScroll.setLocation(12, 10);
 
 		// 占쎄맒占쎈�� 占쎌뿯占쎌젾 占쎈쨲
 		contents = new JPanel();
@@ -87,16 +92,16 @@ public class ProductPanel extends JPanel {
 		bottom.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		bottom.setSize(980, 50);
 		bottom.setLocation(12, 490);
-		selectBtn = new JButton("占쎄퐨占쎄문");
-		insertUpdateBtn = new JButton("�빊遺쏙옙/占쎈땾占쎌젟");
-		deleteBtn = new JButton("占쎄텣占쎌젫");
+		insertBtn = new JButton("삽입");
+		updateBtn = new JButton("수정");
+		deleteBtn = new JButton("삭제");
 
-		bottom.add(selectBtn);
-		bottom.add(insertUpdateBtn);
+		bottom.add(insertBtn);
+		bottom.add(updateBtn);
 		bottom.add(deleteBtn);
 
 		/////////// add
-		this.add(productList);
+		this.add(productListScroll);
 		this.add(contents);
 		this.add(bottom);
 		
@@ -105,8 +110,8 @@ public class ProductPanel extends JPanel {
 	}
 
 	void addButtonActionListener(ActionListener listener) {
-		selectBtn.addActionListener(listener);
-		insertUpdateBtn.addActionListener(listener);
+		insertBtn.addActionListener(listener);
+		updateBtn.addActionListener(listener);
 		deleteBtn.addActionListener(listener);
 	}
 	public void addMouseListener(MouseListener listener){

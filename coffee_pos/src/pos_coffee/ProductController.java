@@ -1,7 +1,10 @@
 package pos_coffee;
 
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class ProductController {
 	private DBDAO db;
@@ -10,8 +13,6 @@ public class ProductController {
 	int row;
 	int col;
 	Object value;
-	
-	boolean flag = true;
 
 	public ProductController() {
 		AppManager.createInstance().setProductController(this);
@@ -20,105 +21,76 @@ public class ProductController {
 
 		pp.addButtonActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Object obj = e.getSource();
-				refresh();
-				if (obj == pp.selectBtn) {
-					flag = false;
+				Object obj = e.getSource();				
+				
+				if (obj == pp.insertBtn) {
 					Product p = null;
-				//	if (col == 0) {
-						p = db.getProduct(row + 100);
-				/*	} else if (col == 1) {
-						p = db.getNameProduct(value + "");
-					} else if (col == 2) {
-						p = db.getPriceProduct(value + "");
-					}*/
-					
-					pp.proCodeTxt.setText(p.getProcode()+"");
-					pp.proNameTxt.setText(p.getProname());
-					pp.proPriceTxt.setText(p.getProprice()+"");
+					p = new Product();
+					p.setProname(pp.proNameTxt.getText());
+					p.setProprice(Integer.parseInt(pp.proPriceTxt.getText()));
+					db.newProduct(p);			
 				}
-				if (obj == pp.insertUpdateBtn) {
-					if(flag == true){//삽입
-						Product p = null;
-						p.setProname(pp.proNameTxt.getText());
-						p.setProprice(Integer.parseInt(pp.proPriceTxt.getText()));
-						
-						db.newProduct(p);
-					}else{//수정
-						Product p = null;
-						p.setProcode(Integer.parseInt((String)pp.proCodeTxt.getText()));
-						p.setProname(pp.proNameTxt.getText());
-						p.setProprice(Integer.parseInt(pp.proPriceTxt.getText()));
-						
-						db.updateProduct(p);
-					}
+				if(obj == pp.updateBtn) {
+					Product p = null;
+					p = new Product();
+					p.setProcode(Integer.parseInt(pp.proCodeTxt.getText()));
+					p.setProname(pp.proNameTxt.getText());
+					p.setProprice(Integer.parseInt(pp.proPriceTxt.getText()));
+					db.updateProduct(p);
 				}
 				if (obj == pp.deleteBtn) {
+					db.delProduct(Integer.parseInt(pp.proCodeTxt.getText()));
 				}
 				System.out.println("TEST");
 				refresh();
+				pp.proCodeTxt.setText("");
+				pp.proNameTxt.setText("");
+				pp.proPriceTxt.setText("");
 			}
 		});
 
 		pp.addMouseListener(new MouseListener() {
 
-			
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				JTable obj = (JTable) e.getSource();
+				
 				row = obj.getSelectedRow();
-				//col = obj.getSelectedColumn();
-				
-				
-				pp.proCodeTxt.setText(row + 100+"");
-				value = obj.getValueAt(row, 1);
-				pp.proNameTxt.setText(value + "");
-				value = obj.getValueAt(row, 2);
-				pp.proPriceTxt.setText(value + "");
-			
+				col = obj.getSelectedColumn();
+				pp.proCodeTxt.setText(obj.getValueAt(row, 0)+"");
+				pp.proNameTxt.setText(obj.getValueAt(row, 1)+"");
+				pp.proPriceTxt.setText(obj.getValueAt(row, 2) + "");
 			}
-
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				// TODO 자동 생성된 메소드 스텁
-
 			}
-
 			@Override
 			public void mouseExited(MouseEvent arg0) {
-				// TODO 자동 생성된 메소드 스텁
-
 			}
-
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				// TODO 자동 생성된 메소드 스텁
-
 			}
-
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				// TODO 자동 생성된 메소드 스텁
-
 			}
-
 		});
 
 	}// ProductController
 
-	void refresh() {
-	/*	pp.idxCombo.setModel(new DefaultComboBoxModel(db.getProItems()));
-
+	void refresh() { // do not working refresh;
+		pp.datas = new ArrayList<Product>();
 		pp.datas = db.getAllProduct();
+		pp.rows = new Object[pp.datas.size()][3];
 
 		int i = 0;
 		for (Product p : pp.datas) {
+			System.out.println(p.getProcode()+" "+p.getProname()+" "+p.getProprice());
 			pp.rows[i][0] = p.getProcode();
 			pp.rows[i][1] = p.getProname();
 			pp.rows[i][2] = p.getProprice();
 			i++;
 		}
-		pp.model.fireTableDataChanged();*/
+		pp.model.fireTableDataChanged();
 	}
 
 }// ProductController
