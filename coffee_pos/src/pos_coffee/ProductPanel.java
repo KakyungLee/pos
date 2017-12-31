@@ -78,13 +78,21 @@ public class ProductPanel extends JPanel {
 		contents.setLayout(new GridLayout(3, 2, 5, 5));
 		contents.setSize(660, 140);
 		contents.setLocation(12, 528);
-		contents.setBackground(Color.white);
+		contents.setBackground(productList.getTableHeader().getBackground());
+		contents.setBorder(BorderFactory.createEmptyBorder(5 , 5 , 5 , 5));
+		
 
 		productCode = new JLabel("상 품 코 드");
+		productCode.setFont(productList.getTableHeader().getFont());
+		productCode.setHorizontalAlignment(JLabel.CENTER);
 		proCodeTxt = new JTextField();
 		productName = new JLabel("상 품 명");
+		productName.setFont(productList.getTableHeader().getFont());
+		productName.setHorizontalAlignment(JLabel.CENTER);
 		proNameTxt = new JTextField();
 		ProductPrice = new JLabel("가 격");
+		ProductPrice.setFont(productList.getTableHeader().getFont());
+		ProductPrice.setHorizontalAlignment(JLabel.CENTER);
 		proPriceTxt = new JTextField();
 
 		contents.add(productCode);
