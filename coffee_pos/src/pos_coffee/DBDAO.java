@@ -16,15 +16,19 @@ public class DBDAO {
 	Vector<String> salItems; // 판매 콤보작스
 
 	String sql;
+	
+	private ProductPanel pp;
 
 	public DBDAO() {
 		AppManager.createInstance().setDao(this);
+		pp = AppManager.createInstance().getProductPanel();
 		connectDB();
 	}
 
 	void connectDB() {
 
 		try {
+
 			// JDBC 드라이버 로드
 			Class.forName(jdbcDiver);
 			// 데이터베이스 연결
@@ -37,6 +41,7 @@ public class DBDAO {
 
 	void closeDB() {
 		try {
+
 			// 순차적 연결 해제
 			pstmt.close();
 			rs.close();
@@ -46,6 +51,7 @@ public class DBDAO {
 		}
 
 	}
+
 
 	// 모든 데이터를 가져오는 함수
 	public ArrayList<Product> getAllProduct() {
@@ -78,17 +84,17 @@ public class DBDAO {
 	}
 
 	public ArrayList<Member> getAllMember() {
-		// ȸ�� ����Ʈ ��������
+		// 회占쏙옙 占쏙옙占쏙옙트 占쏙옙占쏙옙占쏙옙占쏙옙
 		sql = "select * from member";
 
-		// ������ ���� arraylist
+		// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 arraylist
 		ArrayList<Member> datas = new ArrayList<Member>();
 
 		try {
-			// statement ����
+			// statement 占쏙옙占쏙옙
 			pstmt = conn.prepareStatement(sql);
 
-			// sql �� ���� �� �޾ƿ���
+			// sql 占쏙옙 占쏙옙占쏙옙 占쏙옙 占쌨아울옙占쏙옙
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 
@@ -109,20 +115,18 @@ public class DBDAO {
 	}
 
 	public ArrayList<Sale> getAllSale() {
-		// ���� ����Ʈ
 		sql = "select date_format(saldate,'%Y-%m-%d'),salno, memphone,totalprice,stamp from sale";
-
-		// ������ ���� arraylist
+		// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 arraylist
 		ArrayList<Sale> datas = new ArrayList<Sale>();
 		
 		salItems = new Vector<String>();
 		salItems.add("날짜");
 
 		try {
-			// statement ����
+			// statement 占쏙옙占쏙옙
 			pstmt = conn.prepareStatement(sql);
 
-			// sql �� ���� �� �޾ƿ���
+			// sql 占쏙옙 占쏙옙占쏙옙 占쏙옙 占쌨아울옙占쏙옙
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 
@@ -148,7 +152,7 @@ public class DBDAO {
 		return datas;
 	}
 
-	// �ϳ��� �����͸� �������� �Լ�
+	// 占싹놂옙占쏙옙 占쏙옙占쏙옙占싶몌옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쌉쇽옙
 	public Product getProduct(int procode) {
 		sql = "select * from product where procode = ?";
 		Product p = null;
@@ -193,6 +197,28 @@ public class DBDAO {
 		System.out.println(m.toString());
 		return m;
 	}
+	public Member getMemberPhone(String phone) {
+		sql = "select * from member where memphone = ?";
+		Member m = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, phone);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				m = new Member();
+				m.setMemno(rs.getInt("memno"));
+				m.setMemphone(rs.getString("memphone"));
+				m.setMemname(rs.getString("memname"));
+				m.setMemstamp(rs.getInt("memstamp"));
+			}
+
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		System.out.println(m.toString());
+		return m;
+	}
 
 	public Sale getSale(int salno) {
 		sql = "select date_format(saldate,'%Y-%m-%d'),salno, memphone,totalprice,stamp from sale where salno ?";
@@ -218,14 +244,14 @@ public class DBDAO {
 		return s;
 	}
 
-	// �����͸� �����ϴ� �Լ�
+	// 占쏙옙占쏙옙占싶몌옙 占쏙옙占쏙옙占싹댐옙 占쌉쇽옙
 	boolean newProduct(Product product) {
 		sql = "insert into product(proname,proprice) values(?,?)";
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, product.getProname()); // 1�� ?�� ���� �ִ´�.
-			pstmt.setInt(2, product.getProprice()); // 2�� ?�� ���� �ִ´�.
+			pstmt.setString(1, product.getProname()); // 1占쏙옙 ?占쏙옙 占쏙옙占쏙옙 占쌍는댐옙.
+			pstmt.setInt(2, product.getProprice()); // 2占쏙옙 ?占쏙옙 占쏙옙占쏙옙 占쌍는댐옙.
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -243,8 +269,8 @@ public class DBDAO {
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, member.getMemphone()); // 1�� ?�� ���� �ִ´�.
-			pstmt.setString(2, member.getMemname()); // 2�� ?�� ���� �ִ´�.
+			pstmt.setString(1, member.getMemphone()); // 1占쏙옙 ?占쏙옙 占쏙옙占쏙옙 占쌍는댐옙.
+			pstmt.setString(2, member.getMemname()); // 2占쏙옙 ?占쏙옙 占쏙옙占쏙옙 占쌍는댐옙.
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -262,9 +288,9 @@ public class DBDAO {
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, sale.getMemphone()); // 1�� ?�� ���� �ִ´�.
-			pstmt.setInt(2, sale.getTotalprice()); // 2�� ?�� ���� �ִ´�.
-			pstmt.setInt(3, sale.getStamp()); // 3�� ?�� ���� �ִ´�.
+			pstmt.setString(1, sale.getMemphone()); // 1占쏙옙 ?占쏙옙 占쏙옙占쏙옙 占쌍는댐옙.
+			pstmt.setInt(2, sale.getTotalprice()); // 2占쏙옙 ?占쏙옙 占쏙옙占쏙옙 占쌍는댐옙.
+			pstmt.setInt(3, sale.getStamp()); // 3占쏙옙 ?占쏙옙 占쏙옙占쏙옙 占쌍는댐옙.
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -277,15 +303,15 @@ public class DBDAO {
 		}
 	}
 
-	// �����͸� �����ϴ� �Լ�
+	// 占쏙옙占쏙옙占싶몌옙 占쏙옙占쏙옙占싹댐옙 占쌉쇽옙
 	boolean updateProduct(Product product) {
 		sql = "update product set proname =?, proprice =? where procode =?";
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, product.getProname()); // 1�� ?�� ���� �ִ´�.
-			pstmt.setInt(2, product.getProprice()); // 2�� ?�� ���� �ִ´�.
-			pstmt.setInt(3, product.getProcode()); // 3�� ?�� ���� �ִ´�.
+			pstmt.setString(1, product.getProname()); // 1占쏙옙 ?占쏙옙 占쏙옙占쏙옙 占쌍는댐옙.
+			pstmt.setInt(2, product.getProprice()); // 2占쏙옙 ?占쏙옙 占쏙옙占쏙옙 占쌍는댐옙.
+			pstmt.setInt(3, product.getProcode()); // 3占쏙옙 ?占쏙옙 占쏙옙占쏙옙 占쌍는댐옙.
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -303,8 +329,8 @@ public class DBDAO {
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, member.getMemphone()); // 1�� ?�� ���� �ִ´�.
-			pstmt.setString(2, member.getMemname()); // 2�� ?�� ���� �ִ´�.
+			pstmt.setString(1, member.getMemphone()); // 1占쏙옙 ?占쏙옙 占쏙옙占쏙옙 占쌍는댐옙.
+			pstmt.setString(2, member.getMemname()); // 2占쏙옙 ?占쏙옙 占쏙옙占쏙옙 占쌍는댐옙.
 			pstmt.setInt(3, member.getMemstamp());
 			pstmt.setInt(4, member.getMemno());
 			result = pstmt.executeUpdate();
@@ -319,7 +345,7 @@ public class DBDAO {
 		}
 	}
 
-	// �����͸� �����ϴ� �Լ�
+	// 占쏙옙占쏙옙占싶몌옙 占쏙옙占쏙옙占싹댐옙 占쌉쇽옙
 	boolean delProduct(int procode) {
 		sql = "delete from product where procode = ?";
 		int result = 0;

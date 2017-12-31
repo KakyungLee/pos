@@ -7,7 +7,7 @@ import javax.swing.*;
 
 public class SalesPanel extends JPanel {
 	private SellController sc;
-	private DBDAO db;	
+	private DBDAO db;
 	///////////////////
 	private final int startX = 10;
 	private final int startY = 10;
@@ -43,17 +43,15 @@ public class SalesPanel extends JPanel {
 	protected JLabel stamp;
 	protected JLabel selStamp;
 
-	SalesPanel(){
+	SalesPanel() {
 		AppManager.createInstance().setSalesPanel(this);
 		db = AppManager.createInstance().getDao();
-		
-		
+
 		Font listFont = new Font("맑은 고딕", Font.PLAIN, 24);
 		Font contentFont = new Font("맑은 고딕", Font.PLAIN, 20);
 
-		this.setLayout(null);
+		this.setLayout(null);    
 		this.setSize(1024, 720);
-		
 
 		topPanel = new JPanel();
 		topPanel.setBounds(0, 0, panel_width, topPanel_height);
@@ -155,12 +153,11 @@ public class SalesPanel extends JPanel {
 		selStamp = new JLabel("10");
 		selectedSalesPan.add(selStamp);
 		selStamp.setFont(contentFont);
-	/*	
-		if(sc == null)
-			new SellController();
-		sc = AppManager.createInstance().getSellController();
-		sc.refresh();
-		this.repaint();*/
+		/*
+		 * if(sc == null) new SellController(); sc =
+		 * AppManager.createInstance().getSellController(); sc.refresh();
+		 * this.repaint();
+		 */
 	}
 
 	ImageIcon changeSize(ImageIcon temp, int width, int height) {
@@ -169,7 +166,7 @@ public class SalesPanel extends JPanel {
 		temp.setImage(tempImg);
 		return temp;
 	}
-	
+
 	void addButtonActionListener(ActionListener listener) {
 		dateCombo.addActionListener(listener);
 	}

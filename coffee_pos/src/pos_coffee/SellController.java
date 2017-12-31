@@ -28,4 +28,4 @@ public class SellController {
 	void refresh() {
 		sp.dateCombo.setModel(new DefaultComboBoxModel(db.getSalItems()));
 	}
-}
+}  // 리프레시가 아직 안돼?
