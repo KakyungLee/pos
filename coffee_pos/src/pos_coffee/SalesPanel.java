@@ -3,136 +3,160 @@ import java.awt.*;
 import javax.swing.*;
 
 public class SalesPanel extends JPanel{
-	// ≥Ø¬• panel
-	JPanel top;
-	JLabel dateLabel;
-	JComboBox dateCombo;
-	JButton dateSelectBtn;
 	
-	// ªÛ«∞∏Ò∑œ
-	JList salesList;
+	private final int startX = 10;
+	private final int startY = 10;
+
+	private final int panel_hight = 740;			//Î©îÏù∏Ìå®ÎÑêÏùò ÎÜíÏù¥Í∞í
+	private final int panel_width = 1000;	
+
 	
-	// √—æ◊ panel
-	JPanel center;
-	JLabel salesAccountLbl;
-	JLabel won;
+	private JPanel topPanel;
+		private final int topPanel_height = 55;
+		protected JComboBox dateCombo;
+		protected JButton dateSelectBtn;		
+		
+	private JPanel salesListPanel;
+		private final int salesListPanel_height = 390;
+		protected JTable salesList = new JTable();	//Í±∞ÎûòÎ™©Î°ù
+		
+	private JPanel salesPanel;
+		private final int salesPanel_height = 60;
+		protected JTextField salesAccountLbl;		//Í∏àÏï° ÌëúÍ∏∞
+		private JLabel lbl2 = new JLabel("Ïõê");					//Ïõê
 	
-	// º±≈√√¢ panel
-	JPanel bottom;
-	JButton salesSelectBtn;
-	JPanel selectedSalesPan;
-	JButton refundBtn;
-	
-	// º±≈√ ¡§∫∏ ∫∏ø©¡÷¥¬ √¢
-	JLabel date;
-	JLabel selDate;
-	JLabel member;
-	JLabel selMember;
-	JLabel price;
-	JLabel selPrice;
-	JLabel stamp;
-	JLabel selStamp;
-	
-	
+	private JPanel bottomPanel;
+		private final int bottomPanel_height = 200;
+		protected JButton salesSelectBtn;	
+		protected JButton refundBtn;	
+		protected JPanel selectedSalesPan;
+			protected JLabel date;
+			protected JLabel selDate;
+			protected JLabel member;
+			protected JLabel selMember;
+			protected JLabel price;
+			protected JLabel selPrice;
+			protected JLabel stamp;
+			protected JLabel selStamp;
 
 	SalesPanel(){
 		AppManager.createInstance().setSalesPanel(this);
 		
-		this.setBackground(Color.MAGENTA);
-		this.setSize(1024, 720);
+		Font listFont = new Font("ÎßëÏùÄ Í≥†Îîï", Font.PLAIN, 24);
+		Font contentFont = new Font("ÎßëÏùÄ Í≥†Îîï", Font.PLAIN, 20);
+		
 		this.setLayout(null);
+		this.setSize(1024, 720);
 		
-		int w = 5;
-		int h = 5;
-		// ≥Ø¬• panel
-		top = new JPanel();
-		top.setLayout(new FlowLayout(FlowLayout.LEFT));
-		top.setSize(998,50);
-		top.setBackground(Color.white);
-		top.setLocation(w, h);
-		h = h+55;
+		topPanel = new JPanel();
+		//topPanel.setBackground(Color.RED);
+		topPanel.setBounds(0, 0, panel_width, topPanel_height);
+		topPanel.setLayout(null);
+		this.add(topPanel);
 		
-		dateLabel = new JLabel("≥Ø¬•");
-		top.add(dateLabel);
+			dateCombo = new JComboBox();
+			dateCombo.setBounds(startX,startY, 230, 45);
+			dateCombo.setFont(listFont);
+			topPanel.add(dateCombo);
+			
+			dateSelectBtn = new JButton("ÎÇ†ÏßúÏÑ†ÌÉù");	
+			dateSelectBtn.setFont(listFont);
+			dateSelectBtn.setBounds(startX + 240 ,startY, 150, 45);
+			topPanel.add(dateSelectBtn);
 		
-		dateCombo = new JComboBox();
-		top.add(dateCombo);
+		//Í±∞ÎûòÎ™©Î°ù	
+		salesListPanel = new JPanel();
+		//salesListPanel.setBackground(Color.YELLOW);
+		salesListPanel.setBounds(0, topPanel_height, panel_width, salesListPanel_height);
+		salesListPanel.setLayout(null);
+		this.add(salesListPanel);
 		
-		dateSelectBtn = new JButton("≥Ø¬• º±≈√");
-		top.add(dateSelectBtn);
+			salesList = new JTable();
+			//salesList.setBackground(Color.RED);
+			JScrollPane proListScroll = new JScrollPane(salesList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+					JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+			salesListPanel.add(proListScroll);
+			proListScroll.setVisible(true);
+			proListScroll.setBounds(startX, startY, panel_width - startX*2 , salesListPanel_height - 20);
+			
+			
+		//Í±∞Îûò Ï¥ùÏï°	
+		salesPanel = new JPanel();
+		salesPanel.setBackground(Color.LIGHT_GRAY);
+		salesPanel.setBounds(0, topPanel_height + salesListPanel_height, panel_width, salesPanel_height);
+		salesPanel.setLayout(null);
+		this.add(salesPanel);
 		
-		//ªÛ«∞ ∏Ò∑œ
-		salesList = new JList();
-		salesList.setSize(998,400);
-		salesList.setBackground(Color.white);
-		salesList.setLocation(w, h);
-		h = h+405;
+			salesAccountLbl = new JTextField("999999");	
+			salesAccountLbl.setBounds(750, startY, 190, 40);
+			salesAccountLbl.setFont(listFont);
+			salesPanel.add(salesAccountLbl);
+			
+			lbl2.setBounds(950, startY, 50, 40);
+			lbl2.setFont(listFont);
+			salesPanel.add(lbl2);
+			
+		//ÌïòÎã® Í±∞ÎûòÎÇ¥Ïó≠, Ï∑®ÏÜå Î≤ÑÌäº Îì±
+		bottomPanel = new JPanel();
+		//bottomPanel.setBackground(Color.GRAY);
+		bottomPanel.setBounds(0, topPanel_height + salesListPanel_height + salesPanel_height, panel_width, bottomPanel_height);
+		bottomPanel.setLayout(null);
+		this.add(bottomPanel);
 		
-		//√—æ◊ panel
-		center = new JPanel();
-		center.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		center.setSize(998,50);
-		center.setBackground(Color.white);
-		center.setLocation(w, h);
-		h = h+55;
-		
-		salesAccountLbl = new JLabel("0");
-		center.add(salesAccountLbl);
-		
-		won = new JLabel("ø¯");
-		center.add(won);
-		
-		// º±≈√√¢ panel
-		bottom = new JPanel();
-		bottom.setLayout(new BorderLayout(50,50));
-		bottom.setSize(998,155);
-		bottom.setBackground(Color.white);
-		bottom.setLocation(w, h);
-		h = h+55;
-		
-		salesSelectBtn = new JButton("º±≈√");
-		bottom.add(salesSelectBtn,BorderLayout.WEST);
-		
-		selectedSalesPan = new JPanel();
-		selectedSalesPan.setLayout(new GridLayout(4,2));
-		selectedSalesPan.setBackground(Color.white);
-		bottom.add(selectedSalesPan, BorderLayout.CENTER);
-		
-		refundBtn = new JButton("»Ø∫“");
-		bottom.add(refundBtn,BorderLayout.EAST);
-		
-		// º±≈√ ¡§∫∏ ∫∏ø©¡÷¥¬ √¢
-		date = new JLabel("¿œ ¿⁄");
-		selectedSalesPan.add(date);
-		
-		selDate = new JLabel("");
-		selectedSalesPan.add(selDate);
-		
-		member = new JLabel("»∏ ø¯ π¯ »£");
-		selectedSalesPan.add(member);
-		
-		selMember = new JLabel("");
-		selectedSalesPan.add(selMember);
-		
-		price = new JLabel("±∏ ∏≈ √— æ◊");
-		selectedSalesPan.add(price);
-		
-		selPrice = new JLabel("");
-		selectedSalesPan.add(selPrice);
-		
-		stamp = new JLabel("Ω∫ ≈∆ «¡");
-		selectedSalesPan.add(stamp);
-		
-		selStamp = new JLabel("");
-		selectedSalesPan.add(selStamp);
-		
-		
-		// add
-		this.add(top);
-		this.add(salesList);
-		this.add(center);
-		this.add(bottom);
+			salesSelectBtn = new JButton(changeSize (new ImageIcon("./image/sales_salesSelectBtn.png"),150, 140));
+			salesSelectBtn.setBounds(startX,startY, 150, 140);
+			bottomPanel.add(salesSelectBtn);
+			
+			refundBtn = new JButton(changeSize (new ImageIcon("./image/sales_refundBtn.png"),150, 140));
+			refundBtn.setBounds(840, startY, 150, 140);
+			bottomPanel.add(refundBtn);
 
+			// Í±∞ÎûòÎÇ¥Ïö© ÌëúÏãú Ìå®ÎÑê
+			selectedSalesPan = new JPanel();
+			selectedSalesPan.setLayout(new GridLayout(4,2));
+			selectedSalesPan.setBackground(Color.white);
+			selectedSalesPan.setBounds(170, startY, 660, 140);
+			bottomPanel.add(selectedSalesPan, BorderLayout.CENTER);
+				
+				date = new JLabel("Í±∞Îûò ÎÇ†Ïßú");
+				selectedSalesPan.add(date);
+				date.setFont(contentFont);
+				
+				selDate = new JLabel("2017-12-31");
+				selectedSalesPan.add(selDate);
+				selDate.setFont(contentFont);
+				
+				member = new JLabel("ÌöåÏõêÏù¥Î¶Ñ");
+				selectedSalesPan.add(member);
+				member.setFont(contentFont);
+				
+				selMember = new JLabel("ÍπÄÎ™®ÏïÑ");
+				selectedSalesPan.add(selMember);
+				selMember.setFont(contentFont);
+				
+				price = new JLabel("Í∏àÏï°");
+				selectedSalesPan.add(price);
+				price.setFont(contentFont);
+				
+				selPrice = new JLabel("9999");
+				selectedSalesPan.add(selPrice);
+				selPrice.setFont(contentFont);
+				
+				stamp = new JLabel("Ïä§ÌÉ¨ÌîÑ");
+				selectedSalesPan.add(stamp);
+				stamp.setFont(contentFont);
+				
+				selStamp = new JLabel("10");
+				selectedSalesPan.add(selStamp);
+				selStamp.setFont(contentFont);
+
+	}
+	
+	ImageIcon changeSize(ImageIcon temp, int width, int height) {
+		Image tempImg = temp.getImage();
+		tempImg = tempImg.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
+		temp.setImage(tempImg);
+		return temp;
 	}
 	
 }
