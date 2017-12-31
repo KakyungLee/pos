@@ -12,6 +12,8 @@ public class DBDAO {
 	Connection conn;
 	PreparedStatement pstmt;
 	ResultSet rs;
+	
+	Vector<String> salItems; // 판매 콤보작스
 
 	String sql;
 
@@ -23,9 +25,9 @@ public class DBDAO {
 	void connectDB() {
 
 		try {
-			// JDBC ����̹� �ε�
+			// JDBC 드라이버 로드
 			Class.forName(jdbcDiver);
-			// �����ͺ��̽� ����
+			// 데이터베이스 연결
 			conn = DriverManager.getConnection(jdbcUrl, dbID, dbPassword);
 			System.out.println(conn);
 		} catch (Exception e) {
@@ -35,7 +37,7 @@ public class DBDAO {
 
 	void closeDB() {
 		try {
-			// ������ ���� ����
+			// 순차적 연결 해제
 			pstmt.close();
 			rs.close();
 			conn.close();
@@ -45,19 +47,19 @@ public class DBDAO {
 
 	}
 
-	// ��� �����͸� �������� �Լ�
+	// 모든 데이터를 가져오는 함수
 	public ArrayList<Product> getAllProduct() {
-		// ��ǰ����Ʈ ��������
+		// 상품리스트 가져오기
 		sql = "select * from product";
 
-		// ������ ���� arraylist
+		// 데이터 전달 arrayList
 		ArrayList<Product> datas = new ArrayList<Product>();
 
 		try {
-			// statement ����
+			// statement 생성
 			pstmt = conn.prepareStatement(sql);
 
-			// sql �� ���� �� �޾ƿ���
+			// sql 문 전송 및 받아오기
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 
@@ -108,11 +110,13 @@ public class DBDAO {
 
 	public ArrayList<Sale> getAllSale() {
 		// ���� ����Ʈ
-		sql = "select * from sale";
+		sql = "select date_format(saldate,'%Y-%m-%d'),salno, memphone,totalprice,stamp from sale";
 
 		// ������ ���� arraylist
 		ArrayList<Sale> datas = new ArrayList<Sale>();
-
+		
+		salItems = new Vector<String>();
+		salItems.add("날짜");
 
 		try {
 			// statement ����
@@ -129,6 +133,12 @@ public class DBDAO {
 				s.setTotalprice(rs.getInt("totalprice"));
 				s.setStamp(rs.getInt("stamp"));
 				datas.add(s);
+				if(salItems.lastElement().equals(s.getSaldate())) {
+					
+				}else {
+					salItems.add(s.getSaldate());
+				}
+				
 			}
 
 		} catch (Exception e) {
@@ -185,7 +195,7 @@ public class DBDAO {
 	}
 
 	public Sale getSale(int salno) {
-		sql = "select * from sale where salno = ? ";
+		sql = "select date_format(saldate,'%Y-%m-%d'),salno, memphone,totalprice,stamp from sale where salno ?";
 		Sale s = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -362,6 +372,10 @@ public class DBDAO {
 		} else {
 			return false;
 		}
+	}
+	
+	Vector<String> getSalItems() {
+		return salItems;
 	}
 
 

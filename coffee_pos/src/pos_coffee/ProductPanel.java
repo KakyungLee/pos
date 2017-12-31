@@ -39,6 +39,7 @@ public class ProductPanel extends JPanel {
 		AppManager.createInstance().setProductPanel(this);
 		db = AppManager.createInstance().getDao();
 		pc = AppManager.createInstance().getProductController();
+		
 		this.setLayout(null);
 		this.setSize(1024, 720);
 		productColor = new Color(255,192,0);
