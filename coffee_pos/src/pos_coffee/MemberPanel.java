@@ -10,7 +10,6 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class MemberPanel extends JPanel{
-	private MemberController mc;
 	private DBDAO db;
 ///////////////header
 	JTable memberList;
@@ -151,7 +150,6 @@ public class MemberPanel extends JPanel{
 		this.add(contents);
 		this.add(bottom);
 		
-		mc = new MemberController();
 	}
 	void addButtonActionListener(ActionListener listener) {
 		insertBtn.addActionListener(listener);

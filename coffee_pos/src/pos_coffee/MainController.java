@@ -15,6 +15,7 @@ public class MainController {
 	Object value;
 	int stamp = 0;
 	int sum = 0;
+	int shot =0;
 
 	Product p = new Product();
 	Member m = new Member();
@@ -51,22 +52,25 @@ public class MainController {
 					mp.pricelLbl.setText(sum + "");
 				}
 				if (obj == mp.shotSelectBtn) {// 샷 추기
+					Object[][] newThing = new Object[mp.selectCount + 1][3];
 
-					System.out.println("눌림");
+					for (int i = 0; i < mp.selectCount; i++) {
+						newThing[i] = mp.rows2[i];
+					}
+					
+					newThing[mp.selectCount][0] = "";
+					newThing[mp.selectCount][1] = "(샷추가)";
+					newThing[mp.selectCount][2] = 500;
+					sum += 500;
 
-					DefaultTableModel m = (DefaultTableModel) mp.selectedProductList.getModel();
-					int row = mp.productList.getSelectedRow();
-					int col = mp.productList.getSelectedColumn();
+					mp.selectCount += 1;
+					
+					mp.rows2 = new Object[mp.selectCount][3];
+					mp.rows2 = newThing;
 
-					System.out.println(mp.productList.getValueAt(row, 0).toString() + mp.productList.getValueAt(row, 1));
-
-					String productName = mp.productList.getValueAt(row, 0).toString() + " (샷추가)";
-					int productCount = 1;
-					int productPrice = Integer.parseInt(mp.productList.getValueAt(row, 1).toString()) + 500;
-
-					m.addRow(new Object[] { productName, productCount, productPrice });
-					mp.selectedProductList.updateUI();
-
+					refreshSelectJList();
+					mp.pricelLbl.setText(sum + "");
+					shot ++;					
 				}
 				if (obj == mp.removeBtn) {// 주문 삭제
 					Object[][] newThing = new Object[mp.selectCount][3];
@@ -151,8 +155,6 @@ public class MainController {
 					int code = (int) obj.getValueAt(row, 0);
 					String Name = (String) obj.getValueAt(row, 1);
 					int Price = (int) obj.getValueAt(row, 2);
-
-					System.out.println(code);
 
 					p.setProcode(code);
 					p.setProname(Name);

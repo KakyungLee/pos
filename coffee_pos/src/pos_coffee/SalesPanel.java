@@ -8,7 +8,6 @@ import javax.swing.*;
 import javax.swing.table.*;
 
 public class SalesPanel extends JPanel {
-	private SellController sc;
 	private DBDAO db;
 	///////////////////
 	private final int startX = 10;
@@ -55,6 +54,8 @@ public class SalesPanel extends JPanel {
 		db = AppManager.createInstance().getDao();
 
 		Font listFont = new Font("맑은 고딕", Font.PLAIN, 24);
+		Font salsesListHeadFont = new Font("맑은 고딕", Font.BOLD, 16); 
+		Font salsesListFont = new Font("맑은 고딕", Font.PLAIN,16);
 		Font contentFont = new Font("맑은 고딕", Font.PLAIN, 20);
 
 		this.setLayout(null);
@@ -106,7 +107,9 @@ public class SalesPanel extends JPanel {
 
 		model = new DefaultTableModel(rows, colNames);
 		salesList = new JTable(model);
-		// salesList.setBackground(Color.RED);
+		salesList.setRowHeight(30);
+		salesList.setFont(salsesListFont); // 폰트 설정
+		salesList.getTableHeader().setFont(salsesListHeadFont);
 		JScrollPane proListScroll = new JScrollPane(salesList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		salesListPanel.add(proListScroll);
@@ -183,8 +186,6 @@ public class SalesPanel extends JPanel {
 		selStamp = new JLabel("");
 		selectedSalesPan.add(selStamp);
 		selStamp.setFont(contentFont);
-
-		sc = new SellController();
 	}
 
 	ImageIcon changeSize(ImageIcon temp, int width, int height) {
