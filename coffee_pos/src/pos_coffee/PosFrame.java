@@ -14,12 +14,18 @@ public class PosFrame extends JFrame {
 	protected ProductPanel productP;
 	protected MemberPanel memberP;
 	
-    String[] contentsName = { "main", "product", "member", "sales" };
+	protected MainController mc;
+	protected ProductController pc;
+	protected MemberController Mmc;
+	protected SellController sc;
+
+
+	String[] contentsName = { "main", "product", "member", "sales" };
 
 	public PosFrame() {
 		AppManager.createInstance().setPosFrame(this);
 		new DBDAO();
-		
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1024, 800);
 		setTitle("cafe pos");
@@ -42,29 +48,39 @@ public class PosFrame extends JFrame {
 		contents.setSize(1024, 720);
 		contents.setLocation(0, 80);
 		cardLayout = new CardLayout();
-		
+
 		contents.setLayout(cardLayout);
 
-		contents.add(contentsName[0],mainP);
-		contents.add(contentsName[1],productP);
-		contents.add(contentsName[2],memberP);
-		contents.add(contentsName[3],salesP);
-		cardLayout.show(contents,contentsName[0]);
+		contents.add(contentsName[0], mainP);
+		contents.add(contentsName[1], productP);
+		contents.add(contentsName[2], memberP);
+		contents.add(contentsName[3], salesP);
+		cardLayout.show(contents, contentsName[0]);
 
 		this.add(contents);
 
+		ButtonController bc = new ButtonController();
+		
+		mc = new MainController();
+		pc = new ProductController();
+		Mmc = new MemberController();
+		sc = new SellController();
 		////////////////////////
 		top.setBackground(Color.BLUE);
 		contents.setBackground(Color.white);
 		///////////////////////////
-		this.add(top,"top");
-		this.add(contents,"contents");
+		this.add(top, "top");
+		this.add(contents, "contents");
 
 		setVisible(true);
+		
+		
+		this.addWindowListener(new WindowListnere());
+		
 	}// PosFrame
 
 	public static void main(String[] args) {
-		new PosFrame();		
+		new PosFrame();
 
 	}// main
 
