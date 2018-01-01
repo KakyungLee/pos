@@ -10,11 +10,12 @@ public class ProductPanel extends JPanel {
 	private ProductController pc;
 	private DBDAO db;
 	/////////////// header
-	JTable productList;
-	DefaultTableModel model;
-	Object[] colNames;
-	Object[][] rows;
-	ArrayList<Product> datas;
+	protected JTable productList;
+	protected DefaultTableModel model;
+	protected Object[] colNames = null;
+	protected Object[][] rows;
+	protected ArrayList<Product> datas;
+
 	///////////// center
 	JPanel contents;
 

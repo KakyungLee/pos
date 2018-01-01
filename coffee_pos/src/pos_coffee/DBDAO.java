@@ -115,7 +115,7 @@ public class DBDAO {
 	}
 
 	public ArrayList<Sale> getAllSale() {
-		sql = "select date_format(saldate,'%Y-%m-%d'),salno, memphone,totalprice,stamp from sale";
+		sql = "select date_format(saldate,'%Y-%m-%d') as saldate ,salno, memphone,totalprice,stamp from sale";
 		// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 arraylist
 		ArrayList<Sale> datas = new ArrayList<Sale>();
 		
@@ -171,7 +171,6 @@ public class DBDAO {
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
-		System.out.println(p.toString());
 		return p;
 	}
 
@@ -194,7 +193,6 @@ public class DBDAO {
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
-		System.out.println(m.toString());
 		return m;
 	}
 	public Member getMemberPhone(String phone) {
@@ -216,7 +214,6 @@ public class DBDAO {
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
-		System.out.println(m.toString());
 		return m;
 	}
 

@@ -21,16 +21,16 @@ public class ProductController {
 
 		pp.addButtonActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Object obj = e.getSource();				
-				
+				Object obj = e.getSource();
+
 				if (obj == pp.insertBtn) {
 					Product p = null;
 					p = new Product();
 					p.setProname(pp.proNameTxt.getText());
 					p.setProprice(Integer.parseInt(pp.proPriceTxt.getText()));
-					db.newProduct(p);			
+					db.newProduct(p);
 				}
-				if(obj == pp.updateBtn) {
+				if (obj == pp.updateBtn) {
 					Product p = null;
 					p = new Product();
 					p.setProcode(Integer.parseInt(pp.proCodeTxt.getText()));
@@ -39,9 +39,10 @@ public class ProductController {
 					db.updateProduct(p);
 				}
 				if (obj == pp.deleteBtn) {
+
 					db.delProduct(Integer.parseInt(pp.proCodeTxt.getText()));
 				}
-				System.out.println("TEST");
+
 				refresh();
 				pp.proCodeTxt.setText("");
 				pp.proNameTxt.setText("");
@@ -54,22 +55,26 @@ public class ProductController {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				JTable obj = (JTable) e.getSource();
-				
+
 				row = obj.getSelectedRow();
 				col = obj.getSelectedColumn();
-				pp.proCodeTxt.setText(obj.getValueAt(row, 0)+"");
-				pp.proNameTxt.setText(obj.getValueAt(row, 1)+"");
+				pp.proCodeTxt.setText(obj.getValueAt(row, 0) + "");
+				pp.proNameTxt.setText(obj.getValueAt(row, 1) + "");
 				pp.proPriceTxt.setText(obj.getValueAt(row, 2) + "");
 			}
+
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 			}
+
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 			}
+
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 			}
+
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 			}
@@ -77,10 +82,24 @@ public class ProductController {
 
 	}// ProductController
 
-	void refresh() { // do not working refresh;
-		Vector result = db.getAllProductS();
+	void refresh() {
+		pp.model.setRowCount(0);
+
+		pp.datas.clear();
+		pp.datas = db.getAllProduct();
 		
-		pp.model.setDataVector(result, pp.colNames);;
+		Object[][] row = new Object[pp.datas.size()][3];
+
+		int i = 0;
+		for (Product p : pp.datas) {
+			row[i][0] = p.getProcode();
+			row[i][1] = p.getProname();
+			row[i][2] = p.getProprice();
+			i++;
+		}
+		pp.model.setDataVector(row, pp.colNames);
+
+		pp.productList.setModel(pp.model);
 	}
 
 }// ProductController

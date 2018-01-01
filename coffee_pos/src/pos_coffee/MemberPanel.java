@@ -152,8 +152,6 @@ public class MemberPanel extends JPanel{
 		this.add(bottom);
 		
 		mc = new MemberController();
-		mc.refresh();
-
 	}
 	void addButtonActionListener(ActionListener listener) {
 		insertBtn.addActionListener(listener);
