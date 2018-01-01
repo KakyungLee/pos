@@ -5,7 +5,7 @@ import java.util.*;
 
 public class DBDAO {
 	String jdbcDiver = "com.mysql.jdbc.Driver";
-	String jdbcUrl = "jdbc:mysql://192.168.1.11/coffee_teamproject";
+	String jdbcUrl = "jdbc:mysql://127.0.0.1/coffee_teamproject";
 	String dbID = "team_user";
 	String dbPassword = "coffee";
 
@@ -315,6 +315,7 @@ public class DBDAO {
 		sql = "insert into sale(memphone,totalprice,stamp) values(?,?,?)";
 		int result = 0;
 		try {
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, sale.getMemphone()); // 1占쏙옙 ?占쏙옙 占쏙옙占쏙옙 占쌍는댐옙.
 			pstmt.setInt(2, sale.getTotalprice()); // 2占쏙옙 ?占쏙옙 占쏙옙占쏙옙 占쌍는댐옙.
