@@ -52,6 +52,21 @@ public class MainController {
 				}
 				if (obj == mp.shotSelectBtn) {// 샷 추기
 
+					System.out.println("눌림");
+
+					DefaultTableModel m = (DefaultTableModel) mp.selectedProductList.getModel();
+					int row = mp.productList.getSelectedRow();
+					int col = mp.productList.getSelectedColumn();
+
+					System.out.println(mp.productList.getValueAt(row, 0).toString() + mp.productList.getValueAt(row, 1));
+
+					String productName = mp.productList.getValueAt(row, 0).toString() + " (샷추가)";
+					int productCount = 1;
+					int productPrice = Integer.parseInt(mp.productList.getValueAt(row, 1).toString()) + 500;
+
+					m.addRow(new Object[] { productName, productCount, productPrice });
+					mp.selectedProductList.updateUI();
+
 				}
 				if (obj == mp.removeBtn) {// 주문 삭제
 					Object[][] newThing = new Object[mp.selectCount][3];

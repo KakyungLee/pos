@@ -15,6 +15,7 @@ public class ProductPanel extends JPanel {
 	protected Object[] colNames = null;
 	protected Object[][] rows;
 	protected ArrayList<Product> datas;
+
 	///////////// center
 	JPanel contents;
 
@@ -30,22 +31,21 @@ public class ProductPanel extends JPanel {
 	JButton insertBtn;
 	JButton updateBtn;
 	JButton deleteBtn;
-
+	
 	/////////////
 	Color productColor;
-	int w;
-	int h;
+	int w; int h;
 
-	@SuppressWarnings("unchecked")
-	public ProductPanel() {
+	public ProductPanel() {		
 		AppManager.createInstance().setProductPanel(this);
 		db = AppManager.createInstance().getDao();
 		pc = AppManager.createInstance().getProductController();
-
 		this.setLayout(null);
 		this.setSize(1024, 720);
-		productColor = new Color(255, 192, 0);
+		productColor = new Color(255,192,0);
 		this.setBackground(productColor);
+		
+		Font contentFont = new Font("맑은 고딕", Font.PLAIN, 18);
 
 		// 테이블 컬럼 명
 		colNames = new Object[3];
@@ -56,8 +56,8 @@ public class ProductPanel extends JPanel {
 		// 처음 화면에 뿌려주는 곳
 		datas = new ArrayList<Product>();
 		datas = db.getAllProduct();
-		rows = new Object[datas.size()][3];
-
+		rows = new Object[datas.size()][3];		
+		
 		int i = 0;
 		for (Product p : datas) {
 			rows[i][0] = p.getProcode();
@@ -65,39 +65,41 @@ public class ProductPanel extends JPanel {
 			rows[i][2] = p.getProprice();
 			i++;
 		}
-		// datas = new Vector<>();
 
 		model = new DefaultTableModel(rows,colNames);
 		productList = new JTable(model);
 		productList.setRowHeight(30);
-		productList.setFont(new Font("", Font.PLAIN, 12));
-		productList.getTableHeader().setFont(new Font("", Font.BOLD, 15));
-		productList.getTableHeader().setBackground(new Color(255, 242, 204));
-		JScrollPane productListScroll = new JScrollPane(productList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		productListScroll.setSize(983, 508);
+		productList.setFont(new Font("",Font.PLAIN,16));
+		productList.getTableHeader().setFont(new Font("맑은 고딕",Font.BOLD,16));
+		productList.getTableHeader().setBackground(new Color(255,242,204));
+		JScrollPane productListScroll = new JScrollPane(productList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,	JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		productListScroll.setSize(978, 495);
 		productListScroll.setLocation(12, 10);
 
 		// 占쎄맒占쎈�� 占쎌뿯占쎌젾 占쎈쨲
 		contents = new JPanel();
 		contents.setLayout(new GridLayout(3, 2, 5, 5));
 		contents.setSize(660, 140);
-		contents.setLocation(12, 528);
+		contents.setLocation(12, 515);
 		contents.setBackground(productList.getTableHeader().getBackground());
-		contents.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		contents.setBorder(BorderFactory.createEmptyBorder(5 , 5 , 5 , 5));
+		
 
 		productCode = new JLabel("상 품 코 드");
-		productCode.setFont(productList.getTableHeader().getFont());
+		productCode.setFont(contentFont);
 		productCode.setHorizontalAlignment(JLabel.CENTER);
 		proCodeTxt = new JTextField();
+		proCodeTxt.setFont(contentFont);
 		productName = new JLabel("상 품 명");
-		productName.setFont(productList.getTableHeader().getFont());
+		productName.setFont(contentFont);
 		productName.setHorizontalAlignment(JLabel.CENTER);
 		proNameTxt = new JTextField();
+		proNameTxt.setFont(contentFont);
 		ProductPrice = new JLabel("가 격");
-		ProductPrice.setFont(productList.getTableHeader().getFont());
+		ProductPrice.setFont(contentFont);
 		ProductPrice.setHorizontalAlignment(JLabel.CENTER);
 		proPriceTxt = new JTextField();
+		proPriceTxt.setFont(contentFont);
 
 		contents.add(productCode);
 		contents.add(proCodeTxt);
@@ -112,32 +114,31 @@ public class ProductPanel extends JPanel {
 		bottom.setSize(320, 80);
 		bottom.setLocation(680, 528);
 		bottom.setBackground(productColor);
-
-		h = 0;
-		w = 0;
-		insertBtn = new JButton(changeSize(new ImageIcon("./image/add.png")));
+	
+		h =0; w = 0;
+		insertBtn = new JButton(changeSize(new ImageIcon("./image/proAdd.png")));
 		insertBtn.setBackground(null);
 		insertBtn.setBorderPainted(false);
 		insertBtn.setFocusPainted(false);
 		insertBtn.setFocusable(false);
 		insertBtn.setSize(100, 80);
-		insertBtn.setLocation(w, h);
-
-		w = w + 110;
-		updateBtn = new JButton(changeSize(new ImageIcon("./image/edit.png")));
+		insertBtn.setLocation(w,h);
+		
+		w = w+100;
+		updateBtn = new JButton(changeSize(new ImageIcon("./image/proEdit.png")));
 		updateBtn.setBackground(null);
 		updateBtn.setBorderPainted(false);
 		updateBtn.setFocusPainted(false);
 		updateBtn.setSize(100, 80);
-		updateBtn.setLocation(w, h);
-
-		w = w + 110;
-		deleteBtn = new JButton(changeSize(new ImageIcon("./image/delete.png")));
+		updateBtn.setLocation(w,h);
+		
+		w = w+110;
+		deleteBtn = new JButton(changeSize(new ImageIcon("./image/proDelete.png")));
 		deleteBtn.setBackground(null);
 		deleteBtn.setBorderPainted(false);
 		deleteBtn.setFocusPainted(false);
 		deleteBtn.setSize(100, 80);
-		deleteBtn.setLocation(w, h);
+		deleteBtn.setLocation(w,h);
 
 		bottom.add(insertBtn);
 		bottom.add(updateBtn);
@@ -147,8 +148,9 @@ public class ProductPanel extends JPanel {
 		this.add(productListScroll);
 		this.add(contents);
 		this.add(bottom);
-
+		
 		pc = new ProductController();
+		pc.refresh();
 	}
 
 	void addButtonActionListener(ActionListener listener) {
@@ -156,8 +158,7 @@ public class ProductPanel extends JPanel {
 		updateBtn.addActionListener(listener);
 		deleteBtn.addActionListener(listener);
 	}
-
-	public void addMouseListener(MouseListener listener) {
+	public void addMouseListener(MouseListener listener){
 		productList.addMouseListener(listener);
 	}
 
