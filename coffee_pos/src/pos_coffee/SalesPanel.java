@@ -92,11 +92,14 @@ public class SalesPanel extends JPanel {
 		datas = db.getAllSale();
 		rows = new Object[datas.size()][4];
 
+		int sum =0;
+		
 		int i = 0;
 		for (Sale s : datas) {
 			rows[i][0] = s.getSalno();
 			rows[i][1] = s.getMemphone();
 			rows[i][2] = s.getTotalprice();
+			sum += s.getTotalprice();
 			rows[i][3] = s.getStamp();
 			i++;
 		}
@@ -117,7 +120,7 @@ public class SalesPanel extends JPanel {
 		salesPanel.setLayout(null);
 		this.add(salesPanel);
 
-		salesAccountLbl = new JLabel("");
+		salesAccountLbl = new JLabel(sum +"");
 		salesAccountLbl.setBounds(750, startY, 190, 40);
 		salesAccountLbl.setFont(listFont);
 		salesPanel.add(salesAccountLbl);

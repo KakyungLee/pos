@@ -28,15 +28,18 @@ public class SellController {
 			public void actionPerformed(ActionEvent e) {
 				Object obj = e.getSource();
 				if (obj == sp.dateSelectBtn) {
-
+					dateSelect();
 				}
 				if (obj == sp.salesSelectBtn) {
-					
+					Allrefresh();
 				}
 				if (obj == sp.refundBtn) {
 					refund();
-				}
+					Allrefresh();
+				}		
+				
 			}
+			
 		});
 
 		sp.addMouseListener(new MouseListener() {
@@ -80,9 +83,34 @@ public class SellController {
 		db.updateMember(m);
 		
 		sum -= Integer.parseInt(sp.selPrice.getText());
+		
+		db.delSale(Integer.parseInt(sp.selDate.getText()));
 	}
+	void dateSelect() {
+		String date = (String)sp.dateCombo.getSelectedItem();
+		
+		sp.datas.clear();
+		sp.datas = db.getAllSaleWhereDate(date);
+		
+		Object[][] row = new Object[sp.datas.size()][4];
+		sum=0;
+		
+		int i = 0;
+		for (Sale s : sp.datas) {
+			row[i][0] = s.getSalno();
+			row[i][1] = s.getMemphone();
+			row[i][2] = s.getTotalprice();
+			sum += s.getTotalprice();
+			row[i][3] = s.getStamp();
+			i++;
+		}
+
+		sp.model.setDataVector(row, sp.colNames);
+		sp.salesList.setModel(sp.model);		
+	}
+	
 	void Allrefresh() {
-		//sp.dateCombo.setModel(new DefaultComboBoxModel(db.getSalItems()));
+		sp.dateCombo.setModel(new DefaultComboBoxModel(db.getSalItems()));
 		sp.datas.clear();
 		sp.datas = db.getAllSale();
 		
