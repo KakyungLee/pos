@@ -103,7 +103,7 @@ public class MainPanel extends JPanel {
 		Font listFont = new Font("맑은 고딕", Font.PLAIN, 24);
 		Font priceFont = new Font("맑은 고딕", Font.PLAIN, 28);
 		Font mInfoFont = new Font("맑은 고딕", Font.PLAIN, 20);
-		Font proListHeadFont = new Font("맑은 고딕", Font.BOLD, 26); 
+		Font proListHeadFont = new Font("맑은 고딕", Font.BOLD, 24); 
 		Font proListFont = new Font("맑은 고딕", Font.PLAIN, 26); 
 		
 		/* 테스트용 변수 */
@@ -146,7 +146,7 @@ public class MainPanel extends JPanel {
 
 		// 상품 리스트
 		colNames = new Object[3];
-		colNames[0] = "상 품 코 드";
+		colNames[0] = "코드";
 		colNames[1] = "상 품 명";
 		colNames[2] = "가 격";
 
@@ -170,6 +170,10 @@ public class MainPanel extends JPanel {
 		productList.setFont(listFont); // 폰트 설정
 		JScrollPane proListScroll = new JScrollPane(productList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		productList.getTableHeader().setFont(proListHeadFont);
+		productList.setRowHeight(30);
+		productList.getColumnModel().getColumn(0).setMaxWidth(70); 
+		productList.getColumnModel().getColumn(1).setMinWidth(250); 
 		mainLeftPanel.add(proListScroll);
 		proListScroll.setVisible(true);
 		proListScroll.setBounds(startX, startY, proList_width, proList_height);
@@ -207,6 +211,11 @@ public class MainPanel extends JPanel {
 		selectedProductList.setFont(listFont);
 		JScrollPane proSelListScroll = new JScrollPane(selectedProductList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		selectedProductList.setFont(listFont);
+		selectedProductList.getTableHeader().setFont(proListHeadFont);
+		selectedProductList.setRowHeight(30);
+		selectedProductList.getColumnModel().getColumn(0).setMaxWidth(70); 
+		selectedProductList.getColumnModel().getColumn(1).setMinWidth(250); 
 		mainRightPanel.add(proSelListScroll);
 		proSelListScroll.setVisible(true);
 		proSelListScroll.setBounds(startX_right, startY, selProList_width, selProList_hight);
