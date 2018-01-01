@@ -140,9 +140,9 @@ public class SalesPanel extends JPanel {
 		bottomPanel.setLayout(null);
 		this.add(bottomPanel);
 
-		salesSelectBtn = new JButton(changeSize(new ImageIcon("./image/sales_salesSelectBtn.png"), 150, 140));
-		salesSelectBtn.setBounds(startX, startY, 150, 140);
-		bottomPanel.add(salesSelectBtn);
+		//salesSelectBtn = new JButton(changeSize(new ImageIcon("./image/sales_salesSelectBtn.png"), 150, 140));
+		//salesSelectBtn.setBounds(startX, startY, 150, 140);
+		//bottomPanel.add(salesSelectBtn);
 
 		refundBtn = new JButton(changeSize(new ImageIcon("./image/sales_refundBtn.png"), 150, 140));
 		refundBtn.setBounds(840, startY, 150, 140);
@@ -152,7 +152,7 @@ public class SalesPanel extends JPanel {
 		selectedSalesPan = new JPanel();
 		selectedSalesPan.setLayout(new GridLayout(4, 2));
 		selectedSalesPan.setBackground(Color.white);
-		selectedSalesPan.setBounds(170, startY, 660, 140);
+		selectedSalesPan.setBounds(startX, startY, 820, 140);
 		bottomPanel.add(selectedSalesPan, BorderLayout.CENTER);
 
 		date = new JLabel("매출  번호");
@@ -197,7 +197,7 @@ public class SalesPanel extends JPanel {
 
 	void addButtonActionListener(ActionListener listener) {
 		dateSelectBtn.addActionListener(listener);
-		salesSelectBtn.addActionListener(listener);
+		//salesSelectBtn.addActionListener(listener);
 		refundBtn.addActionListener(listener);
 	}
 
