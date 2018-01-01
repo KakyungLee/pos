@@ -73,9 +73,7 @@ public class PosFrame extends JFrame {
 		this.add(contents, "contents");
 
 		setVisible(true);
-		
-		
-		this.addWindowListener(new WindowListnere());
+
 		
 	}// PosFrame
 
