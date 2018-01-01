@@ -22,7 +22,7 @@ public class PosFrame extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1024, 800);
-		setTitle("Å×½ºÆ®");
+		setTitle("cafe pos");
 		setLayout(null);
 
 		top = new JPanel();
