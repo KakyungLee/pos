@@ -11,11 +11,11 @@ public class ButtonController {
 		tp = AppManager.createInstance().getTabPanel();
 		pf = AppManager.createInstance().getPosFrame();
 
-		tp.addButtonActionListener(new ActionListener(){
+		tp.addButtonActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Object obj = e.getSource();
-				
-				if (obj == tp.mainBtn) {
+
+				if (obj == tp.mainBtn) {	
 					pf.cardLayout.show(pf.contents, pf.contentsName[0]);
 				}
 				if (obj == tp.productBtn) {

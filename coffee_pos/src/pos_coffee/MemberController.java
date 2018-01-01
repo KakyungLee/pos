@@ -15,7 +15,7 @@ public class MemberController {
 	int row;
 	int col;
 	Object value;
-	int stamp =0;
+	int stamp = 0;
 
 	boolean flag = true;
 
@@ -63,7 +63,7 @@ public class MemberController {
 				mp.idxTxt.setText(obj.getValueAt(row, 0) + "");
 				mp.memNameTxt.setText(obj.getValueAt(row, 1) + "");
 				mp.memPhoneTxt.setText(obj.getValueAt(row, 2) + "");
-				stamp = Integer.parseInt(obj.getValueAt(row, 3)+"");
+				stamp = Integer.parseInt(obj.getValueAt(row, 3) + "");
 
 			}// mouseClicked
 
@@ -88,7 +88,6 @@ public class MemberController {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				// TODO �ڵ� ������ �޼ҵ� ����
-				
 
 			}
 
@@ -97,18 +96,23 @@ public class MemberController {
 	}// ProductController
 
 	void refresh() {
-		mp.datas = new ArrayList<Member>();
-		mp.datas = db.getAllMember();
-		mp.rows = new Object[mp.datas.size()][4];
+		mp.model.setRowCount(0);
 
+		mp.datas.clear();
+		mp.datas = db.getAllMember();
+		
+		Object[][] row = new Object[mp.datas.size()][4];
+		
 		int i = 0;
 		for (Member p : mp.datas) {
-			mp.rows[i][0] = p.getMemno();
-			mp.rows[i][1] = p.getMemname();
-			mp.rows[i][2] = p.getMemphone(); /// ���Ⱑ �����ϴ�
-			mp.rows[i][3] = p.getMemstamp();
+			row[i][0] = p.getMemno();
+			row[i][1] = p.getMemname();
+			row[i][2] = p.getMemphone(); /// ���Ⱑ �����ϴ�
+			row[i][3] = p.getMemstamp();
 			i++;
 		}
-		mp.model.fireTableDataChanged();
+		
+		mp.model.setDataVector(row, mp.colNames);
+		mp.memberList.setModel(mp.model);
 	}
 }

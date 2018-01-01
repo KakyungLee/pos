@@ -1,9 +1,11 @@
 package pos_coffee;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
+import javax.swing.table.*;
 
 public class SalesPanel extends JPanel {
 	private SellController sc;
@@ -22,11 +24,11 @@ public class SalesPanel extends JPanel {
 
 	private JPanel salesListPanel;
 	private final int salesListPanel_height = 390;
-	protected JTable salesList = new JTable(); // 거래목록
+	protected JTable salesList; // 거래목록
 
 	private JPanel salesPanel;
 	private final int salesPanel_height = 60;
-	protected JTextField salesAccountLbl; // 금액 표기
+	protected JLabel salesAccountLbl; // 금액 표기
 	private JLabel lbl2 = new JLabel("원"); // 원
 
 	private JPanel bottomPanel;
@@ -43,6 +45,11 @@ public class SalesPanel extends JPanel {
 	protected JLabel stamp;
 	protected JLabel selStamp;
 
+	protected DefaultTableModel model;
+	protected Object[] colNames = null;
+	protected Object[][] rows;
+	protected ArrayList<Sale> datas;
+
 	SalesPanel() {
 		AppManager.createInstance().setSalesPanel(this);
 		db = AppManager.createInstance().getDao();
@@ -50,7 +57,7 @@ public class SalesPanel extends JPanel {
 		Font listFont = new Font("맑은 고딕", Font.PLAIN, 24);
 		Font contentFont = new Font("맑은 고딕", Font.PLAIN, 20);
 
-		this.setLayout(null);    
+		this.setLayout(null);
 		this.setSize(1024, 720);
 
 		topPanel = new JPanel();
@@ -75,7 +82,27 @@ public class SalesPanel extends JPanel {
 		salesListPanel.setLayout(null);
 		this.add(salesListPanel);
 
-		salesList = new JTable();
+		colNames = new Object[4];
+		colNames[0] = "번     호";
+		colNames[1] = "전화번호";
+		colNames[2] = "총     액";
+		colNames[3] = "스 탬 프";
+
+		datas = new ArrayList<Sale>();
+		datas = db.getAllSale();
+		rows = new Object[datas.size()][4];
+
+		int i = 0;
+		for (Sale s : datas) {
+			rows[i][0] = s.getSalno();
+			rows[i][1] = s.getMemphone();
+			rows[i][2] = s.getTotalprice();
+			rows[i][3] = s.getStamp();
+			i++;
+		}
+
+		model = new DefaultTableModel(rows, colNames);
+		salesList = new JTable(model);
 		// salesList.setBackground(Color.RED);
 		JScrollPane proListScroll = new JScrollPane(salesList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -90,7 +117,7 @@ public class SalesPanel extends JPanel {
 		salesPanel.setLayout(null);
 		this.add(salesPanel);
 
-		salesAccountLbl = new JTextField("999999");
+		salesAccountLbl = new JLabel("");
 		salesAccountLbl.setBounds(750, startY, 190, 40);
 		salesAccountLbl.setFont(listFont);
 		salesPanel.add(salesAccountLbl);
@@ -122,42 +149,39 @@ public class SalesPanel extends JPanel {
 		selectedSalesPan.setBounds(170, startY, 660, 140);
 		bottomPanel.add(selectedSalesPan, BorderLayout.CENTER);
 
-		date = new JLabel("거래 날짜");
+		date = new JLabel("매출  번호");
 		selectedSalesPan.add(date);
 		date.setFont(contentFont);
 
-		selDate = new JLabel("2017-12-31");
+		selDate = new JLabel("");
 		selectedSalesPan.add(selDate);
 		selDate.setFont(contentFont);
 
-		member = new JLabel("회원이름");
+		member = new JLabel("회원  번호");
 		selectedSalesPan.add(member);
 		member.setFont(contentFont);
 
-		selMember = new JLabel("김모아");
+		selMember = new JLabel("");
 		selectedSalesPan.add(selMember);
 		selMember.setFont(contentFont);
 
-		price = new JLabel("금액");
+		price = new JLabel("금       액");
 		selectedSalesPan.add(price);
 		price.setFont(contentFont);
 
-		selPrice = new JLabel("9999");
+		selPrice = new JLabel("");
 		selectedSalesPan.add(selPrice);
 		selPrice.setFont(contentFont);
 
-		stamp = new JLabel("스탬프");
+		stamp = new JLabel("스  탬  프");
 		selectedSalesPan.add(stamp);
 		stamp.setFont(contentFont);
 
-		selStamp = new JLabel("10");
+		selStamp = new JLabel("");
 		selectedSalesPan.add(selStamp);
 		selStamp.setFont(contentFont);
-		/*
-		 * if(sc == null) new SellController(); sc =
-		 * AppManager.createInstance().getSellController(); sc.refresh();
-		 * this.repaint();
-		 */
+
+		sc = new SellController();
 	}
 
 	ImageIcon changeSize(ImageIcon temp, int width, int height) {
@@ -168,7 +192,13 @@ public class SalesPanel extends JPanel {
 	}
 
 	void addButtonActionListener(ActionListener listener) {
-		dateCombo.addActionListener(listener);
+		dateSelectBtn.addActionListener(listener);
+		salesSelectBtn.addActionListener(listener);
+		refundBtn.addActionListener(listener);
+	}
+
+	public void addMouseListener(MouseListener listener) {
+		salesList.addMouseListener(listener);
 	}
 
 }
