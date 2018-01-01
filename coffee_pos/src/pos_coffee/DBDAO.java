@@ -12,11 +12,11 @@ public class DBDAO {
 	Connection conn;
 	PreparedStatement pstmt;
 	ResultSet rs;
-	
+
 	Vector<String> salItems; // 판매 콤보작스
 
 	String sql;
-	
+
 	private ProductPanel pp;
 
 	public DBDAO() {
@@ -51,7 +51,6 @@ public class DBDAO {
 		}
 
 	}
-
 
 	// 모든 데이터를 가져오는 함수
 	public ArrayList<Product> getAllProduct() {
@@ -118,7 +117,7 @@ public class DBDAO {
 		sql = "select date_format(saldate,'%Y-%m-%d') as saldate ,salno, memphone,totalprice,stamp from sale";
 		// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 arraylist
 		ArrayList<Sale> datas = new ArrayList<Sale>();
-		
+
 		salItems = new Vector<String>();
 		salItems.add("날짜");
 
@@ -137,12 +136,12 @@ public class DBDAO {
 				s.setTotalprice(rs.getInt("totalprice"));
 				s.setStamp(rs.getInt("stamp"));
 				datas.add(s);
-				if(salItems.lastElement().equals(s.getSaldate())) {
-					
-				}else {
+				if (salItems.lastElement().equals(s.getSaldate())) {
+
+				} else {
 					salItems.add(s.getSaldate());
 				}
-				
+
 			}
 
 		} catch (Exception e) {
@@ -195,6 +194,7 @@ public class DBDAO {
 		}
 		return m;
 	}
+
 	public Member getMemberPhone(String phone) {
 		sql = "select * from member where memphone = ?";
 		Member m = null;
@@ -219,6 +219,7 @@ public class DBDAO {
 
 	public Sale getSale(int salno) {
 		sql = "select date_format(saldate,'%Y-%m-%d'),salno, memphone,totalprice,stamp from sale where salno ?";
+
 		Sale s = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -239,6 +240,36 @@ public class DBDAO {
 		}
 		System.out.println(s.toString());
 		return s;
+	}
+
+	public ArrayList<Sale> getAllSaleWhereDate(String date) {
+		sql = "select date_format(saldate,'%Y-%m-%d') as saldate ,salno, memphone,totalprice,stamp from sale where date(saldate) = ?";
+
+		// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 arraylist
+		ArrayList<Sale> datas = new ArrayList<Sale>();
+
+		try {
+			// statement 占쏙옙占쏙옙
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, date);
+			// sql 占쏙옙 占쏙옙占쏙옙 占쏙옙 占쌨아울옙占쏙옙
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+
+				Sale s = new Sale();
+				s.setSalno(rs.getInt("salno"));
+				s.setSaldate(rs.getString("saldate"));
+				s.setMemphone(rs.getString("memphone"));
+				s.setTotalprice(rs.getInt("totalprice"));
+				s.setStamp(rs.getInt("stamp"));
+				datas.add(s);
+			}
+
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+
+		return datas;
 	}
 
 	// 占쏙옙占쏙옙占싶몌옙 占쏙옙占쏙옙占싹댐옙 占쌉쇽옙
@@ -396,11 +427,9 @@ public class DBDAO {
 			return false;
 		}
 	}
-	
+
 	Vector<String> getSalItems() {
 		return salItems;
 	}
-
-
 
 }
