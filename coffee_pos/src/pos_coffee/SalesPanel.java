@@ -93,6 +93,7 @@ public class SalesPanel extends JPanel {
 		salesAccountLbl = new JTextField("999999");
 		salesAccountLbl.setBounds(750, startY, 190, 40);
 		salesAccountLbl.setFont(listFont);
+		salesAccountLbl.setEditable(false);
 		salesPanel.add(salesAccountLbl);
 
 		lbl2.setBounds(950, startY, 50, 40);
