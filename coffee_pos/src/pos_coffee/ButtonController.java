@@ -17,10 +17,11 @@ public class ButtonController {
 		tp = AppManager.createInstance().getTabPanel();
 		pf = AppManager.createInstance().getPosFrame();
 
-		mc = AppManager.createInstance().getMainController();
-		pc = AppManager.createInstance().getProductController();
-		Mmc = AppManager.createInstance().getMemberController();
-		sc = AppManager.createInstance().getSellController();
+		//mc = AppManager.createInstance().getMainController();
+		mc = new MainController();
+		pc = new ProductController();
+		Mmc = new MemberController();
+		sc = new SellController();
 
 		tp.addButtonActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
