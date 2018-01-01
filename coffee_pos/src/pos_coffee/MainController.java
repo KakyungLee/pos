@@ -152,9 +152,9 @@ public class MainController {
 					row = obj.getSelectedRow();
 					col = obj.getSelectedColumn();
 
-					int code = (int) obj.getValueAt(row, 0);
+					int code = Integer.parseInt(obj.getValueAt(row, 0)+"");
 					String Name = (String) obj.getValueAt(row, 1);
-					int Price = (int) obj.getValueAt(row, 2);
+					int Price = Integer.parseInt(obj.getValueAt(row, 2)+"");
 
 					p.setProcode(code);
 					p.setProname(Name);
@@ -188,6 +188,10 @@ public class MainController {
 	}
 
 	void payment() {
+		System.out.println("##"+m.getMemphone()+"##");
+		if(m.getMemphone() == null) {
+			m.setMemname("0000000000");
+		}
 		s.setMemphone(m.getMemphone());
 		s.setTotalprice(sum);
 		if (stampUse == true) {
@@ -211,6 +215,10 @@ public class MainController {
 		mp.memberTxt.setText("회원폰번호입력");
 		mp.model2.setRowCount(0);
 		mp.memberinfoLbl.setText("");
+		m.setMemname("");
+		m.setMemno(1);
+		m.setMemphone("0000000000");
+		m.setMemstamp(0);
 
 		refreshSelectJList();
 		mp.pricelLbl.setText(sum + "");
