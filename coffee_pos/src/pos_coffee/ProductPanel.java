@@ -116,7 +116,7 @@ public class ProductPanel extends JPanel {
 		bottom.setBackground(productColor);
 	
 		h =0; w = 0;
-		insertBtn = new JButton(changeSize(new ImageIcon("./image/proAdd.png")));
+		insertBtn = new JButton(changeSize(new ImageIcon("./image/add.png")));
 		insertBtn.setBackground(null);
 		insertBtn.setBorderPainted(false);
 		insertBtn.setFocusPainted(false);
@@ -124,8 +124,8 @@ public class ProductPanel extends JPanel {
 		insertBtn.setSize(100, 80);
 		insertBtn.setLocation(w,h);
 		
-		w = w+100;
-		updateBtn = new JButton(changeSize(new ImageIcon("./image/proEdit.png")));
+		w = w+110;
+		updateBtn = new JButton(changeSize(new ImageIcon("./image/edit.png")));
 		updateBtn.setBackground(null);
 		updateBtn.setBorderPainted(false);
 		updateBtn.setFocusPainted(false);
@@ -133,7 +133,7 @@ public class ProductPanel extends JPanel {
 		updateBtn.setLocation(w,h);
 		
 		w = w+110;
-		deleteBtn = new JButton(changeSize(new ImageIcon("./image/proDelete.png")));
+		deleteBtn = new JButton(changeSize(new ImageIcon("./image/delete.png")));
 		deleteBtn.setBackground(null);
 		deleteBtn.setBorderPainted(false);
 		deleteBtn.setFocusPainted(false);
