@@ -7,7 +7,6 @@ import javax.swing.*;
 import javax.swing.table.*;
 
 public class ProductPanel extends JPanel {
-	private ProductController pc;
 	private DBDAO db;
 	/////////////// header
 	protected JTable productList;
@@ -39,7 +38,7 @@ public class ProductPanel extends JPanel {
 	public ProductPanel() {		
 		AppManager.createInstance().setProductPanel(this);
 		db = AppManager.createInstance().getDao();
-		pc = AppManager.createInstance().getProductController();
+
 		this.setLayout(null);
 		this.setSize(1024, 720);
 		productColor = new Color(255,192,0);
@@ -148,9 +147,6 @@ public class ProductPanel extends JPanel {
 		this.add(productListScroll);
 		this.add(contents);
 		this.add(bottom);
-		
-		pc = new ProductController();
-		pc.refresh();
 	}
 
 	void addButtonActionListener(ActionListener listener) {

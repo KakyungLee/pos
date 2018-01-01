@@ -9,7 +9,6 @@ import javax.swing.table.*;
 
 public class MainPanel extends JPanel {
 	private DBDAO db;
-	private MainController mc;
 	/////////////// header
 	DefaultTableModel model;
 	Object[] colNames;
@@ -100,10 +99,10 @@ public class MainPanel extends JPanel {
 		db = AppManager.createInstance().getDao();
 
 		/*폰트 정의*/
-		Font listFont = new Font("맑은 고딕", Font.PLAIN, 24);
+		Font listFont = new Font("맑은 고딕", Font.PLAIN, 16);
 		Font priceFont = new Font("맑은 고딕", Font.PLAIN, 28);
 		Font mInfoFont = new Font("맑은 고딕", Font.PLAIN, 20);
-		Font proListHeadFont = new Font("맑은 고딕", Font.BOLD, 26); 
+		Font proListHeadFont = new Font("맑은 고딕", Font.BOLD, 16); 
 		Font proListFont = new Font("맑은 고딕", Font.PLAIN, 26); 
 		
 		/* 테스트용 변수 */
@@ -166,8 +165,9 @@ public class MainPanel extends JPanel {
 
 		model = new DefaultTableModel(rows, colNames);
 		productList = new JTable(model); // 상품 리스트
-		// productList.setBackground(Color.RED);
+		productList.setRowHeight(30);
 		productList.setFont(listFont); // 폰트 설정
+		productList.getTableHeader().setFont(proListHeadFont);
 		JScrollPane proListScroll = new JScrollPane(productList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		mainLeftPanel.add(proListScroll);
@@ -203,8 +203,9 @@ public class MainPanel extends JPanel {
 		
 		model2 = new DefaultTableModel(rows2, colNames);
 		selectedProductList = new JTable(model2); // 선택된 상품 리스트
-		// selectedProductList.setBackground(Color.RED);
+		selectedProductList.setRowHeight(30);
 		selectedProductList.setFont(listFont);
+		selectedProductList.getTableHeader().setFont(proListHeadFont);
 		JScrollPane proSelListScroll = new JScrollPane(selectedProductList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		mainRightPanel.add(proSelListScroll);
@@ -278,8 +279,6 @@ public class MainPanel extends JPanel {
 		payPanel.add(paymentBtn);
 
 		///////////// 컴포넌트 그리기 끝
-
-		mc = new MainController();
 	}
 
 	ImageIcon changeSize(ImageIcon temp, int width, int height) {
