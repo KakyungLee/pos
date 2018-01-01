@@ -12,8 +12,8 @@ public class TabPanel extends JPanel{
 	protected JButton salesBtn; //������� �гη� �̵�
 	protected DigitalClock dataClockLbl;//��¥�� �ð� ǥ��
 	
-	private ButtonController bc;
-	
+	ButtonController bc;
+		
 	TabPanel(){
 		AppManager.createInstance().setTabPanel(this);
 
@@ -65,7 +65,7 @@ public class TabPanel extends JPanel{
 		add(salesBtn);
 		add(dataClockLbl);
 		
-		bc = new ButtonController();
+		bc = new ButtonController(); 
 	}
 	
 	ImageIcon changeSize(ImageIcon temp) {

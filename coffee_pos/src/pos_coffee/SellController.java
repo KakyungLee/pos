@@ -17,8 +17,8 @@ public class SellController {
 	int row;
 	int col;
 
-	int sum =0;
-	
+	int sum = 0;
+
 	public SellController() {
 		AppManager.createInstance().setSellController(this);
 		db = AppManager.createInstance().getDao();
@@ -36,10 +36,10 @@ public class SellController {
 				if (obj == sp.refundBtn) {
 					refund();
 					Allrefresh();
-				}		
-				
+				}
+
 			}
-			
+
 		});
 
 		sp.addMouseListener(new MouseListener() {
@@ -53,7 +53,7 @@ public class SellController {
 				col = obj.getSelectedColumn();
 
 				sp.selDate.setText(obj.getValueAt(row, 0) + "");
-				sp.selMember.setText(obj.getValueAt(row, 1)+ "");
+				sp.selMember.setText(obj.getValueAt(row, 1) + "");
 				sp.selPrice.setText(obj.getValueAt(row, 2) + "");
 				sp.selStamp.setText(obj.getValueAt(row, 3) + "");
 			}
@@ -78,45 +78,52 @@ public class SellController {
 
 	void refund() {
 		Member m = db.getMemberPhone(sp.selMember.getText());
-		
+
 		m.setMemstamp(m.getMemstamp() - Integer.parseInt(sp.selStamp.getText()));
 		db.updateMember(m);
-		
+
 		sum -= Integer.parseInt(sp.selPrice.getText());
-		
+
 		db.delSale(Integer.parseInt(sp.selDate.getText()));
 	}
-	void dateSelect() {
-		String date = (String)sp.dateCombo.getSelectedItem();
-		
-		sp.datas.clear();
-		sp.datas = db.getAllSaleWhereDate(date);
-		
-		Object[][] row = new Object[sp.datas.size()][4];
-		sum=0;
-		
-		int i = 0;
-		for (Sale s : sp.datas) {
-			row[i][0] = s.getSalno();
-			row[i][1] = s.getMemphone();
-			row[i][2] = s.getTotalprice();
-			sum += s.getTotalprice();
-			row[i][3] = s.getStamp();
-			i++;
-		}
 
-		sp.model.setDataVector(row, sp.colNames);
-		sp.salesList.setModel(sp.model);		
+	void dateSelect() {
+		String date = (String) sp.dateCombo.getSelectedItem();
+		System.out.println(date);
+		if (date.equals("날짜")) {
+			Allrefresh();
+		} else {
+			sp.datas.clear();
+			sp.datas = db.getAllSaleWhereDate(date);
+
+			Object[][] row = new Object[sp.datas.size()][4];
+			sum = 0;
+
+			int i = 0;
+			for (Sale s : sp.datas) {
+				row[i][0] = s.getSalno();
+				row[i][1] = s.getMemphone();
+				row[i][2] = s.getTotalprice();
+				sum += s.getTotalprice();
+				row[i][3] = s.getStamp();
+				i++;
+			}
+
+			sp.model.setDataVector(row, sp.colNames);
+			sp.salesList.setModel(sp.model);
+
+			sp.salesAccountLbl.setText(sum + "");
+		}
 	}
-	
+
 	void Allrefresh() {
 		sp.dateCombo.setModel(new DefaultComboBoxModel(db.getSalItems()));
 		sp.datas.clear();
 		sp.datas = db.getAllSale();
-		
+
 		Object[][] row = new Object[sp.datas.size()][4];
-		sum=0;
-		
+		sum = 0;
+
 		int i = 0;
 		for (Sale s : sp.datas) {
 			row[i][0] = s.getSalno();
@@ -129,7 +136,7 @@ public class SellController {
 
 		sp.model.setDataVector(row, sp.colNames);
 		sp.salesList.setModel(sp.model);
-	
+
 		sp.salesAccountLbl.setText(sum + "");
 	}
 }
