@@ -184,7 +184,7 @@ public class MainController {
 		mp.model2.setRowCount(0);
 
 		mp.model2.setDataVector(mp.rows2, mp.colNames);
-		mp.selectedProductList.setModel(mp.model2);
+		mp.selectedProductList.setModel(mp.model2);	
 	}
 
 	void payment() {

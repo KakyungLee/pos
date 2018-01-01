@@ -14,10 +14,10 @@ public class PosFrame extends JFrame {
 	protected ProductPanel productP;
 	protected MemberPanel memberP;
 	
-	protected MainController mc;
+	/*protected MainController mc;
 	protected ProductController pc;
 	protected MemberController Mmc;
-	protected SellController sc;
+	protected SellController sc;*/
 
 
 	String[] contentsName = { "main", "product", "member", "sales" };
@@ -61,10 +61,10 @@ public class PosFrame extends JFrame {
 
 		ButtonController bc = new ButtonController();
 		
-		mc = new MainController();
+		/*mc = new MainController();
 		pc = new ProductController();
 		Mmc = new MemberController();
-		sc = new SellController();
+		sc = new SellController();*/
 		////////////////////////
 		top.setBackground(Color.BLUE);
 		contents.setBackground(Color.white);
