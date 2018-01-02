@@ -33,7 +33,16 @@ public class MainController {
 				Object obj = e.getSource();
 
 				if (obj == mp.selectBtn) {// 선택
-					Object[][] newThing = new Object[mp.selectCount + 1][3];
+					
+					DefaultTableModel m = (DefaultTableModel)mp.selectedProductList.getModel();
+					int row = mp.productList.getSelectedRow();
+					System.out.println(row);
+					sum += Integer.parseInt(mp.productList.getValueAt(row, 2)+"");
+					
+					m.addRow(new Object[] {mp.productList.getValueAt(row, 0),mp.productList.getValueAt(row, 1),mp.productList.getValueAt(row, 2)});
+					mp.selectedProductList.updateUI();
+					mp.pricelLbl.setText(sum + "");	
+					/*Object[][] newThing = new Object[mp.selectCount + 1][3];
 
 					for (int i = 0; i < mp.selectCount; i++) {
 						newThing[i] = mp.rows2[i];
@@ -49,9 +58,19 @@ public class MainController {
 					mp.rows2 = newThing;
 
 					refreshSelectJList();
-					mp.pricelLbl.setText(sum + "");
+					mp.pricelLbl.setText(sum + "");*/
 				}
 				if (obj == mp.shotSelectBtn) {// 샷 추기
+					DefaultTableModel m = (DefaultTableModel)mp.selectedProductList.getModel();
+					int row = mp.selectedProductList.getSelectedRow();
+					System.out.println(row);
+					sum += 500;
+					
+					mp.selectedProductList.setValueAt(mp.selectedProductList.getValueAt(row, 1)+"(샷추가)",row,1);
+					mp.selectedProductList.setValueAt(Integer.parseInt(mp.selectedProductList.getValueAt(row, 2).toString())+500,row,2);
+					mp.selectedProductList.updateUI();
+					mp.pricelLbl.setText(sum + "");	
+					/*
 					Object[][] newThing = new Object[mp.selectCount + 1][3];
 
 					for (int i = 0; i < mp.selectCount; i++) {
@@ -70,9 +89,20 @@ public class MainController {
 
 					refreshSelectJList();
 					mp.pricelLbl.setText(sum + "");
-					shot ++;					
+					shot ++;
+					*/					
 				}
 				if (obj == mp.removeBtn) {// 주문 삭제
+					DefaultTableModel m = (DefaultTableModel)mp.selectedProductList.getModel();
+					int row = mp.selectedProductList.getSelectedRow();
+					System.out.println(row);
+					sum -= Integer.parseInt(mp.selectedProductList.getValueAt(row, 2)+"");
+					
+					m.removeRow(row);
+					mp.selectedProductList.updateUI();
+					mp.pricelLbl.setText(sum + "");					
+					
+					/*
 					Object[][] newThing = new Object[mp.selectCount][3];
 
 					for (int i = 0; i < mp.selectCount; i++) {
@@ -84,16 +114,20 @@ public class MainController {
 					mp.rows2 = new Object[mp.selectCount][3];
 
 					int j = 0;
+					int count = 1;
 					for (int i = 0; i < mp.selectCount; i++) {
-						if (newThing[i][1] != p.getProname()) {
+						System.out.println("###"+p.getProname());
+						if (newThing[i][1] != p.getProname() && count >0) {
 							mp.rows2[j] = newThing[i];
 							j++;
+							count--;
 						}
 					}
 					sum -= p.getProprice();
 
 					refreshSelectJList();
 					mp.pricelLbl.setText(sum + "");
+				*/
 				}
 				if (obj == mp.clearBtn) {// 주문 전체 삭제
 					sum = 0;
@@ -185,6 +219,8 @@ public class MainController {
 
 		mp.model2.setDataVector(mp.rows2, mp.colNames);
 		mp.selectedProductList.setModel(mp.model2);	
+		mp.selectedProductList.getColumnModel().getColumn(0).setMaxWidth(70); 
+		mp.selectedProductList.getColumnModel().getColumn(1).setMinWidth(250); 
 	}
 
 	void payment() {
