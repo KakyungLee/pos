@@ -162,10 +162,6 @@ public class MainController {
 	}
 
 	void payment() {
-		System.out.println("##"+m.getMemphone()+"##");
-		if(m.getMemphone() == null) {
-			m.setMemname("0000000000");
-		}
 		s.setMemphone(m.getMemphone());
 		s.setTotalprice(sum);
 		if (stampUse == true) {
