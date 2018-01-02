@@ -42,23 +42,7 @@ public class MainController {
 					m.addRow(new Object[] {mp.productList.getValueAt(row, 0),mp.productList.getValueAt(row, 1),mp.productList.getValueAt(row, 2)});
 					mp.selectedProductList.updateUI();
 					mp.pricelLbl.setText(sum + "");	
-					/*Object[][] newThing = new Object[mp.selectCount + 1][3];
-
-					for (int i = 0; i < mp.selectCount; i++) {
-						newThing[i] = mp.rows2[i];
-					}
-					newThing[mp.selectCount][0] = p.getProcode();
-					newThing[mp.selectCount][1] = p.getProname();
-					newThing[mp.selectCount][2] = p.getProprice();
-					sum += p.getProprice();
-
-					mp.selectCount += 1;
-
-					mp.rows2 = new Object[mp.selectCount][3];
-					mp.rows2 = newThing;
-
-					refreshSelectJList();
-					mp.pricelLbl.setText(sum + "");*/
+					
 				}
 				if (obj == mp.shotSelectBtn) {// 샷 추기
 					DefaultTableModel m = (DefaultTableModel)mp.selectedProductList.getModel();
@@ -70,27 +54,7 @@ public class MainController {
 					mp.selectedProductList.setValueAt(Integer.parseInt(mp.selectedProductList.getValueAt(row, 2).toString())+500,row,2);
 					mp.selectedProductList.updateUI();
 					mp.pricelLbl.setText(sum + "");	
-					/*
-					Object[][] newThing = new Object[mp.selectCount + 1][3];
-
-					for (int i = 0; i < mp.selectCount; i++) {
-						newThing[i] = mp.rows2[i];
-					}
-					
-					newThing[mp.selectCount][0] = "";
-					newThing[mp.selectCount][1] = "(샷추가)";
-					newThing[mp.selectCount][2] = 500;
-					sum += 500;
-
-					mp.selectCount += 1;
-					
-					mp.rows2 = new Object[mp.selectCount][3];
-					mp.rows2 = newThing;
-
-					refreshSelectJList();
-					mp.pricelLbl.setText(sum + "");
-					shot ++;
-					*/					
+								
 				}
 				if (obj == mp.removeBtn) {// 주문 삭제
 					DefaultTableModel m = (DefaultTableModel)mp.selectedProductList.getModel();
@@ -102,32 +66,6 @@ public class MainController {
 					mp.selectedProductList.updateUI();
 					mp.pricelLbl.setText(sum + "");					
 					
-					/*
-					Object[][] newThing = new Object[mp.selectCount][3];
-
-					for (int i = 0; i < mp.selectCount; i++) {
-						newThing[i] = mp.rows2[i];
-					}
-
-					mp.selectCount -= 1;
-
-					mp.rows2 = new Object[mp.selectCount][3];
-
-					int j = 0;
-					int count = 1;
-					for (int i = 0; i < mp.selectCount; i++) {
-						System.out.println("###"+p.getProname());
-						if (newThing[i][1] != p.getProname() && count >0) {
-							mp.rows2[j] = newThing[i];
-							j++;
-							count--;
-						}
-					}
-					sum -= p.getProprice();
-
-					refreshSelectJList();
-					mp.pricelLbl.setText(sum + "");
-				*/
 				}
 				if (obj == mp.clearBtn) {// 주문 전체 삭제
 					sum = 0;

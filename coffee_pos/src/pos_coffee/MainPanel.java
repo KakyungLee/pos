@@ -286,7 +286,7 @@ public class MainPanel extends JPanel {
 		// :: 결제 버튼
 
 		paymentBtn = new JButton(changeSize(new ImageIcon("./image/main_paymentBtn.png"), p_btnWidth, p_btnHeight));
-		paymentBtn.setBounds(p_btnWidth + m_gap * 2, startY, p_btnWidth, p_btnHeight);
+		paymentBtn.setBounds(p_btnWidth + m_gap , startY, p_btnWidth, p_btnHeight);
 		payPanel.add(paymentBtn);
 
 		///////////// 컴포넌트 그리기 끝
