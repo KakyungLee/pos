@@ -5,7 +5,7 @@ import java.util.*;
 
 public class DBDAO {
 	String jdbcDiver = "com.mysql.jdbc.Driver";
-	String jdbcUrl = "jdbc:mysql://192.168.1.11/coffee_teamproject";
+	String jdbcUrl = "jdbc:mysql://127.0.0.1/coffee_teamproject";
 	String dbID = "team_user";
 	String dbPassword = "coffee";
 
@@ -13,7 +13,7 @@ public class DBDAO {
 	PreparedStatement pstmt;
 	ResultSet rs;
 
-	Vector<String> salItems; // �뙋留� 肄ㅻ낫�옉�뒪
+	Vector<String> salItems;
 
 	String sql;
 
@@ -195,6 +195,10 @@ public class DBDAO {
 		return m;
 	}
 
+	/*
+	 * Shim Soo
+	 * MainPanel에서 회원의 휴대번호를 입력해서 회원 정보를 얻어야 하는 것이 필요 
+	 */
 	public Member getMemberPhone(String phone) {
 		sql = "select * from member where memphone = ?";
 		Member m = null;
@@ -278,8 +282,11 @@ public class DBDAO {
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, product.getProname()); // 1�뜝�룞�삕 ?�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �뜝�뙇�뒗�뙋�삕.
-			pstmt.setInt(2, product.getProprice()); // 2�뜝�룞�삕 ?�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �뜝�뙇�뒗�뙋�삕.
+			pstmt.setString(1, product.getProname()); // 1�뜝�룞�삕 ?�뜝�룞�삕
+														// �뜝�룞�삕�뜝�룞�삕
+														// �뜝�뙇�뒗�뙋�삕.
+			pstmt.setInt(2, product.getProprice()); // 2�뜝�룞�삕 ?�뜝�룞�삕
+													// �뜝�룞�삕�뜝�룞�삕 �뜝�뙇�뒗�뙋�삕.
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -297,8 +304,12 @@ public class DBDAO {
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, member.getMemphone()); // 1�뜝�룞�삕 ?�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �뜝�뙇�뒗�뙋�삕.
-			pstmt.setString(2, member.getMemname()); // 2�뜝�룞�삕 ?�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �뜝�뙇�뒗�뙋�삕.
+			pstmt.setString(1, member.getMemphone()); // 1�뜝�룞�삕 ?�뜝�룞�삕
+														// �뜝�룞�삕�뜝�룞�삕
+														// �뜝�뙇�뒗�뙋�삕.
+			pstmt.setString(2, member.getMemname()); // 2�뜝�룞�삕 ?�뜝�룞�삕
+														// �뜝�룞�삕�뜝�룞�삕
+														// �뜝�뙇�뒗�뙋�삕.
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -315,10 +326,14 @@ public class DBDAO {
 		sql = "insert into sale(memphone,totalprice,stamp) values(?,?,?)";
 		int result = 0;
 		try {
+
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, sale.getMemphone()); // 1�뜝�룞�삕 ?�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �뜝�뙇�뒗�뙋�삕.
-			pstmt.setInt(2, sale.getTotalprice()); // 2�뜝�룞�삕 ?�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �뜝�뙇�뒗�뙋�삕.
-			pstmt.setInt(3, sale.getStamp()); // 3�뜝�룞�삕 ?�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �뜝�뙇�뒗�뙋�삕.
+			pstmt.setString(1, sale.getMemphone()); // 1�뜝�룞�삕 ?�뜝�룞�삕
+													// �뜝�룞�삕�뜝�룞�삕 �뜝�뙇�뒗�뙋�삕.
+			pstmt.setInt(2, sale.getTotalprice()); // 2�뜝�룞�삕 ?�뜝�룞�삕
+													// �뜝�룞�삕�뜝�룞�삕 �뜝�뙇�뒗�뙋�삕.
+			pstmt.setInt(3, sale.getStamp()); // 3�뜝�룞�삕 ?�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕
+												// �뜝�뙇�뒗�뙋�삕.
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -337,9 +352,13 @@ public class DBDAO {
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, product.getProname()); // 1�뜝�룞�삕 ?�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �뜝�뙇�뒗�뙋�삕.
-			pstmt.setInt(2, product.getProprice()); // 2�뜝�룞�삕 ?�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �뜝�뙇�뒗�뙋�삕.
-			pstmt.setInt(3, product.getProcode()); // 3�뜝�룞�삕 ?�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �뜝�뙇�뒗�뙋�삕.
+			pstmt.setString(1, product.getProname()); // 1�뜝�룞�삕 ?�뜝�룞�삕
+														// �뜝�룞�삕�뜝�룞�삕
+														// �뜝�뙇�뒗�뙋�삕.
+			pstmt.setInt(2, product.getProprice()); // 2�뜝�룞�삕 ?�뜝�룞�삕
+													// �뜝�룞�삕�뜝�룞�삕 �뜝�뙇�뒗�뙋�삕.
+			pstmt.setInt(3, product.getProcode()); // 3�뜝�룞�삕 ?�뜝�룞�삕
+													// �뜝�룞�삕�뜝�룞�삕 �뜝�뙇�뒗�뙋�삕.
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -357,8 +376,12 @@ public class DBDAO {
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, member.getMemphone()); // 1�뜝�룞�삕 ?�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �뜝�뙇�뒗�뙋�삕.
-			pstmt.setString(2, member.getMemname()); // 2�뜝�룞�삕 ?�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �뜝�뙇�뒗�뙋�삕.
+			pstmt.setString(1, member.getMemphone()); // 1�뜝�룞�삕 ?�뜝�룞�삕
+														// �뜝�룞�삕�뜝�룞�삕
+														// �뜝�뙇�뒗�뙋�삕.
+			pstmt.setString(2, member.getMemname()); // 2�뜝�룞�삕 ?�뜝�룞�삕
+														// �뜝�룞�삕�뜝�룞�삕
+														// �뜝�뙇�뒗�뙋�삕.
 			pstmt.setInt(3, member.getMemstamp());
 			pstmt.setInt(4, member.getMemno());
 			result = pstmt.executeUpdate();

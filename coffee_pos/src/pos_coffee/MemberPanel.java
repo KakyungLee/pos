@@ -37,8 +37,13 @@ public class MemberPanel extends JPanel{
 	int w, h;
 	
 	public MemberPanel() {
+		/*
+		 * Shim Soo 
+		 * AppManger에 MemberPanel을 set하고 db가 필요하므로 get함	 
+		 */
 		AppManager.createInstance().setMemberPanel(this);
 		db = AppManager.createInstance().getDao();
+		
 		this.setLayout(null);
 		this.setSize(1024,720);
 		memberColor = new Color(112, 173, 71);
@@ -46,6 +51,10 @@ public class MemberPanel extends JPanel{
 		
 		Font contentFont = new Font("맑은 고딕", Font.PLAIN, 18);
 		
+		/*
+		 * Shim Soo 
+		 * 회원 JTable setting	 
+		 */
 		// 테이블 컬럼 명
 		colNames = new Object[4];
 		colNames[0] = "회 원 번 호";
@@ -151,6 +160,19 @@ public class MemberPanel extends JPanel{
 		this.add(bottom);
 		
 	}
+	ImageIcon changeSize(ImageIcon temp) {
+		Image tempImg = temp.getImage();
+		tempImg = tempImg.getScaledInstance(100, 80, java.awt.Image.SCALE_SMOOTH);
+		temp.setImage(tempImg);
+		return temp;
+	}
+	
+	/*
+	 * Shim Soo 
+	 * Controller와 연결하기 위한 메소드
+	 * addButtonActionListener: 버튼에 대한 actionListener
+	 * addMouseListener: JTable에 대한 actionListener 
+	 */
 	void addButtonActionListener(ActionListener listener) {
 		insertBtn.addActionListener(listener);
 		updateBtn.addActionListener(listener);
@@ -159,11 +181,4 @@ public class MemberPanel extends JPanel{
 	public void addMouseListener(MouseListener listener){
 		memberList.addMouseListener(listener);
 	}
-	ImageIcon changeSize(ImageIcon temp) {
-		Image tempImg = temp.getImage();
-		tempImg = tempImg.getScaledInstance(100, 80, java.awt.Image.SCALE_SMOOTH);
-		temp.setImage(tempImg);
-		return temp;
-	}
-
 }

@@ -1,7 +1,10 @@
 package pos_coffee;
 
 public class AppManager {
-
+	/*
+	 * Shim Soo
+	 * 객체를 모두 설정할 수 있도록 Get/Set을 생성  
+	 */
 	private static AppManager instance;
 	private DBDAO dao;
 	private ButtonController buttonController;

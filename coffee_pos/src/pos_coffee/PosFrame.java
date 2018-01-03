@@ -14,12 +14,6 @@ public class PosFrame extends JFrame {
 	protected ProductPanel productP;
 	protected MemberPanel memberP;
 	
-	/*protected MainController mc;
-	protected ProductController pc;
-	protected MemberController Mmc;
-	protected SellController sc;*/
-
-
 	String[] contentsName = { "main", "product", "member", "sales" };
 
 	public PosFrame() {
@@ -28,7 +22,8 @@ public class PosFrame extends JFrame {
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1024, 800);
-		setTitle("cafe pos");
+
+		setTitle("cafe_pos_system");
 		setLayout(null);
 
 		top = new JPanel();
@@ -60,11 +55,6 @@ public class PosFrame extends JFrame {
 		this.add(contents);
 
 		ButtonController bc = new ButtonController();
-		
-		/*mc = new MainController();
-		pc = new ProductController();
-		Mmc = new MemberController();
-		sc = new SellController();*/
 		////////////////////////
 		top.setBackground(Color.BLUE);
 		contents.setBackground(Color.white);

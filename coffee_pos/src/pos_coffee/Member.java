@@ -2,7 +2,7 @@ package pos_coffee;
 
 public class Member {
 	private int memno;
-	private String memphone = "00000000000";
+	private String memphone = "0000000000";
 	private String memname;
 	private int memstamp = 0;
 	

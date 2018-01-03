@@ -50,6 +50,10 @@ public class SalesPanel extends JPanel {
 	protected ArrayList<Sale> datas;
 
 	SalesPanel() {
+		/*
+		 * Shim Soo 
+		 * AppManager에 SalesPanel을 set/ db가 필요하므로 get	 
+		 */
 		AppManager.createInstance().setSalesPanel(this);
 		db = AppManager.createInstance().getDao();
 
@@ -82,7 +86,11 @@ public class SalesPanel extends JPanel {
 		salesListPanel.setBounds(0, topPanel_height, panel_width, salesListPanel_height);
 		salesListPanel.setLayout(null);
 		this.add(salesListPanel);
-
+		
+		/*
+		 * Shim Soo 
+		 * 판매 JTable setting	 
+		 */
 		colNames = new Object[4];
 		colNames[0] = "번     호";
 		colNames[1] = "전화번호";
@@ -140,10 +148,6 @@ public class SalesPanel extends JPanel {
 		bottomPanel.setLayout(null);
 		this.add(bottomPanel);
 
-		//salesSelectBtn = new JButton(changeSize(new ImageIcon("./image/sales_salesSelectBtn.png"), 150, 140));
-		//salesSelectBtn.setBounds(startX, startY, 150, 140);
-		//bottomPanel.add(salesSelectBtn);
-
 		refundBtn = new JButton(changeSize(new ImageIcon("./image/sales_refundBtn.png"), 150, 140));
 		refundBtn.setBounds(840, startY, 150, 140);
 		bottomPanel.add(refundBtn);
@@ -194,7 +198,13 @@ public class SalesPanel extends JPanel {
 		temp.setImage(tempImg);
 		return temp;
 	}
-
+	
+	/*
+	 * Shim Soo 
+	 * Controller와 연결하기 위한 메소드
+	 * addButtonActionListener: 버튼에 대한 actionListener
+	 * addMouseListener: JTable에 대한 actionListener 
+	 */
 	void addButtonActionListener(ActionListener listener) {
 		dateSelectBtn.addActionListener(listener);
 		//salesSelectBtn.addActionListener(listener);

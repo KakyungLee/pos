@@ -12,12 +12,15 @@ public class ButtonController {
 	protected SellController sc= null;;
 
 	public ButtonController() {
-		System.out.println("test");
+		/*
+		 * Shim Soo
+		 * AppManager에서 ButtonController을 set하고 
+		 * TabPanel(tp) PosFrame(pf)를 get을 하여 사용 
+		 */
 		AppManager.createInstance().setButtonController(this);
 		tp = AppManager.createInstance().getTabPanel();
 		pf = AppManager.createInstance().getPosFrame();
 
-		//mc = AppManager.createInstance().getMainController();
 		mc = new MainController();
 		pc = new ProductController();
 		Mmc = new MemberController();
@@ -26,7 +29,12 @@ public class ButtonController {
 		tp.addButtonActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Object obj = e.getSource();
-
+				/*
+				 * Shim Soo
+				 * Panel 변경은 CardLayout을 사용하였고
+				 * 해당 버튼을 누르면 맞는 Panel을 나오게 설정
+				 * 또, 바로바로 refresh를 해줘서 사용자가 불편을 격지 않게 해줌 
+				 */
 				if (obj == tp.mainBtn) {
 					System.out.println("Main");
 					pf.cardLayout.show(pf.contents, pf.contentsName[0]);

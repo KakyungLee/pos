@@ -36,6 +36,10 @@ public class ProductPanel extends JPanel {
 	int w; int h;
 
 	public ProductPanel() {		
+		/*
+		 * Shim Soo 
+		 * AppManager에 ProductPanel을 set해주고 db가 필요하므로 get	 
+		 */
 		AppManager.createInstance().setProductPanel(this);
 		db = AppManager.createInstance().getDao();
 
@@ -46,6 +50,10 @@ public class ProductPanel extends JPanel {
 		
 		Font contentFont = new Font("맑은 고딕", Font.PLAIN, 18);
 
+		/*
+		 * Shim Soo 
+		 * 상품 JTable setting	 
+		 */
 		// 테이블 컬럼 명
 		colNames = new Object[3];
 		colNames[0] = "상 품 코 드";
@@ -148,7 +156,19 @@ public class ProductPanel extends JPanel {
 		this.add(contents);
 		this.add(bottom);
 	}
-
+	ImageIcon changeSize(ImageIcon temp) {
+		Image tempImg = temp.getImage();
+		tempImg = tempImg.getScaledInstance(100, 80, java.awt.Image.SCALE_SMOOTH);
+		temp.setImage(tempImg);
+		return temp;
+	}
+	
+	/*
+	 * Shim Soo 
+	 * Controller와 연결하기 위한 메소드
+	 * addButtonActionListener: 버튼에 대한 actionListener
+	 * addMouseListener: JTable에 대한 actionListener 
+	 */
 	void addButtonActionListener(ActionListener listener) {
 		insertBtn.addActionListener(listener);
 		updateBtn.addActionListener(listener);
@@ -156,12 +176,5 @@ public class ProductPanel extends JPanel {
 	}
 	public void addMouseListener(MouseListener listener){
 		productList.addMouseListener(listener);
-	}
-
-	ImageIcon changeSize(ImageIcon temp) {
-		Image tempImg = temp.getImage();
-		tempImg = tempImg.getScaledInstance(100, 80, java.awt.Image.SCALE_SMOOTH);
-		temp.setImage(tempImg);
-		return temp;
-	}
+	}	
 }

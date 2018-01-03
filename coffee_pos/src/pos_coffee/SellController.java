@@ -20,6 +20,11 @@ public class SellController {
 	int sum = 0;
 
 	public SellController() {
+		/*
+		 * Shim Soo 
+		 *  AppManager에 SellController set
+		 *  필요한 db와 SalesPanel(sp)를 get
+		 */
 		AppManager.createInstance().setSellController(this);
 		db = AppManager.createInstance().getDao();
 		sp = AppManager.createInstance().getSalesPanel();
@@ -37,9 +42,7 @@ public class SellController {
 					refund();
 					Allrefresh();
 				}
-
 			}
-
 		});
 
 		sp.addMouseListener(new MouseListener() {
@@ -47,6 +50,10 @@ public class SellController {
 			@Override
 			// 매출을 누르면 바로 보여주기
 			public void mouseClicked(MouseEvent e) {
+				/*
+				 * Shim Soo 
+				 * 매출 JTable를 누르면 바로 setText
+				 */
 				JTable obj = (JTable) e.getSource();
 
 				row = obj.getSelectedRow();
@@ -77,6 +84,15 @@ public class SellController {
 	}// SellController()
 
 	void refund() {
+		/*
+		 * Shim Soo 
+		 * 환불 버튼을 누르면 실행되는 메소드
+		 * 매출에 저장된 회원 휴대폰 번호를 기준으로 회원의 정보를 가져옴
+		 * -> 거래를 통해 얻은 스탬프(쿠폰을 사용한 스탬프) 되돌리기
+		 * -> 다시 멤버 수정
+		 * -> 하루 매출조정
+		 * -> 해당 매출 삭제
+		 */
 		Member m = db.getMemberPhone(sp.selMember.getText());
 
 		m.setMemstamp(m.getMemstamp() - Integer.parseInt(sp.selStamp.getText()));
@@ -88,6 +104,10 @@ public class SellController {
 	}
 
 	void dateSelect() {
+		/*
+		 * Shim Soo 
+		 * 콤보 박스로 얻은 날짜를 기즌으로 JTable 다시 setting
+		 */
 		String date = (String) sp.dateCombo.getSelectedItem();
 		System.out.println(date);
 		if (date.equals("날짜")) {
@@ -115,7 +135,10 @@ public class SellController {
 			sp.salesAccountLbl.setText(sum + "");
 		}
 	}
-
+	/*
+	 * Shim Soo 
+	 * db에서 매 순간 정보를 가져와 새로고침
+	 */
 	void Allrefresh() {
 		sp.dateCombo.setModel(new DefaultComboBoxModel(db.getSalItems()));
 		sp.datas.clear();

@@ -20,6 +20,11 @@ public class MemberController {
 	boolean flag = true;
 
 	public MemberController() {
+		/*
+		 * Shim Soo 
+		 * AppManager에서 MemberController set
+		 * db와 MemberPanel(mp)필요하므로 get
+		 */
 		AppManager.createInstance().setMemberController(this);
 		db = AppManager.createInstance().getDao();
 		mp = AppManager.createInstance().getMemberPanel();
@@ -29,12 +34,21 @@ public class MemberController {
 				Object obj = e.getSource();
 				Member m = null;
 				m = new Member();
+				
+				/*
+				 * Shim Soo 
+				 * TextField의 값으로 Member가 추가
+				 */
 				if (obj == mp.insertBtn) {
 					m.setMemname(mp.memNameTxt.getText());
 					m.setMemphone(mp.memPhoneTxt.getText());
 					db.newMember(m);
 
 				}
+				/*
+				 * Shim Soo 
+				 * textField의 값으로 Member 수정 
+				 */
 				if (obj == mp.updateBtn) {
 					m.setMemno(Integer.parseInt(mp.idxTxt.getText()));
 					m.setMemname(mp.memNameTxt.getText());
@@ -42,10 +56,18 @@ public class MemberController {
 					m.setMemstamp(stamp);
 					db.updateMember(m);
 				}
+				/*
+				 * Shim Soo 
+				 * 회원 JTable을 해당 회원을 클릭 후 해당 회원 삭제
+				 */
 				if (obj == mp.deleteBtn) {
 					db.delMember(Integer.parseInt(mp.idxTxt.getText()));
 				}
-				System.out.println("TEST");
+				
+				/*
+				 * Shim Soo 
+				 * 다른 작업을 위해 초기화와 새로고침
+				 */
 				refresh();
 				mp.idxTxt.setText("");
 				mp.memNameTxt.setText("");
@@ -55,6 +77,10 @@ public class MemberController {
 
 		mp.addMouseListener(new MouseListener() {
 			@Override
+			/*
+			 * Shim Soo 
+			 * 회원 JTable을 누르면 해당 값이 맞게 setText
+			 */
 			public void mouseClicked(MouseEvent e) {
 				JTable obj = (JTable) e.getSource();
 				row = obj.getSelectedRow();
@@ -95,6 +121,10 @@ public class MemberController {
 
 	}// ProductController
 
+	/*
+	 * Shim Soo 
+	 * db에서 매 순간 정보를 가져와 새로고침
+	 */
 	void refresh() {
 		mp.model.setRowCount(0);
 

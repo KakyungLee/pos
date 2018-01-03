@@ -13,6 +13,10 @@ public class TabPanel extends JPanel{
 	protected DigitalClock dataClockLbl;//��¥�� �ð� ǥ�
 		
 	TabPanel(){
+		/*
+		 * Shim Soo 
+		 * AppManager에 TabPanel을 set	 
+		 */
 		AppManager.createInstance().setTabPanel(this);
 
 		this.setLayout(null);
@@ -76,7 +80,11 @@ public class TabPanel extends JPanel{
 		temp.setImage(tempImg);		
 		return temp;
 	}
-	
+	/*
+	 * Shim Soo 
+	 * Controller와 연결하기 위한 메소드
+	 * addButtonActionListener: 버튼에 대한 actionListener
+	 */
 	void addButtonActionListener(ActionListener listener) {
 		mainBtn.addActionListener(listener);
 		productBtn.addActionListener(listener);
