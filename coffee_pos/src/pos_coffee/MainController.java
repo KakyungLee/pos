@@ -43,6 +43,7 @@ public class MainController {
 				 * 선택 버튼을 누르면 선택 된 상품Jtable에 있는 상품 정보를 주문 Jtable에 있는 곳으로 add해주게 된다.
 				 * 그러면서 금액을 맞게 총액(sum)을 더한다. 
 				 */
+				//MOA,가경 ② 샷추가에서 변경한 코드 스타일에 맞게 상품선택 코드도 수정
 				if (obj == mp.selectBtn) {// 선택
 					
 					DefaultTableModel m = (DefaultTableModel)mp.selectedProductList.getModel();
@@ -59,6 +60,9 @@ public class MainController {
 				 * 주문 JTable에서 해당 상품을 클릭을 하고 버튼을 누르면 상품 이름 옆에 (샷추가)가 생기고 
 				 * 샷 추가(500)이 해당 금액이 올라간다. 또 총액에 맞게 돈이 추가 된다.
 				 */
+				//MOA ① 샷추가시 발생하는 버그 막기 위해 코드 변경.
+				// -> 기존 배열과 반복문을 통한 데이터 수정 코드에서, JTable에서 제공하는 메소드를 사용하여
+				// 실제 데이터가 있는 JTable 모델의 데이터를 수정하는 방식으로 코드 변경함.
 				if (obj == mp.shotSelectBtn) {// 샷 추기
 					DefaultTableModel m = (DefaultTableModel)mp.selectedProductList.getModel();
 					int row = mp.selectedProductList.getSelectedRow();
@@ -75,6 +79,7 @@ public class MainController {
 				 * Shim Soo 
 				 * 주문 JTable에 해당 상품을 클릭하고 버튼을 누르면 주문 Jtable에 해당 상품이 삭제되고 맞게 총액도 변경된다.
 				 */
+				//MOA,가경 ③ 수정한 코드 스타일에 맞게 주문삭제 코드도 수정
 				if (obj == mp.removeBtn) {// 주문 삭제
 					DefaultTableModel m = (DefaultTableModel)mp.selectedProductList.getModel();
 					int row = mp.selectedProductList.getSelectedRow();
