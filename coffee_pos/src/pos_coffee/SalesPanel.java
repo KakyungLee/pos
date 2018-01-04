@@ -10,30 +10,38 @@ import javax.swing.table.*;
 public class SalesPanel extends JPanel {
 	private DBDAO db;
 	///////////////////
+	/*MOA
+	 * 세일즈 패널 정의 -> 크게 상,중,하단 패널로 구분
+	 * 세일즈패널은 날짜를 표시해주는 패널과
+	 * 리스트를 나타내는 패널, 버튼과 거래내용을 표시해주는 패널로 구분
+	 */
+	
+	
+	//MOA 각종 컴포넌트 정의
 	private final int startX = 10;
 	private final int startY = 10;
 
 	private final int panel_hight = 740; // 메인패널의 높이값
 	private final int panel_width = 1000;
 
-	private JPanel topPanel;
+	private JPanel topPanel;						//상단 패널
 	private final int topPanel_height = 55;
-	protected JComboBox<String> dateCombo;
-	protected JButton dateSelectBtn;
+	protected JComboBox<String> dateCombo;			//날짜 선택 콤보박스
+	protected JButton dateSelectBtn;				//날짜 선택 버튼
 
-	private JPanel salesListPanel;
+	private JPanel salesListPanel;					//매출 목록 패널
 	private final int salesListPanel_height = 390;
-	protected JTable salesList; // 거래목록
+	protected JTable salesList; 					//매출목록 테이블
 
-	private JPanel salesPanel;
+	private JPanel salesPanel;						//매출 금액 표기 패널
 	private final int salesPanel_height = 60;
-	protected JLabel salesAccountLbl; // 금액 표기
+	protected JLabel salesAccountLbl; 				//매출 총액
 	private JLabel lbl2 = new JLabel("원"); // 원
 
-	private JPanel bottomPanel;
+	private JPanel bottomPanel;						//하단 패널
 	private final int bottomPanel_height = 200;
-	protected JButton salesSelectBtn;
-	protected JButton refundBtn;
+	protected JButton salesSelectBtn;				
+	protected JButton refundBtn;					//거래취소(환불)버튼
 	protected JPanel selectedSalesPan;
 	protected JLabel date;
 	protected JLabel selDate;
@@ -57,6 +65,7 @@ public class SalesPanel extends JPanel {
 		AppManager.createInstance().setSalesPanel(this);
 		db = AppManager.createInstance().getDao();
 
+		//MOA 폰트 정의
 		Font listFont = new Font("맑은 고딕", Font.PLAIN, 24);
 		Font salsesListHeadFont = new Font("맑은 고딕", Font.BOLD, 16); 
 		Font salsesListFont = new Font("맑은 고딕", Font.PLAIN,16);
@@ -65,6 +74,7 @@ public class SalesPanel extends JPanel {
 		this.setLayout(null);
 		this.setSize(1024, 720);
 
+		////MOA 날짜 선택 패널
 		topPanel = new JPanel();
 		topPanel.setBounds(0, 0, panel_width, topPanel_height);
 		topPanel.setLayout(null);
@@ -80,9 +90,8 @@ public class SalesPanel extends JPanel {
 		dateSelectBtn.setBounds(startX + 240, startY, 150, 45);
 		topPanel.add(dateSelectBtn);
 
-		// 거래목록
+		//MOA 매출 테이블 패널
 		salesListPanel = new JPanel();
-		// salesListPanel.setBackground(Color.YELLOW);
 		salesListPanel.setBounds(0, topPanel_height, panel_width, salesListPanel_height);
 		salesListPanel.setLayout(null);
 		this.add(salesListPanel);
@@ -113,6 +122,7 @@ public class SalesPanel extends JPanel {
 			i++;
 		}
 
+		
 		model = new DefaultTableModel(rows, colNames);
 		salesList = new JTable(model);
 		salesList.setRowHeight(30);
@@ -124,7 +134,7 @@ public class SalesPanel extends JPanel {
 		proListScroll.setVisible(true);
 		proListScroll.setBounds(startX, startY, panel_width - startX * 2, salesListPanel_height - 20);
 
-		// 거래 총액
+		//MOA 거래 총액 패널
 		salesPanel = new JPanel();
 		salesPanel.setBackground(Color.LIGHT_GRAY);
 		salesPanel.setBounds(0, topPanel_height + salesListPanel_height, panel_width, salesPanel_height);
@@ -140,9 +150,9 @@ public class SalesPanel extends JPanel {
 		lbl2.setFont(listFont);
 		salesPanel.add(lbl2);
 
-		// 하단 거래내역, 취소 버튼 등
+		//MOA 하단 거래내역, 취소 버튼 등
 		bottomPanel = new JPanel();
-		// bottomPanel.setBackground(Color.GRAY);
+		//MOA bottomPanel.setBackground(Color.GRAY);
 		bottomPanel.setBounds(0, topPanel_height + salesListPanel_height + salesPanel_height, panel_width,
 				bottomPanel_height);
 		bottomPanel.setLayout(null);
@@ -152,7 +162,7 @@ public class SalesPanel extends JPanel {
 		refundBtn.setBounds(840, startY, 150, 140);
 		bottomPanel.add(refundBtn);
 
-		// 거래내용 표시 패널
+		//MOA 거래내용 표시 패널
 		selectedSalesPan = new JPanel();
 		selectedSalesPan.setLayout(new GridLayout(4, 2));
 		selectedSalesPan.setBackground(Color.white);
@@ -192,6 +202,7 @@ public class SalesPanel extends JPanel {
 		selStamp.setFont(contentFont);
 	}
 
+	//이미지 리사이즈 위한 함수
 	ImageIcon changeSize(ImageIcon temp, int width, int height) {
 		Image tempImg = temp.getImage();
 		tempImg = tempImg.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
